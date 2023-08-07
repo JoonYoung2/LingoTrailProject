@@ -19,3 +19,4 @@ app.use("/", router);
 app.use("/static", express.static(__dirname+"/public")); // css, js같은 파일 경로
 
 app.listen(3000, () => {console.log("3000 port start!!")});
+//jungbae commit test
