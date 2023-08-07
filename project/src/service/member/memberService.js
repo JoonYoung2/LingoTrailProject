@@ -1,4 +1,4 @@
-const dao = require("../dao/memberDao");
+const dao = require("../../dao/member/memberDao");
 
 const member = {
     
