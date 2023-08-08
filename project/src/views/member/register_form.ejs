@@ -1,8 +1,65 @@
-<h3>회원가입 폼 입니다.</h3>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div {
+		width : 100%;
+		text-align: center;
+	  	padding: 20px;
+	}
 
-<form action="/member/register.do" method="post">
-    <input type="text" id="id" name="id">
-    <input type="password" id="pw" name="pw">
-    <input type="text" id="name" name="name">
-    <input type="text" id="age" name="age">
-</form>
+	input[type=text]{
+	  	width: 25%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+
+	input[type=submit] {
+	  	width: 25%;
+	  	background-color: #00a0ff;
+	  	color: white;
+	  	padding: 15px 30px;
+	  	margin: 10px 0;
+	  	border: none;
+	  	border-radius: 12px;
+	  	cursor: pointer;
+	  	box-shadow:
+    		inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    		inset -2px -2px 3px rgba(0, 0, 0, 0.6);		
+		font-weight: bold;
+	  	font-size: 16px;
+	}
+
+	input[type=submit]:hover {
+	  	background-color: #00b2ff;
+	}
+	
+	a {
+		text-decoration: none;
+		color: gray;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<form action="/member/register.do">
+			<h2>프로필 만들기</h2>
+	    	<input type="text" id="age" name="age" placeholder="나이"><br>
+	    	<input type="text" id="name" name="name" placeholder="성명(선택 항목)"><br>
+	  		<input type="text" id="email" name="email" placeholder="이메일"><br>
+	  		<input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
+	  		<input type="submit" value="계정 생성하기"><br>
+		</form>
+  	</div>
+</body>
+</html>

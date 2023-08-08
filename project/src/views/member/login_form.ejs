@@ -1,7 +1,64 @@
-<h3>로그인 폼 입니다.</h3>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div {
+		width : 100%;
+		text-align: center;
+	  	padding: 20px;
+	}
 
-<form action="/member/login.do" method="post">
-    <input type="text" id="id" name="id" placeholder="id input">
-    <input type="text" id="pw" name="pw" placeholder="pw input">
-    <input type="submit" value="로그인"> <input type="button" onclick="window.history.back();" value="뒤로가기">
-</form>
+	input[type=text]{
+	  	width: 25%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+
+	input[type=submit] {
+	  	width: 25%;
+	  	background-color: #00a0ff;
+	  	color: white;
+	  	padding: 15px 30px;
+	  	margin: 10px 0;
+	  	border: none;
+	  	border-radius: 12px;
+	  	cursor: pointer;
+	  	box-shadow:
+    		inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    		inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+		font-weight: bold;
+	  	font-size: 16px;
+	}
+
+	input[type=submit]:hover {
+	  	background-color: #00b2ff;
+	}
+	
+	a {
+		text-decoration: none;
+		color: gray;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>	
+	<div>
+		<form action="/member/login.do">
+			<h2>로그인</h2>
+	    	<input type="text" id="id" name="id" placeholder="이메일 또는 아이디"><br>
+	    	<input type="text" id="pw" name="pw" placeholder="비밀번호" ><br>
+	  		<input type="submit" value="로그인"><br>
+	  		<a href="">비밀번호를 잊으셨나요?</a>
+		</form>
+  	</div>
+</body>
+</html>
