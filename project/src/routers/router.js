@@ -4,7 +4,14 @@ module.exports = (app) => {
     const game1Router = require("./games/game01Router");
     
     app.get("/", (req, res) => {
-        res.send("gdgd");
+        res.render("index");
+    })
+    /* 
+    TODO: session 으로 admin 검증합시다
+    이곳의 버튼에서 각자의 경로로 이동한 뒤 url 접근 막도록 합니다
+     */
+    app.get("/admin", (req, res) => {
+        res.render("admin/index");
     })
 
     app.use("/member", memberRouter);
