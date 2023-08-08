@@ -4,7 +4,7 @@ module.exports = (app) => {
     const game1Router = require("./games/game01Router");
     
     app.get("/", (req, res) => {
-        res.send("gdgd");
+        res.render("index");
     })
 
     app.use("/member", memberRouter);
