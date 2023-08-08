@@ -9,6 +9,6 @@ module.exports = (app) => {
 
     app.use("/member", memberRouter);
     app.use("/game1", game1Router);
-
+    
     return router;
 }
