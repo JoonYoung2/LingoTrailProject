@@ -1,0 +1,21 @@
+<h1>Game 1 List</h1>
+<table>
+    <tr>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Wrong 1</th>
+        <th>Wrong 2</th>
+        <th>Wrong 3</th>
+        <th>Wrong 3</th>
+    </tr>
+    <% console.log("ytgytgyt   =>>" ,list) %>
+    <% list.forEach( (item) => { %>
+        <tr>
+            <td><%= item.QUESTION %></td>
+            <td><%= item.ANSWER %></td>
+            <td><%= item.WRONG1 %></td>
+            <td><%= item.WRONG2 %></td>
+            <td><%= item.WRONG3 %></td>
+        </tr>
+    <% }); %>
+</table>
