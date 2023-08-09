@@ -9,11 +9,10 @@ const views = {
     let list = await game1Service.getAll();
     console.log("controller list : ",list);
     res.render("games/game1/game1_index", { list : list });
-
   },
 
   register: (req, res) =>{
-    res.render("admin/games/game1/game1_register_form");
+      res.render("admin/games/game1/game1_register_form");
   }
 
 };
