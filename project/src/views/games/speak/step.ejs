@@ -5,7 +5,7 @@
     console.log("language ==> ",language);
 %>
 
-<form action="speakQuetionStart.do" method="post">
+<form action="speak_quetionStart.do" method="post">
 
     난이도 : <select name="level_step">
         <% level.forEach( ( list ) => { %>
@@ -13,7 +13,7 @@
         <% }) %>
     </select>
 
-    언어 : <select name="language">
+    듣기 : <select name="language">
         <% language.forEach((list) => { %>
         <option value="<%= list.ID %>"><%= list.LANGUAGE %></option>
         <% }) %>

@@ -18,7 +18,7 @@ module.exports = (app) => {
     app.use("/member", memberRouter);
     app.use("/game1", game1Router);
 
-    app.use("/speakQuestion", speakQuetionRouter);
+    app.use("/speak_question", speakQuetionRouter);
 
     return router;
 }
