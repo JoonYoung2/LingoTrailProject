@@ -1,3 +1,4 @@
+<%- include("../default/header") %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,19 @@
 	}
 
 	input[type=text]{
+	  	width: 25%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+	
+	input[type=password]{
 	  	width: 25%;
 	  	padding: 15px 30px;
 	  	margin: 5px 0;
@@ -52,16 +66,14 @@
 </head>
 <body>
 	<div>
-		<form action="/member/register.do">
-			<h2>프로필 만들기</h2>
-	    	<input type="text" id="age" name="age" placeholder="나이"><br>
-	    	<input type="text" id="name" name="name" placeholder="성명(선택 항목)"><br>
+		<form action="/member/register.do" method="post">
+			<h2>회원 가입하기</h2>
+	    	<input type="text" id="id" name="id" placeholder="아이디"><br>
+	    	<input type="text" id="name" name="name" placeholder="성명"><br>
 	  		<input type="text" id="email" name="email" placeholder="이메일"><br>
 	  		<input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
-	  		<input type="submit" value="계정 생성하기"><br>
+	  		<input type="submit" value="가입하기">
 		</form>
   	</div>
 </body>
 </html>
-
-

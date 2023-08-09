@@ -1,26 +1,106 @@
 const oracledb = require("oracledb");
 const dbConfig = require("../../../config/database/db_config");
+const { getRandomQuestion } = require('../../service/games/game1Service');
+const { start } = require('repl');
 
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 
-const getAll = {
+const get = {
 
   list: async () => {
-    const sql =  `select * from MATCH_PICTURE_GAME`;
+    const sql = `SELECT * FROM MATCH_PICTURE_GAME`;
     const con = await oracledb.getConnection(dbConfig);
     const result = await con.execute(sql);
     console.log("dao result : ");
 
     return result.rows;
-  }
+  },
+
+  // TODO: V1
+  // getRandomStart: async ()=>{
+  //   try {
+  //     const con = await oracledb.getConnection(dbConfig);
+  //     const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
+  //     const result = await con.execute(sql);
+  //     return result.rows[0];
+  //   } catch (err) {
+  //     console.log(err);
+  //     return null;
+  //   }
+  // },
+
+  // TODO : V2
+  // getRandomQuestion : async (startIndex, count) =>{
+  //   console.log("start Index : ", startIndex);
+  //   console.log("count  : ", count);
+
+  //   const con = await oracledb.getConnection(dbConfig);
+  //   const sql =
+  //     `SELECT * FROM (
+  //       SELECT 
+  //         t.*,
+  //         ROW_NUMBER() OVER (ORDER BY DBMS_RANDOM.RANDOM) AS rn
+  //       FROM MATCH_PICTURE_GAME t
+  //     )
+  //     WHERE rn >= :startIndex AND rn <= :endIndex`;     
+
+  //   const bindParams = {
+  //     startIndex: startIndex,
+  //     endIndex: startIndex + count - 1
+  //   };
+  //   const result = await con.execute(sql, bindParams);
+  //   console.log("dao 의 result 는 ?: ", result.rows);
+
+  //   return result.rows;
+  // }
+
+  getRandomQuestionV3: async () => {
+    try {
+      const con = await oracledb.getConnection(dbConfig);
+      const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
+      const result = await con.execute(sql);
+      return result.rows[0];
+
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
+
+  checkAnswer: async (recordId, selectedAnswer) => {
+    const con = await oracledb.getConnection(dbConfig);
+    const sql = `SELECT CASE WHEN ANSWER = :selectedAnswer THEN 1 ELSE 0 END AS IS_CORRECT
+    FROM MATCH_PICTURE_GAME
+    WHERE RECORD_ID = :recordId`;
+
+    const bindParams = {
+      selectedAnswer: selectedAnswer,
+      recordId: recordId
+    };
+
+    try {
+      console.log("여기는 오나?")
+      const result = await con.execute(sql, bindParams);
+      const isCorrect = result.rows[0].IS_CORRECT;
+      console.log(result.rows);
+      console.log(result.rows[0]);
+      console.log(result.rows[0].IS_CORRECT);
+      return isCorrect;
+    } catch (err) {
+      console.log(err);
+      return 0;
+    }
+  },
+
+
 }
 
 const insert = async (data) => {
   let con = await oracledb.getConnection(dbConfig);
   const sql = `
-    INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3
-    ) VALUES ( match_picture_game_seq.NEXTVAL, CURRENT_TIMESTAMP, :question, :question_level, :img, :answer, :wrong1, :wrong2, :wrong3)`;
+    INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3, explain
+    ) VALUES ( match_picture_game_seq.NEXTVAL, CURRENT_TIMESTAMP, :question, :question_level, :img, :answer, :wrong1, :wrong2, :wrong3, :explain)`;
 
   const bindParams = {
     question: data.question,
@@ -29,7 +109,8 @@ const insert = async (data) => {
     answer: data.answer,
     wrong1: data.wrong1,
     wrong2: data.wrong2,
-    wrong3: data.wrong3
+    wrong3: data.wrong3,
+    explain: data.explain
   };
 
   try {
@@ -40,4 +121,4 @@ const insert = async (data) => {
   }
 };
 
-module.exports = { getAll, insert };
+module.exports = { get, insert };
