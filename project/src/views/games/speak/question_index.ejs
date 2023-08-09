@@ -137,6 +137,11 @@
         console.log(afterQuestion);
         console.log(beforeQuestion);
         
+        let underBar = "underBarBasicDiv" + count;
+        let underBarRight = "underBarRightDiv" + count;
+        let underBarRightDiv = document.getElementById(underBarRight);
+        document.getElementById(underBar).style.display = "block";
+        underBarRightDiv.style.display = "none";
         document.getElementById(underBarBefore).style.display = "none";
         document.getElementById(underBarAfter).style.display = "block";
         document.getElementById(afterQuestion).style.display = "none";
