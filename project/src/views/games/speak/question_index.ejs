@@ -1,0 +1,131 @@
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=oTMD5yMg"></script>
+
+<script>
+    
+    let cnt = 0;
+    let dataSize = 0;
+    let underBarBasicDiv;
+    let underBarWrongDiv;
+    let underBarRightDiv;
+
+    window.onload = () => {
+        underBarBasicDiv = document.getElementById('underBarBasicDiv');
+        underBarWrongDiv = document.getElementById('underBarWrongDiv');
+        underBarRightDiv = document.getElementById('underBarRightDiv');
+        
+        dataSize = document.getElementById('dataSize').value;
+
+        let jump = document.getElementById('jump');
+        let answerCheck = document.getElementById('answerCheck');
+        let rightAnswer = document.getElementById('rightAnswer');
+
+        jump.addEventListener("click", jumpClick);
+        answerCheck.addEventListener("click", answerCheck);
+        rightAnswer.addEventListener("click", answerCheck);
+
+        document.getElementById('questionInput0').style.display = "block";
+    }
+
+    const jumpClick = () => {
+        let afterQuestion = "questionInput" + cnt;
+        ++cnt;
+        if(cnt == dataSize){
+            alert("문제를 모두 푸셨습니다. 감사합니다.");
+            location.href="/speakQuestion/step";
+            return;
+        }
+        let beforeQuestion = "questionInput" + cnt;
+        console.log(afterQuestion);
+        console.log(beforeQuestion);
+        document.getElementById(afterQuestion).style.display = "none";
+        document.getElementById(beforeQuestion).style.display = "block";
+        return;
+    }
+
+    const answerCheck = () => {
+        let rightId = "rightInput" + cnt;
+        let rightInput = document.getElementById(rightId).value;
+        
+    }
+
+    const userAnswersClick = (count, list) => {
+        console.log(count);
+        console.log(list);
+        let ids = "userAnswerValues" + count;
+        let id = "userAnswerValue" + count;
+        let userAnswerValues = document.getElementById(ids);
+        let userAnswerValue = document.getElementById(id);
+        console.log(userAnswerValues);
+        console.log(userAnswerValue);
+        userAnswerValues.style.display = "none";
+        userAnswerValue.style.display = "block";
+        return;
+    }
+
+
+</script>
+
+<input type="hidden" value="<%=data.length%>" id="dataSize">
+
+<% 
+    let cnt = 0;
+    data.forEach((list) => {  %>
+<div id="questionInput<%=cnt%>" style="display:none">
+    <input onclick="responsiveVoice.speak('<%= list.QUESTION %>');" type="button" value="Play"> <%= list.QUESTION %><br><br>
+    <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
+
+<div id="userAnswerDiv">
+
+</div>
+<div>
+<% 
+    let answerCnt = 0;
+    let answer = word[cnt].random.split(' ');
+    for(var i = 0; i < answer.length; i++){
+        let ranNum = Math.floor(Math.random() * answer.length);
+        let tmp = answer[i];
+        answer[i] = answer[ranNum];
+        answer[ranNum] = tmp;
+    }
+    answer.forEach((list) => {
+        answerCnt++;
+%>
+    <div>
+        <input type="button" id="userAnswerValue<%=answerCnt%>" value="<%=list%>" onclick="userAnswerClick('<%=answerCnt%>', '<%=list%>');" style="display:none;"> 
+    </div>
+    <div>
+        <input type="button" id="userAnswerValues<%=answerCnt%>" value="<%=list%>" onclick="userAnswersClick('<%=answerCnt%>', '<%=list%>');" style="display:block;"> 
+    </div>
+    
+<% }) %>
+</div>
+</div>
+<% cnt++;}) %>
+
+<div id="underBarBasicDiv">
+    <input type="button" id="jump" value="건너뛰기"> <input type="button" id="answerCheck" value="확인하기">
+</div>
+
+<div id="underBarWrongDiv" style="display:none;">
+    <div>
+        이미지
+    </div>
+    <div>
+        <div>정답:</div>
+        <div id="rightAnswer"></div>
+    </div>
+    <div>
+        <input type="button" value="계속하기" id="continueButton">
+    </div>
+</div>
+<div id="underBarRightDiv" style="display:none;">
+    <div>
+        이미지
+    </div>
+    <div>
+        정답입니당!
+    </div>
+    <div>
+        <input type="button" value="계속하기" id="continueButton">
+    </div>
+</div>
