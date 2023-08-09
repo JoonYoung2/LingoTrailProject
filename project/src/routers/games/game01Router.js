@@ -4,7 +4,7 @@ const game1Ctrl = require("../../controller/games/game1Controller");
 
 const stg = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "game1_files");
+    cb(null, "public/game1_files");
   },
   filename: (req, file, cb) => {
     console.log(file);
@@ -30,8 +30,11 @@ const upload = multer({ storage: stg, fileFilter: f_Filter });
 router.get("/", game1Ctrl.views.index);
 router.get("/list", game1Ctrl.views.list);
 router.get("/register", game1Ctrl.views.register);
+router.get("/start", game1Ctrl.views.start);
+router.get("/next", game1Ctrl.views.next);
 
 
 router.post("/register", upload.single("image"), game1Ctrl.process.register);
+router.post("/checkAnswer", game1Ctrl.process.verify);
 
 module.exports = router;
