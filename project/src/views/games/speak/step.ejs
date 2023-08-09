@@ -1,0 +1,22 @@
+<h3>난이도를 설정해주세요</h3>
+
+<%
+    console.log("level ===> ",level);
+    console.log("language ==> ",language);
+%>
+
+<form action="speakQuetionStart.do" method="post">
+
+    난이도 : <select name="level_step">
+        <% level.forEach( ( list ) => { %>
+        <option value="<%= list.ID %>"><%= list.LEVEL_STEP %> Level</option>
+        <% }) %>
+    </select>
+
+    언어 : <select name="language">
+        <% language.forEach((list) => { %>
+        <option value="<%= list.ID %>"><%= list.LANGUAGE %></option>
+        <% }) %>
+    </select>
+    <input type="submit" value="시작하기">
+</form>

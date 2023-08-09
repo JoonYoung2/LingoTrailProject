@@ -1,15 +1,14 @@
 <h1>Game Page</h1>
 <div class="question">
-
   <img src="/static/game1_files/<%= currentQuestion.IMG %>" width="200">
   <p>
     <%= currentQuestion.QUESTION %>
   </p>
 </div>
+
 <div class="answer-form">
   <form action="/game1/checkAnswer" method="post">
     <input type="hidden" name="record_id" value="<%= currentQuestion.RECORD_ID %>">
-
     <br><br>
     <% const options=[currentQuestion.WRONG1, currentQuestion.WRONG2, currentQuestion.WRONG3, currentQuestion.ANSWER];
       options.sort(()=> Math.random() - 0.5);
