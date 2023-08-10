@@ -1,0 +1,8 @@
+난이도 설정
+
+<% for(var i=1; i<=5; i++){ %>
+    <form action="/meaning/condition.do" method="post">
+        <input type = "hidden" id = "level" name="level" value="<%=i%>">
+        <button type="submit">Level <%=i%></button>       
+    </form>
+<% } %>

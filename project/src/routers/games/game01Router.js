@@ -30,11 +30,12 @@ const upload = multer({ storage: stg, fileFilter: f_Filter });
 router.get("/", game1Ctrl.views.index);
 router.get("/list", game1Ctrl.views.list);
 router.get("/register", game1Ctrl.views.register);
-router.get("/start", game1Ctrl.views.start);
+router.get("/start", game1Ctrl.views.start); // level 없이
 router.get("/next", game1Ctrl.views.next);
 
 
 router.post("/register", upload.single("image"), game1Ctrl.process.register);
 router.post("/checkAnswer", game1Ctrl.process.verify);
+router.post("/start", game1Ctrl.views.start); // level 있이 시작! 
 
 module.exports = router;
