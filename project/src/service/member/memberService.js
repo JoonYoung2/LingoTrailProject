@@ -78,6 +78,7 @@ const member = {
         }
     },
     getMember : async(id)=>{
+        console.log(":::::::::::::::::::::::",id);
         let info = await dao.member.getMemInfo(id);
         return info;
     },

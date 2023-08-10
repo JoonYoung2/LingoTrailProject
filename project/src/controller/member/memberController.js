@@ -46,8 +46,10 @@ const member = {
         res.send(`<script>alert('로그아웃 되었습니다.'); location.href="/";</script>`);
     },
 
-    info : (req, res)=>{
-        res.render("member/info_from");
+    info : async (req, res)=>{
+        let member= await service.member.getMember(req.session.userId);
+        console.log("여기야 여기",member);
+        res.render("member/info_from",{member:member.rows});
     },
 
     pwCheck : (req,res)=>{

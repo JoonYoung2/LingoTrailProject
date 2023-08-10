@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/js/sua/style.css"/>
+</head>
+
+<body>
+    <h3>게임페이지입니당</h3>
+
+    <%
+        console.log("viewPage QeAn ==> ",QeAn);
+        <!--Main Page for문 start-->
+        for(var i = 0; i < QeAn.length; i++){
+        let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
+        let question = qna[0].QUESTION;
+        let answer = qna[0].ANSWER;
+        console.log("qna ===> ",qna);
+    %>
+        <div id="mainPage<%= i %>" class="mainPage">
+            <%=question%> : <%=answer%>
+
+            <button onclick="nextViewBtn('<%=i%>')">다음으로</button>
+        </div>
+    <%
+    }
+    <!--Main Page for문 end-->
+    %>
+    <script src="/static/js/sua/show.js"></script>
+</body>
+</html>
