@@ -4,31 +4,37 @@
   <p>
     <%= currentQuestion.QUESTION %>
   </p>
+  
+<!-- test -->
+<div class="result">
+  <% if (explain) { %>
+    <div class="msg">
+      여길보세요!!!   <%= explain %>
+    </div>
+    <% } %>
+</div>
+
 </div>
 
 <div class="answer-form">
-  <form action="/game1/checkAnswer" method="post">
+  <form action="/game1/checkAnswer" method="post"> <!-- 수정된 부분 -->
     <input type="hidden" name="record_id" value="<%= currentQuestion.RECORD_ID %>">
     <br><br>
     <% const options=[currentQuestion.WRONG1, currentQuestion.WRONG2, currentQuestion.WRONG3, currentQuestion.ANSWER];
       options.sort(()=> Math.random() - 0.5);
       options.forEach(option => { %>
-      <button type="submit" name="selected_answer" value="<%= option %>">
-        <%= option %>
-      </button><br><br>
+      <label>
+        <!-- <input type="radio" name="selected_answer" value="<%= option %>"> <%= option %> -->
+        <% console.log("view exaplain?: ", explain)%>
+        <input type="radio" name="selected_answer" value="<%= option %>" <% if (explain !== undefined)  { %>disabled <% } %>> <%= option %>
+
+      </label><br><br>
       <% }); %>
+    <button type="submit">문제확인</button> <!-- 검증 버튼 추가 -->
   </form>
 </div>
 
-<!-- test -->
-<div class="result">
-  <% if (explain) { %>
-    <div class="msg">
-      <%= explain %>
-    </div>
-    <% } %>
-</div>
-<!-- test -->
+
 <div class="next-question">
-  <a href="/game1/next">Next Question</a>
+  <a href="/game1/next"><button>다음 문제</button></a>
 </div>

@@ -20,20 +20,27 @@ const views = {
     try {
       const totalQuetions = 5;
       const selectedQuestions = [];
-
       while (selectedQuestions.length < totalQuetions) {
-        const randomGame = await game1Service.getRandomQuestionV3();
+        const randomGame = await game1Service.getRandomQuestionV3(req.body.level);
         if (!selectedQuestions.some(question => question.RECORD_ID === randomGame.RECORD_ID)) {
           selectedQuestions.push(randomGame);
         }
       }
       console.log("cont, 받아온 5개의 문제: ", selectedQuestions);
       req.session.selectedQuestions = selectedQuestions;
+      req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
-      const nextIndex = 1;
+      const nextIndex = 0;
       //backup
-      const explain = 'hello';
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain });
+      req.session.currentIndex = nextIndex;
+
+      //backup
+      const selectedAnswer = req.body.selected_answer; // selected_answer 추가
+      const explain = undefined;
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer });
+      console.log("currentQuestion : ctrl", currentQuestion);
+      console.log("nextIndex : ctrl", nextIndex)
+      console.log("explain : ctrl", explain)
     } catch (err) {
       console.log(err);
       res.status(500).send("알 수 없는 오류 발생");
@@ -43,26 +50,27 @@ const views = {
   next: async (req, res) => {
     try {
       const selectedQuestions = req.session.selectedQuestions;
-      const currentIndex = req.session.currentIndex || 0;
+      const currentIndex = req.session.currentIndex + 1 || 0;
 
       if (currentIndex >= selectedQuestions.length) {
         req.session.selectedQuestions = undefined;
         req.session.currentIndex = undefined;
 
         const score = req.session.score || 0;
+        
         res.send(
           `모든 문제를 다 풀었어요! 당신의 점수는 ${score}점입니다.` +
           "<br><br><br><a href='/game1/list'>돌아가기</a>"
         );
-        req.session.score = undefined;
+        req.session.score = 0;
         return;
       }
       const currentQuestion = selectedQuestions[currentIndex];
-      const nextIndex = currentIndex + 1;
+      const nextIndex = currentIndex;
       req.session.currentIndex = nextIndex;
 
       //backup
-      const explain = 'hello';
+      const explain = undefined;
       const selectedAnswer = req.body.selected_answer; // selected_answer 추가
 
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer })
@@ -87,10 +95,11 @@ const process = {
     try {
       const recordId = req.body.record_id;
       const selectedAnswer = req.body.selected_answer;
+      console.log("ctrl selec", selectedAnswer);
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
 
       console.log("현재 문제의 인덱스 뭐임 :?", req.session.currentIndex);
-      const currentQuestion = req.session.selectedQuestions[req.session.currentIndex - 1];
+      const currentQuestion = req.session.selectedQuestions[req.session.currentIndex];
       console.log("현재 문제 뭐임?", currentQuestion);
 
       if (isCorrect === 1) {
