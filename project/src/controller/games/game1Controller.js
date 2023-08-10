@@ -31,7 +31,7 @@ const views = {
       req.session.selectedQuestions = selectedQuestions;
       req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
-      const nextIndex = 1;
+      const nextIndex = 0;
       //backup
       req.session.currentIndex = nextIndex;
 
@@ -51,7 +51,7 @@ const views = {
   next: async (req, res) => {
     try {
       const selectedQuestions = req.session.selectedQuestions;
-      const currentIndex = req.session.currentIndex || 0;
+      const currentIndex = req.session.currentIndex + 1 || 0;
 
       if (currentIndex >= selectedQuestions.length) {
         req.session.selectedQuestions = undefined;
@@ -67,7 +67,7 @@ const views = {
         return;
       }
       const currentQuestion = selectedQuestions[currentIndex];
-      const nextIndex = currentIndex + 1;
+      const nextIndex = currentIndex;
       req.session.currentIndex = nextIndex;
 
       //backup
@@ -100,7 +100,7 @@ const process = {
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
 
       console.log("현재 문제의 인덱스 뭐임 :?", req.session.currentIndex);
-      const currentQuestion = req.session.selectedQuestions[req.session.currentIndex - 1];
+      const currentQuestion = req.session.selectedQuestions[req.session.currentIndex];
       console.log("현재 문제 뭐임?", currentQuestion);
 
       if (isCorrect === 1) {
