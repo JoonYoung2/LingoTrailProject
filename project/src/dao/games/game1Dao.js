@@ -1,7 +1,5 @@
 const oracledb = require("oracledb");
 const dbConfig = require("../../../config/database/db_config");
-const { getRandomQuestion } = require('../../service/games/game1Service');
-const { start } = require('repl');
 
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
@@ -17,54 +15,29 @@ const get = {
     return result.rows;
   },
 
-  // TODO: V1
-  // getRandomStart: async ()=>{
-  //   try {
-  //     const con = await oracledb.getConnection(dbConfig);
-  //     const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
-  //     const result = await con.execute(sql);
-  //     return result.rows[0];
-  //   } catch (err) {
-  //     console.log(err);
-  //     return null;
-  //   }
-  // },
-
-  // TODO : V2
-  // getRandomQuestion : async (startIndex, count) =>{
-  //   console.log("start Index : ", startIndex);
-  //   console.log("count  : ", count);
-
-  //   const con = await oracledb.getConnection(dbConfig);
-  //   const sql =
-  //     `SELECT * FROM (
-  //       SELECT 
-  //         t.*,
-  //         ROW_NUMBER() OVER (ORDER BY DBMS_RANDOM.RANDOM) AS rn
-  //       FROM MATCH_PICTURE_GAME t
-  //     )
-  //     WHERE rn >= :startIndex AND rn <= :endIndex`;     
-
-  //   const bindParams = {
-  //     startIndex: startIndex,
-  //     endIndex: startIndex + count - 1
-  //   };
-  //   const result = await con.execute(sql, bindParams);
-  //   console.log("dao 의 result 는 ?: ", result.rows);
-
-  //   return result.rows;
-  // }
-
-  getRandomQuestionV3: async () => {
-    try {
-      const con = await oracledb.getConnection(dbConfig);
-      const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
-      const result = await con.execute(sql);
-      return result.rows[0];
-
-    } catch (err) {
-      console.log(err);
-      return null;
+  getRandomQuestionV3: async (reqLevel) => {
+    if(reqLevel === undefined){
+      try {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
+        const result = await con.execute(sql);
+        return result.rows[0];
+  
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    }else{
+      try {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT * FROM MATCH_PICTURE_GAME WHERE QUESTION_LEVEL =${reqLevel} ORDER BY DBMS_RANDOM.RANDOM`;
+        const result = await con.execute(sql);
+        return result.rows[0];
+  
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
     }
   },
 
@@ -92,8 +65,6 @@ const get = {
       return 0;
     }
   },
-
-
 }
 
 const insert = async (data) => {

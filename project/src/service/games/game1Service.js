@@ -20,9 +20,10 @@ const verifyAnswer = async (recordId, selectedAnswer) => {
   }
 }
 
-const getRandomQuestionV3 = async () => {
+const getRandomQuestionV3 = async (reqLevel) => {
   try {
-    const randomGame = await dao.get.getRandomQuestionV3();
+    console.log("service's level: ", reqLevel);
+    const randomGame = await dao.get.getRandomQuestionV3(reqLevel);
     return randomGame;
   } catch (err) {
     console.log(err);
