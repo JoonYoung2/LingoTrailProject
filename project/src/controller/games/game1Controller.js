@@ -29,11 +29,19 @@ const views = {
       }
       console.log("cont, 받아온 5개의 문제: ", selectedQuestions);
       req.session.selectedQuestions = selectedQuestions;
+      req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
       const nextIndex = 1;
       //backup
-      const explain = 'hello';
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain });
+      req.session.currentIndex = nextIndex;
+
+      //backup
+      const selectedAnswer = req.body.selected_answer; // selected_answer 추가
+      const explain = undefined;
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer });
+      console.log("currentQuestion : ctrl", currentQuestion);
+      console.log("nextIndex : ctrl", nextIndex)
+      console.log("explain : ctrl", explain)
     } catch (err) {
       console.log(err);
       res.status(500).send("알 수 없는 오류 발생");
@@ -50,11 +58,12 @@ const views = {
         req.session.currentIndex = undefined;
 
         const score = req.session.score || 0;
+        
         res.send(
           `모든 문제를 다 풀었어요! 당신의 점수는 ${score}점입니다.` +
           "<br><br><br><a href='/game1/list'>돌아가기</a>"
         );
-        req.session.score = undefined;
+        req.session.score = 0;
         return;
       }
       const currentQuestion = selectedQuestions[currentIndex];
@@ -62,7 +71,7 @@ const views = {
       req.session.currentIndex = nextIndex;
 
       //backup
-      const explain = 'hello';
+      const explain = undefined;
       const selectedAnswer = req.body.selected_answer; // selected_answer 추가
 
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer })
@@ -87,6 +96,7 @@ const process = {
     try {
       const recordId = req.body.record_id;
       const selectedAnswer = req.body.selected_answer;
+      console.log("ctrl selec", selectedAnswer);
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
 
       console.log("현재 문제의 인덱스 뭐임 :?", req.session.currentIndex);
