@@ -8,7 +8,7 @@
         <th>Wrong 3</th>
         <th>Wrong 3</th>
     </tr>
-    <% console.log("ytgytgyt   =>>" ,list) %>
+    
     <% list.forEach( (item) => { %>
         <tr>
             <td><%= item.QUESTION %></td>
@@ -26,21 +26,15 @@
 
 <a href="/game1/start"><button>랜덤 시작하기</button></a>
 <br>
+<hr>
 
-
-<select id="levelSelect">
-    <option value="1">Level 1</option>
-    <option value="2">Level 2</option>
-    <option value="3">Level 3</option>
-    <option value="4">Level 4</option>
-    <option value="5">Level 5</option>
-  </select>
-  <button id="startButton">시작하기</button>
-
-
-  <script>
-    document.getElementById("startButton").addEventListener("click", function() {
-      const selectedLevel = document.getElementById("levelSelect").value;
-      window.location.href = `/game1/start_level/${selectedLevel}`;
-    });
-  </script>
+<form action="/game1/start" method="post"> 
+    <select id="levelSelect" name="level">
+      <option value="1">Level 1</option>
+      <option value="2">Level 2</option>
+      <option value="3">Level 3</option>
+      <option value="4">Level 4</option>
+      <option value="5">Level 5</option>
+    </select>
+  <button type="submit" id="startButton">시작하기</button>
+</form>

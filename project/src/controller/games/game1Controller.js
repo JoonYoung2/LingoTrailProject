@@ -20,9 +20,8 @@ const views = {
     try {
       const totalQuetions = 5;
       const selectedQuestions = [];
-
       while (selectedQuestions.length < totalQuetions) {
-        const randomGame = await game1Service.getRandomQuestionV3();
+        const randomGame = await game1Service.getRandomQuestionV3(req.body.level);
         if (!selectedQuestions.some(question => question.RECORD_ID === randomGame.RECORD_ID)) {
           selectedQuestions.push(randomGame);
         }

@@ -15,16 +15,29 @@ const get = {
     return result.rows;
   },
 
-  getRandomQuestionV3: async () => {
-    try {
-      const con = await oracledb.getConnection(dbConfig);
-      const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
-      const result = await con.execute(sql);
-      return result.rows[0];
-
-    } catch (err) {
-      console.log(err);
-      return null;
+  getRandomQuestionV3: async (reqLevel) => {
+    if(reqLevel === undefined){
+      try {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY DBMS_RANDOM.RANDOM`;
+        const result = await con.execute(sql);
+        return result.rows[0];
+  
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    }else{
+      try {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT * FROM MATCH_PICTURE_GAME WHERE QUESTION_LEVEL =${reqLevel} ORDER BY DBMS_RANDOM.RANDOM`;
+        const result = await con.execute(sql);
+        return result.rows[0];
+  
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
     }
   },
 
