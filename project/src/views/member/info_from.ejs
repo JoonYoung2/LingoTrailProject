@@ -1,10 +1,75 @@
 <%- include("../default/header") %>
-
-여기에 개인정보가 다 나옴.<br>
-아이디, 이름, 이메일 순서대로 <br>
-비번은 제외!<br>
-
-
-
-
-<a href="/member/pwCheck">회원정보수정(버튼형식으로 만들어주세용)</a>
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		div {
+			width: 100%;
+			padding: 20px;
+			text-align: center;
+		}
+		
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;	
+			margin: auto;
+			width: 40%;
+			border-top: 1px solid #dddddd;
+		}
+		
+		td, th {
+			border-bottom: 1px solid #dddddd;
+			text-align: left;
+			padding: 10px;
+		}
+		
+		#c {
+			color: #ffffff;
+			background-color: #00a0ff;
+			font-weight: bold;
+		}
+		
+		input[type=button] {
+	  	width: 15%;
+	  	background-color: #00a0ff;
+	  	color: white;
+	  	padding: 10px 20px;
+	  	margin: 10px 0;
+	  	border: none;
+	  	border-radius: 12px;
+	  	cursor: pointer;
+	  	box-shadow:
+    		inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    		inset -2px -2px 3px rgba(0, 0, 0, 0.6);	
+		font-weight: bold;
+	  	font-size: 16px;
+	}
+	</style>
+</head>
+<body>	
+	<div>
+		<h2>마이페이지</h2>
+		<br>
+		<table>		  	
+			<tr>
+			    <td id="c">아이디</td>
+			    <td><%=member.ID%></td>
+		  	</tr>
+		  	<tr>
+		    	<td id="c">성명</td>
+		    	<td><%=member.NAME%></td>
+		  	</tr>
+			<tr>
+				<td id="c">이메일</td>
+				<td><%=member.EMAIL%></td>
+			</tr>
+		  	<tr>
+		    	<td id="c">비밀번호</td>
+		    	<td><%=member.PW%></td>
+		  	</tr>
+		</table>
+		<a href=""><input type="button" value="수정하기"></a>&nbsp;
+		<a href=""><input type="button" value="메인으로"></a>
+	</div>
+</body>
+</html>
