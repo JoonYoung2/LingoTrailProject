@@ -7,12 +7,18 @@ const views = {
 
   list: async (req, res) => {
     let list = await game1Service.getAll();
-    console.log("controller list : ",list);
+    
     res.render("games/game1/game1_index", { list : list });
   },
 
   register: (req, res) =>{
-      res.render("admin/games/game1/game1_register_form");
+    res.render("admin/games/game1/game1_register_form");
+  },
+
+  updateForm : async (req, res)=>{
+    let list = await game1Service.getAll();
+    let msg = undefined;
+    res.render("admin/games/game1/game1_update_form", { list : list, msg : msg });
   },
 
   // TODO: V3
@@ -31,10 +37,8 @@ const views = {
       req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
       const nextIndex = 0;
-      //backup
       req.session.currentIndex = nextIndex;
 
-      //backup
       const selectedAnswer = req.body.selected_answer; // selected_answer 추가
       const explain = undefined;
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer });
@@ -82,6 +86,29 @@ const views = {
 }
 
 const process = {
+
+  modify: async(req, res) =>{
+    console.log("??????", req.body.recordId)
+    res.send("???")
+  },
+
+  delete: async (req, res)=>{
+    console.log("req.body.delete_checkbox > : ",req.body.delete_checkbox);
+    const deleteList =  req.body.delete_checkbox;
+
+    if (deleteList && deleteList.length > 0) {
+      result = await game1Service.deleteRecord(deleteList);
+      if (result !== 0) {
+        let msg = `삭제되었습니다`;
+        let list = await game1Service.getAll();
+        res.render("admin/games/game1/game1_update_form", { list: list, msg: msg });
+      }
+    } else {
+      let msg = `삭제하려면 체크박스를 선택하세요`;
+      let list = await game1Service.getAll();
+      res.render("admin/games/game1/game1_update_form", { list: list, msg: msg });
+    }
+  },
 
   register: async (req, res) => {
     const imageFilePath = req.file.path;

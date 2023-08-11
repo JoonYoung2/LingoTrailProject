@@ -10,10 +10,10 @@
 
 <body>
     <h3>게임페이지입니당</h3>
-
+    <!--Main Page for문 start-->
     <%
         console.log("viewPage QeAn ==> ",QeAn);
-        <!--Main Page for문 start-->
+        
         for(var i = 0; i < QeAn.length; i++){
         let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
         let question = qna[0].QUESTION;
@@ -21,14 +21,16 @@
         console.log("qna ===> ",qna);
     %>
         <div id="mainPage<%= i %>" class="mainPage">
-            <%=question%> : <%=answer%>
-
+            <%=question%> <br> <%=answer%> <br>
+            
+            <!--<button onclick="markingBtm( <)"-->
             <button onclick="nextViewBtn('<%=i%>')">다음으로</button>
         </div>
     <%
     }
-    <!--Main Page for문 end-->
+    
     %>
+    <!--Main Page for문 end-->
     <script src="/static/js/sua/show.js"></script>
 </body>
 </html>
