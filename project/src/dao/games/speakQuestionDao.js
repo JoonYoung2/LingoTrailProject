@@ -50,7 +50,7 @@ const gameConfig = {
     },
 
     getLanguage : async () => {
-        const sql = `select * from speak_question_language`
+        const sql = `select * from speak_question_language`;
         const con = await oracledb.getConnection(dbConfig);
         let result;
         try{
@@ -63,4 +63,20 @@ const gameConfig = {
     }
 }
 
-module.exports = {speakQuestion, gameConfig};
+const gameCrud = {
+    getList : async () => {
+        const sql = `select * from speak_question_game order by id desc`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+        console.log("dao getList result ==> ", result);
+        return result.rows;
+    }
+}
+
+module.exports = {speakQuestion, gameConfig, gameCrud};

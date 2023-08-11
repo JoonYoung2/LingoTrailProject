@@ -14,7 +14,7 @@ const speakQuestion = {
         
         for(var i = 0; i < data.length; i++){
             if(data[i].LANGUAGE == 1){
-                let answer = data[i].ANSWER;
+                let answer = data[i].ANSWER; 
                 for(var j = 0; j < 3; j++){
                     let randomNum = Math.floor(Math.random() * 100);
                     console.log(randomNum);
@@ -54,5 +54,14 @@ const gameConfig = {
     }
 }
 
+const gameCrud = {
+    getList : async () => {
+        let data = await dao.gameCrud.getList();
+        console.log("service gameCrud data ==> ", data[0]);
 
-module.exports = {speakQuestion, gameConfig};
+        return data;
+    }
+}
+
+
+module.exports = {speakQuestion, gameConfig, gameCrud};

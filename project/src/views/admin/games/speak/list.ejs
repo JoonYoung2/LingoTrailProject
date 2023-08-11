@@ -1,0 +1,49 @@
+<%- include("../../../default/adminHeader") %>
+
+    <table border="1">
+        <tr>
+            <th>NO</th>
+            <th>QUESTION</th>
+            <th>ANSWER</th>
+            <th>LANGUAGE</th>
+            <th>LEVEL</th>
+            <th>UPDATE</th>
+            <th><button onclick="deleteCheck()">DELETE</button></th>
+        </tr>
+        <% if(data===undefined){ %>
+            <tr>
+                <td colspan="5">
+                    등록된 내용이 없습니다.
+                </td>
+            </tr>
+            <%
+                }else{ data.forEach((list)=> {
+            %>
+
+                <tr>
+                    <td>
+                        <%= list.ID %>
+                    </td>
+                    <td>
+                        <%= list.QUESTION %>
+                    </td>
+                    <td>
+                        <%= list.ANSWER %>
+                    </td>
+                    <td>
+                        <%if(list.LANGUAGE==1){%>
+                            KOREAN
+                            <%}else{%>
+                                ENGLISH
+                            <%}%>
+                    </td>
+                    <td>
+                        <%= list.LEVEL_STEP %> Level
+                    </td>
+                    <td>구현중~~</td>
+                    <td><input type="checkbox" class="deleteCheckList" name="id" value="<%=list.ID%>"></td>
+                </tr>
+                <% }) } %>
+    </table>
+
+<script src="/static/js/joon/speak_list.js"></script>
