@@ -3,6 +3,7 @@ const dbConfig = require("../../../config/database/db_config");
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 
+// 게임 뷰
 const speakQuestion = {
     startGame : async (body) => {
         const sql = `select * from speak_question_game where language=${body.language} and level_step=${body.level_step}`;
@@ -33,6 +34,7 @@ const speakQuestion = {
     }
 }
 
+// 설정 뷰
 const gameConfig = {
     getLevel : async () => {
         const sql = `select * from speak_question_level`
