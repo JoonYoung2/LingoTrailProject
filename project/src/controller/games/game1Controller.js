@@ -7,6 +7,7 @@ const views = {
 
   list: async (req, res) => {
     let list = await game1Service.getAll();
+    
     res.render("games/game1/game1_index", { list : list });
   },
 
@@ -16,7 +17,8 @@ const views = {
 
   updateForm : async (req, res)=>{
     let list = await game1Service.getAll();
-    res.render("admin/games/game1/game1_update_form", {list : list});
+    let msg = undefined;
+    res.render("admin/games/game1/game1_update_form", { list : list, msg : msg });
   },
 
   // TODO: V3
@@ -85,17 +87,26 @@ const views = {
 
 const process = {
 
+  modify: async(req, res) =>{
+    console.log("??????", req.body.recordId)
+    res.send("???")
+  },
+
   delete: async (req, res)=>{
     console.log("req.body.delete_checkbox > : ",req.body.delete_checkbox);
     const deleteList =  req.body.delete_checkbox;
 
-    if(deleteList && deleteList.length > 0){
+    if (deleteList && deleteList.length > 0) {
       result = await game1Service.deleteRecord(deleteList);
-      if(result !== 0){
-        res.send("성공");
+      if (result !== 0) {
+        let msg = `삭제되었습니다`;
+        let list = await game1Service.getAll();
+        res.render("admin/games/game1/game1_update_form", { list: list, msg: msg });
       }
-    }else {
-      res.redirect("updateForm");
+    } else {
+      let msg = `삭제하려면 체크박스를 선택하세요`;
+      let list = await game1Service.getAll();
+      res.render("admin/games/game1/game1_update_form", { list: list, msg: msg });
     }
   },
 

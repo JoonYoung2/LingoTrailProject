@@ -94,32 +94,25 @@ const deleteRecord = async (deleteList) => {
   const con = await oracledb.getConnection(dbConfig);
 
   try {
-    //// 여기부터 시작 TODO 수정누르면 삭제되는 버그 수정
-    console.log(deleteList);
     const deleteArray = Array.isArray(deleteList) ? deleteList : [deleteList];
-    console.log("deleteArray?? 후:: ", deleteArray)
-    console.log("=================")
-    console.log("=================")
-  
-    const placeholders = deleteArray.map((_, index) => `:${index + 1}`).join(', ');
-    console.log("placeholder 후 ?? :: ", placeholders)
-    console.log("=================")
-    console.log("=================")
 
+    // TODO: 제일 편한 쿼리 같다
+    // deleteArray = [ '1', '2', '3' ] 이러한 방식으로 들어온다
+    // deleteArray.join () 매개변수 하나 받는다
+    // 그러면 그 매개변수를 이용해 하나의 문자열로 배열이 합쳐진다
+    // ✨ ['1', '2', '3']   === >    1, 2, 3
+    // sql = ~~~ where record_id in (1, 2, 3);
     const sql = `DELETE FROM MATCH_PICTURE_GAME 
-    WHERE RECORD_ID IN (${deleteArray.map(() => ':id').join(', ')})`;
+                 WHERE RECORD_ID IN (${deleteArray.join(', ')})`;
+    
+    const result = await con.execute(sql);
+    console.log("Deleted records: ", result.rowsAffected);
+    return result.rowsAffected;
 
-const bindParams = deleteArray.map(id => parseInt(id)); // Ensure IDs are parsed as integers
-
-const result = await con.execute(sql, bindParams);
-console.log("Deleted records: ", result.rowsAffected);
-return result.rowsAffected;
-
-} catch (error) {
-console.error(error);
-} 
+  } catch (error) {
+    console.error(error);
+  } 
 };
-
 
 
 module.exports = { get, insert, deleteRecord };

@@ -36,14 +36,13 @@ router.get("/next", game1Ctrl.views.next);
 router.post("/checkAnswer", game1Ctrl.process.verify);
 router.post("/start", game1Ctrl.views.start); // level 있이 시작! 
 
-
 // TODO: admin
 
 router.get("/register", game1Ctrl.views.register);
+router.get("/updateForm", game1Ctrl.views.updateForm);
 
 router.post("/register", upload.single("image"), game1Ctrl.process.register);
-router.get("/updateForm", game1Ctrl.views.updateForm);
-router.get("/updateForm", game1Ctrl.views.updateForm);
 router.post("/deleteRecord", game1Ctrl.process.delete);
+router.post("/modify", game1Ctrl.process.modify);
 
 module.exports = router;
