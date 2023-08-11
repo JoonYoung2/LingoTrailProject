@@ -7,11 +7,9 @@ oracledb.autoCommit = true;
 const get = {
 
   list: async () => {
-    const sql = `SELECT * FROM MATCH_PICTURE_GAME`;
+    const sql = `SELECT * FROM MATCH_PICTURE_GAME ORDER BY QUESTION_LEVEL ASC`;
     const con = await oracledb.getConnection(dbConfig);
     const result = await con.execute(sql);
-    console.log("dao result : ");
-
     return result.rows;
   },
 
@@ -68,7 +66,7 @@ const get = {
 }
 
 const insert = async (data) => {
-  let con = await oracledb.getConnection(dbConfig);
+  const con = await oracledb.getConnection(dbConfig);
   const sql = `
     INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3, explain
     ) VALUES ( match_picture_game_seq.NEXTVAL, CURRENT_TIMESTAMP, :question, :question_level, :img, :answer, :wrong1, :wrong2, :wrong3, :explain)`;
@@ -92,4 +90,29 @@ const insert = async (data) => {
   }
 };
 
-module.exports = { get, insert };
+const deleteRecord = async (deleteList) => {
+  const con = await oracledb.getConnection(dbConfig);
+
+  try {
+    const deleteArray = Array.isArray(deleteList) ? deleteList : [deleteList];
+
+    // TODO: 제일 편한 쿼리 같다
+    // deleteArray = [ '1', '2', '3' ] 이러한 방식으로 들어온다
+    // deleteArray.join () 매개변수 하나 받는다
+    // 그러면 그 매개변수를 이용해 하나의 문자열로 배열이 합쳐진다
+    // ✨ ['1', '2', '3']   === >    1, 2, 3
+    // sql = ~~~ where record_id in (1, 2, 3);
+    const sql = `DELETE FROM MATCH_PICTURE_GAME 
+                 WHERE RECORD_ID IN (${deleteArray.join(', ')})`;
+    
+    const result = await con.execute(sql);
+    console.log("Deleted records: ", result.rowsAffected);
+    return result.rowsAffected;
+
+  } catch (error) {
+    console.error(error);
+  } 
+};
+
+
+module.exports = { get, insert, deleteRecord };

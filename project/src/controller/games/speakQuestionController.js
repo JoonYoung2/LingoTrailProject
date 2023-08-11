@@ -16,4 +16,22 @@ const gameConfig = {
     }
 }
 
-module.exports = {speakQuestion, gameConfig};
+const gameCrud = {
+    getList : async (req, res) => {
+        let data = await service.gameCrud.getList();
+        console.log("contorller getList data ==> ", data);
+        if(data[0] === undefined){
+            data = undefined;
+            res.render("admin/games/speak/list", {data});
+        }else{
+            res.render("admin/games/speak/list", {data});
+        }
+    },
+
+    deleteList : async (req, res) => {
+        service.gameCrud.deleteList(req.body);
+        res.json(1);
+    }
+}
+
+module.exports = {speakQuestion, gameConfig, gameCrud};

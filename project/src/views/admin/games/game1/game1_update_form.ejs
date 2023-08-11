@@ -1,0 +1,119 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+<style>
+  h1 {
+    text-align: center;
+  }
+
+  th, td {
+    text-align: center;
+  }
+  
+  input {
+    width: 90%;
+    text-align: center;
+    margin-top: 10;
+  }
+  
+  input[type=checkbox] {
+    transform: scale(2); /* Standard */
+    margin-top: 20;
+  } 
+
+  /* 첫번째요소는 10% (img) 나머지는 7% 너비를 갖는다 */
+  th:nth-child(1), td:nth-child(1) { width: 10%; }
+  th:nth-child(2), td:nth-child(2) { width: 10%; }
+  th:not(:nth-child(1), :nth-child(2)), td:not(:nth-child(1), :nth-child(2)) { width: 7%; }
+
+</style>
+
+
+<% if ( msg !== undefined ) { %>
+  <div id="alertDiv" class="alert alert-danger" role="alert">
+    <% if (msg) { %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <%= msg %>
+    <% } %>
+  </div>
+<% } %>
+
+
+<br><br>
+<h1>Game 1 수정페이지</h1>
+<br><br>
+<form action="/game1/deleteRecord" method="POST">
+  <table class="table custom-table" style="border: 1px; border-color:bisque;">
+    <tr class="table-warning">
+      <th>Image</th>
+      <th>Question</th>
+      <th>Question Level</th>
+      <th>Answer</th>
+      <th>Wrong 1</th>
+      <th>Wrong 2</th>
+      <th>Wrong 3</th>
+      <th>Edit</th>
+      <th><button class="btn btn-danger">Delete</button></th>
+    </tr>
+
+    <% list.forEach((item) => { %>
+      <tr>
+        <td><img src="/static/game1_files/<%= item.IMG %>" alt="Image" width="100" height="50"></td>
+        <td><input type="text" name="question" value="<%= item.QUESTION %>"></td>
+        <td><input type="number" name="question_level" value="<%= item.QUESTION_LEVEL %>"></td>
+        <td><input type="text" name="answer" value="<%= item.ANSWER %>"></td>
+        <td><input type="text" name="wrong1" value="<%= item.WRONG1 %>"></td>
+        <td><input type="text" name="wrong2" value="<%= item.WRONG2 %>"></td>
+        <td><input type="text" name="wrong3" value="<%= item.WRONG3 %>"></td>
+        <!-- <td><a href="/game1/edit/<%= item.RECORD_ID %>"><button type="button" class="btn btn-warning" style="margin-top: 5;" >수정</button></a></td> -->
+        <td><button type="button" class="btn btn-warning" style="margin-top: 5;" onclick="modifyRecord('<%= item.RECORD_ID %>')" >수정</button></td>
+        <td><input type="checkbox" name="delete_checkbox" value="<%= item.RECORD_ID %>"></td>
+      </tr>
+    <% }); %>
+  </table>
+</form>
+
+<a href="/game1/register"><button class="btn btn-info" style="color:beige ;">문제 등록</button></a>
+
+
+<script>
+  function modifyRecord(recordId) {
+    
+  const question = document.querySelector(`input[name="question"]`).value;
+  const questionLevel = document.querySelector(`input[name="question_level"]`).value;
+  const answer = document.querySelector(`input[name="answer"]`).value;
+  const wrong1 = document.querySelector(`input[name="wrong1"]`).value;
+  const wrong2 = document.querySelector(`input[name="wrong2"]`).value;
+  const wrong3 = document.querySelector(`input[name="wrong3"]`).value;
+
+    const data = {
+      recordId: recordId,
+      question: question,
+      question_level: questionLevel,
+      answer: answer,
+      wrong1: wrong1,
+      wrong2: wrong2,
+      wrong3: wrong3,
+    };
+
+    fetch(`/game1/modify`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(result => {
+      if (result.success) {
+        // 성공적으로 수정되었을 때 처리
+        alert('수정이 완료되었습니다.');
+        window.location.reload(); // 페이지 새로고침
+      } else {
+        alert('수정에 실패했습니다.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('수정 중 오류가 발생했습니다.');
+    });
+  }
+</script>
