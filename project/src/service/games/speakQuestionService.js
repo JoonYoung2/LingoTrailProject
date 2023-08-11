@@ -60,6 +60,10 @@ const gameCrud = {
         console.log("service gameCrud data ==> ", data[0]);
 
         return data;
+    },
+
+    deleteList : async (body) => {
+        await dao.gameCrud.deleteList(body);
     }
 }
 

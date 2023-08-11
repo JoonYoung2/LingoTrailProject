@@ -29,7 +29,7 @@ const gameCrud = {
     },
 
     deleteList : async (req, res) => {
-        console.log(req.body);
+        service.gameCrud.deleteList(req.body);
         res.json(1);
     }
 }

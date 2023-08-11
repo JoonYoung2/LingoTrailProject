@@ -76,6 +76,18 @@ const gameCrud = {
         }
         console.log("dao getList result ==> ", result);
         return result.rows;
+    },
+
+    deleteList : async (body) => {
+        console.log(body);
+        const sql = `delete from speak_question_game where id in (${body.values})`;
+        const con = await oracledb.getConnection(dbConfig);
+        console.log("여기 delete 오낭?", sql);
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 
