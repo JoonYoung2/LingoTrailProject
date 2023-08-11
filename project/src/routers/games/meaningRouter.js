@@ -6,7 +6,7 @@ router.get("/",(req, res) =>{
 })
 
 router.get("/condition", controller.configure.condition);
-router.post("/condition.do", controller.configure.conditionDo);
+router.post("/showGames", controller.configure.showGames);
 
 
 module.exports = router;

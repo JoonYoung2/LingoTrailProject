@@ -3,9 +3,11 @@ const configure = {
     condition : (req, res)=>{
         res.render("games/meaning/condition.ejs");
     },
-    conditionDo : async (req, res)=>{
-        let QeAn = await service. configure.getQeAn(req.body); //QeAn means Question and Answer.
-        res.render("games/meaning/show", {QeAn});
+    showGames : async (req, res)=>{
+        let QeAn = await service.configure.getQeAn(req.body); //QeAn means Question and Answer.
+        let given = await service.configure.getGiven(req.body, QeAn); //given means given selectors.
+        
+        res.render("games/meaning/show", {QeAn, given});
             /*
   QeAn:  [
   { QUESTION: '획기적인', ANSWER: 'revolutionary' },
