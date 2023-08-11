@@ -9,6 +9,7 @@ const app = express();
 app.use( cookieParser("아무값이나키로설정") );
 app.use( session( sessionConfig.sessionConfig ));
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 const router = require("./src/routers/router")(app);
 
