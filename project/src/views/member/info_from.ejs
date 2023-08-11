@@ -13,17 +13,18 @@
 			font-family: arial, sans-serif;
 			border-collapse: collapse;	
 			margin: auto;
-			width: 40%;
+			width: 30%;
 			border-top: 1px solid #dddddd;
 		}
 		
-		td, th {
+		td {
 			border-bottom: 1px solid #dddddd;
 			text-align: left;
 			padding: 10px;
 		}
 		
 		#c {
+            width: 25%;
 			color: #ffffff;
 			background-color: #00a0ff;
 			font-weight: bold;
@@ -49,27 +50,27 @@
 <body>	
 	<div>
 		<h2>마이페이지</h2>
-		<br>
+        <br>
 		<table>		  	
 			<tr>
 			    <td id="c">아이디</td>
-			    <td><%=member.ID%></td>
+			    <td><%=member[0].ID%></td>
 		  	</tr>
 		  	<tr>
 		    	<td id="c">성명</td>
-		    	<td><%=member.NAME%></td>
+		    	<td><%=member[0].NAME%></td>
 		  	</tr>
 			<tr>
 				<td id="c">이메일</td>
-				<td><%=member.EMAIL%></td>
+				<td><%=member[0].EMAIL%></td>
 			</tr>
 		  	<tr>
 		    	<td id="c">비밀번호</td>
-		    	<td><%=member.PW%></td>
+		    	<td><%=member[0].PW%></td>
 		  	</tr>
 		</table>
-		<a href=""><input type="button" value="수정하기"></a>&nbsp;
-		<a href=""><input type="button" value="메인으로"></a>
+		<a href="/member/update"><input type="button" value="수정하기"></a>&nbsp;
+		<a href="/"><input type="button" value="메인으로"></a>
 	</div>
 </body>
 </html>
