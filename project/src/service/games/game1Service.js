@@ -7,6 +7,11 @@ const getAll = async () => {
   return list;
 }
 
+const deleteRecord = async (deleteList) =>{
+  console.log("service's deleteList= ", deleteList);
+  return await dao.deleteRecord(deleteList);
+}
+
 const verifyAnswer = async (recordId, selectedAnswer) => {
 
   console.log("service log : >>> ", recordId, " & ", selectedAnswer);
@@ -57,4 +62,4 @@ const insert = async (body, imageFilePath) => {
   }
 };
 
-module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3 };
+module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3, deleteRecord };
