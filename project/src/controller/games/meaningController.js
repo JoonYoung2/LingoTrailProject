@@ -29,4 +29,10 @@ const configure = {
     }
 
 }
-module.exports={configure};
+
+const meaningCrud = {
+    getList : (req, res) => {
+
+    }
+}
+module.exports={configure, meaningCrud};
