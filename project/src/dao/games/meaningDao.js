@@ -18,6 +18,21 @@ const configure = {
         }
         console.log("result.rows ::::: ", result.rows);
         return result.rows;
+    },
+
+    getGiven : async (level) => {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `select * from (select answer from english_meaning_question 
+                        where level_step='${level}' 
+                        order by dbms_random.value)`;
+        let result = 0;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+        console.log("result.rows 들러리들 :::::", result.rows);
+        return result.rows;
     }
 }
 module.exports ={configure};

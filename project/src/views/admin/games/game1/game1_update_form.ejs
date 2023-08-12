@@ -104,16 +104,15 @@
     .then(res => res.json())
     .then(result => {
       if (result.success) {
-        // 성공적으로 수정되었을 때 처리
-        alert('수정이 완료되었습니다.');
-        window.location.reload(); // 페이지 새로고침
+        alert('수정 완료');
+        window.location.reload(); // 새로고침 해야하나
       } else {
-        alert('수정에 실패했습니다.');
+        alert('수정 실패');
       }
     })
     .catch(error => {
-      console.error('Error:', error);
-      alert('수정 중 오류가 발생했습니다.');
+      console.error(error);
+      alert('오류 발생');
     });
   }
 </script>
