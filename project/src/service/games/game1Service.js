@@ -1,4 +1,3 @@
-const { checkPrime } = require('crypto');
 const dao = require("../../dao/games/game1Dao");
 const path = require("path");
 

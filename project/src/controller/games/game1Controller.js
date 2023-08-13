@@ -29,7 +29,7 @@ const views = {
       while (selectedQuestions.length < totalQuetions) {
         const randomGame = await game1Service.getRandomQuestionV3(req.body.level);
         if (!selectedQuestions.some(question => question.RECORD_ID === randomGame.RECORD_ID)) {
-          selectedQuestions.push(randomGame);
+          selectedQuestions.push(randomGame);                                                                                                                                                                                         
         }
       }
       console.log("cont, 받아온 5개의 문제: ", selectedQuestions);
@@ -76,6 +76,7 @@ const views = {
       //backup
       const explain = undefined;
       const selectedAnswer = req.body.selected_answer; // selected_answer 추가
+      
 
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer })
     } catch (err) {
@@ -122,31 +123,25 @@ const process = {
   },
 
   verify: async (req, res) => {
-    console.log("controller verify body : ", req.body);
     try {
       const recordId = req.body.record_id;
       const selectedAnswer = req.body.selected_answer;
-      console.log("ctrl selec", selectedAnswer);
+      const nextIndex = req.body.nextIndex;
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
 
-      console.log("현재 문제의 인덱스 뭐임 :?", req.session.currentIndex);
       const currentQuestion = req.session.selectedQuestions[req.session.currentIndex];
-      console.log("현재 문제 뭐임?", currentQuestion);
 
       if (isCorrect === 1) {
-        // explain 가져오기
         const explain = currentQuestion.EXPLAIN;
 
-        // 점수 업데이트
         const currentScore = req.session.score || 0;
         req.session.score = currentScore + 1;
-        console.log("지금 점수 몇 점임?", req.session.score);
-        res.render("games/game1/gamePage", { currentQuestion, explain });
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex });
 
       } else {
         // 오답일 때
         const explain = "오답입니다 다음 문제를 풀어보세요";
-        res.render("games/game1/gamePage", { currentQuestion, explain });
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex });
       }
     } catch (err) {
       console.error(err);
