@@ -6,7 +6,20 @@ const configure = {
     showGames : async (req, res)=>{
         let QeAn = await service.configure.getQeAn(req.body); //QeAn means Question and Answer.
         let given = await service.configure.getGiven(req.body, QeAn); //given means given selectors.
-        
+/*
+given:  [
+    [ 'cat', 'snow', 'dog', 'moon', 'bread' ],
+    [ 'sea', 'school', 'cat', 'moon', 'sunlight' ],
+    [ 'snow', 'valley', 'wind', 'dog', 'winter' ],
+    [ 'house', 'tree', 'spring', 'lake', 'fall' ],
+    [ 'rain', 'ocean', 'summer', 'lake', 'winter' ],
+    [ 'mountain', 'rain', 'wind', 'tree', 'lake' ],
+    [ 'dog', 'snow', 'ocean', 'snowflake', 'summer' ],
+    [ 'snowflake', 'wind', 'spring', 'rose', 'sky' ],
+    [ 'sky', 'wind', 'winter', 'lake', 'water' ],
+    [ 'rose', 'moon', 'fall', 'school', 'snow' ]
+  ]
+  */
         res.render("games/meaning/show", {QeAn, given});
             /*
   QeAn:  [

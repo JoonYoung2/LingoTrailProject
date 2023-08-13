@@ -20,7 +20,7 @@ const configure = {
                 let selectedWord = getSelectors[n].ANSWER;
                 if(! sameWord(selectedWord)){
                     result.push(selectedWord);
-                    i++;
+                    j++;
                 }
             }
             function sameWord(selectedWord){
@@ -29,12 +29,22 @@ const configure = {
             return result;
         }
 
+        function shuffleSelectors(array){
+            const randomIndex = Math.floor(Math.random() * array.length);
+            const answer = array[0];
+            array[0] = array[randomIndex];
+            array[randomIndex] = answer;
+
+            return array;
+        }
+
         let SelectorsWithAnswer=[];
+        let shuffledSelectors=[];
         for(let i=0; i<qna.length; i++){ //문제 개수만큼 for문 동작.
             SelectorsWithAnswer[i]=gettingMixedSelectors(i);
+            shuffledSelectors[i] = shuffleSelectors(SelectorsWithAnswer[i]);
         }
-        console.log("result##########: ",SelectorsWithAnswer);
-
+        return shuffledSelectors;
     }
 }
 
