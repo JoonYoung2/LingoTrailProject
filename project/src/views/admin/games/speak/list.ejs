@@ -1,50 +1,125 @@
-<%- include("../../../default/adminHeader") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
 
-    <table border="1">
-        <tr>
-            <th colspan="3">UPDATE</th>
-            <th colspan="3"><button onclick="deleteCheck()">DELETE</button></th>
-        </tr>
-        <tr>
-            <th>NO</th>
-            <th>QUESTION</th>
-            <th>ANSWER</th>
-            <th>LANGUAGE</th>
-            <th>LEVEL</th>
-            <th><button onclick="checkSelectAll()">전체</button></th>
-        </tr>
-        <% if(data===undefined){ %>
-            <tr>
-                <td colspan="6">
-                    등록된 내용이 없습니다.
-                </td>
-            </tr>
-            <%
-                }else{ data.forEach((list)=> {
-            %>
+    <%- include("../../../default/adminHeader") %>
+    <section class="speakListPage">
+        <div>
+            <div class="categoryButton">
+                <div>
+                    <a href="/speak_question/language_form">LANGUAGE</a>
+                </div>
+                <div>
+                    <a href="/speak_question/level_form">LEVEL</a>
+                </div>
+            </div>
+            <div class="speakListTitle">
+                <span>
+                    SpeakGameList
+                </span>
+            </div>
+            <table id="speakListTable" border="1">
                 <tr>
-                    <td>
-                        <%= list.ID %>
+                    <td colspan="6">
+                        <input id="speakListSearch" class="speakListSearch" type="text" placeholder="search" value="" onchange="speakListSearch();">
                     </td>
-                    <td>
-                        <%= list.QUESTION %>
-                    </td>
-                    <td>
-                        <%= list.ANSWER %>
-                    </td>
-                    <td>
-                        <%if(list.LANGUAGE==1){%>
-                            KOREAN
-                            <%}else{%>
-                                ENGLISH
-                            <%}%>
-                    </td>
-                    <td>
-                        <%= list.LEVEL_STEP %> Level
-                    </td>
-                    <td><input type="checkbox" class="deleteCheckList" name="id" value="<%=list.ID%>"></td>
                 </tr>
-                <% }) } %>
-    </table>
+                <tr>
+                    <th>NO</th>
+                    <th style="width:400px;">QUESTION</th>
+                    <th style="width:400px;">ANSWER</th>
+                    <th style="width:100px;">LANGUAGE</th>
+                    <th style="width:100px;">LEVEL</th>
+                    <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
+                </tr>
+                <% if(data===undefined){ %>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            등록된 내용이 없습니다.
+                        </td>
+                    </tr>
+                    <%
+                        }else{ data.forEach((list)=> {
+                    %>
+                        <tr>
+                            <td style="text-align:center;">
+                                <%= list.ID %>
+                            </td>
+                            <td>
+                                <input type="text" class="speakQuestion" value="<%= list.QUESTION %>">
+                            </td>
+                            <td>
+                                <input type="text" class="speakAnswer" value="<%= list.ANSWER %>">
+                            </td>
+                            <td>
+                                <select class="speakLanguage">
+                                    <% language.forEach((lang) => { %>
+                                        <option value="<%= lang.ID %>"
+                                            <%
+                                                if(lang.ID == list.LANGUAGE){
+                                            %>
+                                                    selected
+                                            <%
+                                                }
+                                            %>
+                                            ><%= lang.LANGUAGE %></option>
+                                    <% }) %>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="speakLevel">
+                                    <% level.forEach((level) => { %>
+                                        <option value="<%= level.ID %>"
+                                            <% if(level.ID == list.LEVEL_STEP){ %>
+                                                selected
+                                            <% } %>
+                                            ><%= level.LEVEL_STEP %> Level</option>
+                                    <% }) %>
+                                </select>
+                            </td>
+                            <td class="speakCheckBox">
+                                <input type="checkbox" onclick="checkItemsClick();" class="speakCheckBoxList" name="id" value="<%=list.ID%>">
+                            </td>
+                        </tr>
+                        <% }) } %>
+                        <tr>
+                            <td colspan="6" class="pagingButton">
+                                <div>
+                                    <% if( start <= 1){ %>
+                                        <button disabled>이전</button>
+                                    <%}else{%>
+                                        <button type="button" onclick="
+                                            location.href='/speak_question/list_form?start=<%=start - 1%>'">이전</button>
+                                    <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
+                                        <a href="/speak_question/list_form?start=<%= i %>"><%= i %></a>
+                                    <% }if( start < page.totPage ){%>
+                                        <button type="button" onclick="
+                                            location.href='/speak_question/list_form?start=<%=start + 1%>'">다음</button>
+                                    <% }else{ %>
+                                        <button disabled>다음</button>
+                                    <% } %>
+                                </div>
+                            </td>
+                        </tr>
+            </table>
+            <div id="insertZone"></div>
+            <div class="speakGameListButton">
+                <div id="speakGameListButtons" class="speakGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                <div class="speakGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
+                <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+            </div>
+        </div>
+    </section>
 
 <script src="/static/js/joon/speak_list.js"></script>
+<script src="/static/js/joon/common.js"></script>
+    
+</body>
+</html>
+

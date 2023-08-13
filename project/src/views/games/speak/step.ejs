@@ -1,22 +1,41 @@
-<h3>난이도를 설정해주세요</h3>
+<!DOCTYPE html>
+<html lang="en">
 
-<%
-    console.log("level ===> ",level);
-    console.log("language ==> ",language);
-%>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
 
-<form action="speak_quetionStart.do" method="post">
+<body>
 
-    난이도 : <select name="level_step">
-        <% level.forEach( ( list ) => { %>
-        <option value="<%= list.ID %>"><%= list.LEVEL_STEP %> Level</option>
-        <% }) %>
-    </select>
+    <h3>난이도를 설정해주세요</h3>
 
-    듣기 : <select name="language">
-        <% language.forEach((list) => { %>
-        <option value="<%= list.ID %>"><%= list.LANGUAGE %></option>
-        <% }) %>
-    </select>
-    <input type="submit" value="시작하기">
-</form>
+    <% console.log("level===> ",level);
+        console.log("language ==> ",language);
+    %>
+
+        <form action="speak_quetionStart.do" method="post">
+
+            난이도 : <select name="level_step">
+                <% level.forEach( ( list )=> { %>
+                    <option value="<%= list.ID %>">
+                        <%= list.LEVEL_STEP %> Level
+                    </option>
+                <% }) %>
+            </select>
+
+            듣기 : <select name="language">
+                <% language.forEach((list)=> { %>
+                    <option value="<%= list.ID %>">
+                        <%= list.LANGUAGE %>
+                    </option>
+                <% }) %>
+            </select>
+            <input type="submit" value="시작하기">
+        </form>
+
+</body>
+
+</html>

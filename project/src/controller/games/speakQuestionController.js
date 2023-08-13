@@ -18,20 +18,97 @@ const gameConfig = {
 
 const gameCrud = {
     getList : async (req, res) => {
-        let data = await service.gameCrud.getList();
+        const totalCounter = await service.gameCrud.getTotalContent();
+        const start = req.query.start;
+        let language = await service.gameCrud.getLanguage();
+        let level = await service.gameCrud.getLevel();
+        let data = await service.gameCrud.getList(start, totalCounter);
         console.log("contorller getList data ==> ", data);
-        if(data[0] === undefined){
-            data = undefined;
-            res.render("admin/games/speak/list", {data});
+        if(data.list[0] === undefined){
+            data.list = undefined;
+            res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
         }else{
-            res.render("admin/games/speak/list", {data});
+            res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
         }
     },
 
     deleteList : async (req, res) => {
         service.gameCrud.deleteList(req.body);
         res.json(1);
+    },
+
+    updateList : async (req, res) => {
+        service.gameCrud.updateList(req.body);
+        res.json(1);
+    },
+
+    insert : async (req, res) => {
+        let msg = await service.gameCrud.insert(req.body);
+        console.log(msg);
+        res.send(msg);
+    },
+
+    insertGetList : async (req, res) => {
+        let maxId = await service.gameCrud.getMaxId();
+        let language = await service.gameCrud.getLanguage();
+        let level = await service.gameCrud.getLevel();
+        res.json({maxId, language, level});
+    },
+
+    search : async (req, res) => {
+        let language = await service.gameCrud.getLanguage();
+        let level = await service.gameCrud.getLevel();
+        let data = await service.gameCrud.search(req.body);
+        if(data[0] === undefined){
+            res.json({data : undefined, input : req.body});
+        }else{
+            res.json({language, level, data, input : req.body})
+        }
     }
 }
 
-module.exports = {speakQuestion, gameConfig, gameCrud};
+const languageCrud = {
+    getList : async (req, res) => {
+        let language = await service.gameCrud.getLanguage();
+        res.render("admin/games/speak/language_form", {language});
+    },
+
+    getMaxId : async (req, res) => {
+        let maxId = await service.languageCrud.getMaxId();
+        res.json({maxId})
+    },
+
+    insert : async (req, res) => {
+        await service.languageCrud.insert(req.body);
+        res.redirect("/speak_question/language_form");
+    },
+
+    delete : async (req, res) => {
+        await service.languageCrud.delete(req.body);
+        res.json(1);
+    },
+
+    update : async (req, res) => {
+        await service.languageCrud.update(req.body);
+        res.json(1);
+    }
+}
+
+const levelCrud = {
+    getList : async (req, res) => {
+        let level = await service.gameCrud.getLevel();
+        res.render("admin/games/speak/level_form", {level});
+    },
+
+    insert : async (req, res) => {
+        await service.levelCrud.insert();
+        res.json(1);
+    },
+
+    delete : async (req, res) => {
+        await service.levelCrud.delete();
+        res.json(1);
+    }
+}
+
+module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud};
