@@ -5,15 +5,17 @@ oracledb.autoCommit = true;
 
 // 게임 뷰
 const speakQuestion = {
-    startGame : async (body) => {
+    startGame : async (body, session) => {
         const sql = `select * from speak_question_game where language=${body.language} and level_step=${body.level_step}`;
+        const configSql = `update speak_question_config set level_step=${body.level_step}, question=${body.language}, answer=${body.answerLang}, content=${body.contentState} where id='${session.userId}'`;
         console.log(sql);
         const con = await oracledb.getConnection(dbConfig);
         let data;
         try{
             console.log("dao 여긴 오니?");
             data = await con.execute(sql);
-        }catch(err){
+            await con.execute(configSql);
+        }catch(err){ 
             console.log(err);
         }
         return data;
@@ -60,6 +62,19 @@ const gameConfig = {
         }
 
         return result;
+    },
+
+    getConfig : async (session) => {
+        const sql = `select * from speak_question_config where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows;
     }
 }
 

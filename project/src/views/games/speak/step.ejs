@@ -9,33 +9,111 @@
 </head>
 
 <body>
+    <%- include("../../default/header") %>
 
-    <h3>난이도를 설정해주세요</h3>
-
-    <% console.log("level===> ",level);
+    <% 
+        console.log("level===> ",level);
         console.log("language ==> ",language);
+        console.log("config ==> ", config);
     %>
-
-        <form action="speak_quetionStart.do" method="post">
-
-            난이도 : <select name="level_step">
-                <% level.forEach( ( list )=> { %>
-                    <option value="<%= list.ID %>">
-                        <%= list.LEVEL_STEP %> Level
-                    </option>
-                <% }) %>
-            </select>
-
-            듣기 : <select name="language">
-                <% language.forEach((list)=> { %>
-                    <option value="<%= list.ID %>">
-                        <%= list.LANGUAGE %>
-                    </option>
-                <% }) %>
-            </select>
-            <input type="submit" value="시작하기">
+    <section class="stepPage">
+        <form action="speak_quetionStart.do" method="post" style="display: flex; justify-content: center;">
+            <div>
+            <div class="stepPageLocation">
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">LEVEL</div>
+                            <select class="stepSelectItems" name="level_step">
+                                <% level.forEach( ( list )=> { %>
+                                    <option value="<%= list.ID %>"
+                                        <% if(config.LEVEL_STEP == list.ID){ %>
+                                                selected
+                                        <%
+                                            }
+                                        %>
+                                        ><%= list.LEVEL_STEP %> Level
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">QUESTION</div>
+                            <select class="stepSelectItems" name="language">
+                                <% language.forEach((list)=> { %>
+                                    <option value="<%= list.ID %>"
+                                        <%
+                                            if(config.QUESTION == list.ID){
+                                        %>
+                                                selected
+                                        <%
+                                            }
+                                        %>
+                                        ><%= list.LANGUAGE %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">CONTENT</div>
+                            <select class="stepSelectItems" name="contentState">
+                                <option value="1"
+                                <%
+                                    if(config.CONTENT == 1){
+                                %>
+                                        selected
+                                <%
+                                    }
+                                %>
+                                >ON</option>
+                                <option value="2"
+                                <%
+                                    if(config.CONTENT == 2){
+                                %>
+                                        selected
+                                <%
+                                    }
+                                %>
+                                >OFF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">ANSWER</div>
+                            <select class="stepSelectItems" name="answerLang">
+                                <% language.forEach((list)=> { %>
+                                    <option value="<%= list.ID %>"
+                                        <%
+                                            if(config.ANSWER == list.ID){
+                                        %>
+                                                selected
+                                        <%
+                                            }
+                                        %>
+                                        >
+                                        <%= list.LANGUAGE %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 100%; display:flex; justify-content: center; padding-top: 50px;">
+                <div>
+                    <input style="all: unset; cursor:pointer; width: 100px; height: 30px; color:#00a0ff; border: solid 1px #00a0ff; text-align:center" type="submit" value="시작하기">
+                </div>
+            </div>
+        </div>
         </form>
-
+    </section>
 </body>
 
 </html>

@@ -2,17 +2,22 @@ const service = require("../../service/games/speakQuestionService");
 
 const speakQuestion = {
     startGame : async (req, res) => {
-        let data = await service.speakQuestion.startGame(req.body);
-        let word = await service.speakQuestion.getWord(data.rows);
-        res.render("games/speak/question_index", {data : data.rows, word});
+        let data = await service.speakQuestion.startGame(req.body, req.session);
+        let word = await service.speakQuestion.getWord(data.rows, req.body.answerLang);
+        let languageCheck = 0;
+        if(req.body.answerLang == req.body.language){
+            languageCheck = 1; // question과 answer이 같으면
+        }
+        res.render("games/speak/question_index", {data : data.rows, word, content : req.body.contentState, languageCheck});
     }
 }
 
 const gameConfig = {
-    stepForm : async (req, res) => {   
+    stepForm : async (req, res) => {
+        let config = await service.gameConfig.getConfig(req.session);
         let level = await service.gameConfig.getLevel();
         let language = await service.gameConfig.getLanguage();
-        res.render("games/speak/step", {level : level.rows, language : language.rows});
+        res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0]});
     }
 }
 

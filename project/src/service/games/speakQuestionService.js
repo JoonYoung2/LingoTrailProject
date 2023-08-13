@@ -1,36 +1,62 @@
 const dao = require("../../dao/games/speakQuestionDao");
 
 const speakQuestion = {
-    startGame : async (body) => {
-        let data = await dao.speakQuestion.startGame(body);
+    startGame : async (body, session) => {
+        let data = await dao.speakQuestion.startGame(body, session);
 
         return data;
     },
 
-    getWord : async (data) => {
+    getWord : async (data, answerLang) => {
         let result = await dao.speakQuestion.getWord();
         let word = [{}];
         console.log(result);
         
         for(var i = 0; i < data.length; i++){
             if(data[i].LANGUAGE == 1){
-                let answer = data[i].ANSWER; 
-                for(var j = 0; j < 3; j++){
-                    let randomNum = Math.floor(Math.random() * 100);
-                    console.log(randomNum);
-                    answer += " " + result[randomNum].ENG;
+                // speak == 한글 answer == 영어
+                if(data[i].LANGUAGE != answerLang){
+                    let answer = data[i].ANSWER; 
+                    for(var j = 0; j < 3; j++){
+                        let randomNum = Math.floor(Math.random() * 100);
+                        console.log(randomNum);
+                        answer += " " + result[randomNum].ENG;
+                    }
+                    console.log(answer);
+                    word[i] = {random : answer};
+                // speak == 한글 answer == 한글
+                }else{
+                    let answer = data[i].QUESTION; 
+                    for(var j = 0; j < 3; j++){
+                        let randomNum = Math.floor(Math.random() * 100);
+                        console.log(randomNum);
+                        answer += " " + result[randomNum].KOR;
+                    }
+                    console.log(answer);
+                    word[i] = {random : answer};
                 }
-                console.log(answer);
-                word[i] = {random : answer};
             }else{
-                let answer = data[i].ANSWER;
-                for(var j = 0; j < 3; j++){
-                    let randomNum = Math.floor(Math.random() * 100);
-                    console.log(randomNum);
-                    answer += " " + result[randomNum].KOR;
+                // speak == 영어 answer == 한글
+                if(data[i].LANGUAGE != answerLang){
+                    let answer = data[i].ANSWER;
+                    for(var j = 0; j < 3; j++){
+                        let randomNum = Math.floor(Math.random() * 100);
+                        console.log(randomNum);
+                        answer += " " + result[randomNum].KOR;
+                    }
+                    console.log(answer);
+                    word[i] = {random : answer};
+                // speak == 영어 answer == 영어
+                }else{
+                    let answer = data[i].QUESTION;
+                    for(var j = 0; j < 3; j++){
+                        let randomNum = Math.floor(Math.random() * 100);
+                        console.log(randomNum);
+                        answer += " " + result[randomNum].ENG;
+                    }
+                    console.log(answer);
+                    word[i] = {random : answer};
                 }
-                console.log(answer);
-                word[i] = {random : answer};
             }
         }
 
@@ -51,6 +77,10 @@ const gameConfig = {
         let getLanguage = await dao.gameConfig.getLanguage();
 
         return getLanguage;
+    },
+
+    getConfig : async (session) => {
+        return await dao.gameConfig.getConfig(session);
     }
 }
 

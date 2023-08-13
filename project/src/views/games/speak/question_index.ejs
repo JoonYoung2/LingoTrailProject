@@ -20,7 +20,7 @@
         imgNum = Math.floor(Math.random() * 10);
     %>
     
-    <!-- Speak Question & User Answer Page -->
+    <!-- Speak Question & User Answer Page Start -->
     <div id="mainPage<%=cnt%>" class="mainPage" style="display:none">
 
         <!-- header Start -->
@@ -65,12 +65,17 @@
                                 <button onclick="responsiveVoice.speak('<%= list.QUESTION %>');" class="speakButton"><img style="width: 25px;" src="/static/img/joon/speaker.png"></button>
                             </div>
                             <div>
-                                <span class="speakContent"><%= list.QUESTION %></span>
+                                <% if(content == 1){%>
+                                    <span class="speakContent"><%= list.QUESTION %></span>
+                                <%}%>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
-
+                    <% if(languageCheck == 0){ %>
+                        <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
+                    <% }else{ %>
+                        <input type="hidden" value="<%= list.QUESTION %>" id="rightInput<%=cnt%>">
+                    <% } %>
                     
                     <div class="answerBox">
                         <div style="display:flex;">
@@ -120,7 +125,7 @@
                     <div>
                         <div id="rightAnswer<%=cnt%>"></div>
                     </div>
-                    <div>
+                    <div style="display:flex;">
                         <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="다시풀기" onclick="restartBtn('<%=cnt%>')"></div>
                         <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="정답보기" onclick="rightViewBtn('<%=cnt%>')"></div>
                         <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="계속하기" onclick="wrongContinueBtn('<%=cnt%>');"></div>
@@ -142,7 +147,7 @@
         <!-- Footer End -->
 
     </div>
-
+    <!-- Speak Question & User Answer Page End -->
     <% cnt++;}) %>
 
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=oTMD5yMg"></script>
