@@ -45,4 +45,6 @@ router.post("/word_delete", controller.wordCrud.delete);
 
 router.post("/word_update", controller.wordCrud.update);
 
+router.post("/word_search_list", controller.wordCrud.search);
+
 module.exports = router;

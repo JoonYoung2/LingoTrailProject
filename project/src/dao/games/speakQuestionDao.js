@@ -420,7 +420,6 @@ const wordCrud = {
     },
 
     update : async (id, content, language) => {
-        console.log("dao",content);
         const con = await oracledb.getConnection(dbConfig);
         for(var i = 0; i < id.length; i++){
             let sql = `update speak_word_language set `;
@@ -437,6 +436,29 @@ const wordCrud = {
                 console.log(err);
             }
         }
+    },
+
+    search : async (body, language) => {
+        console.log("gdgdgd");
+        const con = await oracledb.getConnection(dbConfig);
+        let sql = `select * from speak_word_language
+        where `; 
+        for(var i = 0; i < language.length; i++){
+            sql+=`${language[i].LANGUAGE} like '%${body.searchId}%' or `;
+        }
+        sql = sql.substring(0, sql.length - 3);
+        sql += `order by id desc`
+        console.log(sql);
+        
+        let result;
+
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows;
     }
 }
 

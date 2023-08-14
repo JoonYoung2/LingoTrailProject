@@ -229,6 +229,11 @@ const wordCrud = {
         let language = await dao.gameCrud.getLanguage();
         console.log(language);
         await dao.wordCrud.update(id, body[1], language);
+    },
+
+    search : async (body, language) => {
+        let data = await dao.wordCrud.search(body, language);
+        return data;
     }
 }
 

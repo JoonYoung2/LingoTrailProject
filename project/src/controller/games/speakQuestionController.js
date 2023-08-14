@@ -150,6 +150,16 @@ const wordCrud = {
         console.log("body ==> ", req.body);
         await service.wordCrud.update(req.body);
         res.json(1);
+    },
+
+    search : async (req, res) => {
+        let language = await service.gameCrud.getLanguage();
+        let data = await service.wordCrud.search(req.body, language);
+        if(data[0] === undefined){
+            res.json({language, data : undefined, input : req.body});
+        }else{
+            res.json({language, data, input : req.body})
+        }
     }
 }
 
