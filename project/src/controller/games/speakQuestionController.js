@@ -3,13 +3,14 @@ const service = require("../../service/games/speakQuestionService");
 const speakQuestion = {
     startGame : async (req, res) => {
         let data = await service.speakQuestion.startGame(req.body, req.session);
-        let word = await service.speakQuestion.getWord(data.rows, req.body.answerLang);
         let language = await service.speakQuestion.getLanguage(req.body.answerLang);
-        let languageCheck = 0;
-        if(req.body.answerLang == req.body.language){
-            languageCheck = 1; // question과 answer이 같으면
+        console.log("controller language ==> ",language);
+        let word = await service.speakQuestion.getWord(data.rows, language, req.body.language, req.body.answerLang);
+        let sameLang = 0;
+        if(req.body.language == req.body.answerLang){
+            sameLang = 1;
         }
-        res.render("games/speak/question_index", {data : data.rows, word, content : req.body.contentState, languageCheck, language});
+        res.render("games/speak/question_index", {data : data.rows, word, sameLang, content : req.body.contentState, language});
     }
 }
 
@@ -65,6 +66,9 @@ const gameCrud = {
         let language = await service.gameCrud.getLanguage();
         let level = await service.gameCrud.getLevel();
         let data = await service.gameCrud.search(req.body);
+        console.log("data", data);
+        console.log("language ==> ", language);
+        console.log("level ==> ", level);
         if(data[0] === undefined){
             res.json({data : undefined, input : req.body});
         }else{

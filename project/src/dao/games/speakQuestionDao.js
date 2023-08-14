@@ -6,7 +6,12 @@ oracledb.autoCommit = true;
 // 게임 뷰
 const speakQuestion = {
     startGame : async (body, session) => {
-        const sql = `select * from speak_question_game where language=${body.language} and level_step=${body.level_step}`;
+        let sql = "";
+        if(body.language == body.answerLang){
+            sql = `select * from speak_question_game where qlanguage=${body.language} and level_step=${body.level_step}`;
+        }else{
+            sql = `select * from speak_question_game where qlanguage=${body.language} and alanguage=${body.answerLang} and level_step=${body.level_step}`;
+        }
         const configSql = `update speak_question_config set level_step=${body.level_step}, question=${body.language}, answer=${body.answerLang}, content=${body.contentState} where id='${session.userId}'`;
         console.log(sql);
         const con = await oracledb.getConnection(dbConfig);
@@ -145,10 +150,10 @@ const gameCrud = {
         }
     },
 
-    updateList : async (id, question, answer, language, level) => {
+    updateList : async (id, question, answer, qlanguage, alanguage, level) => {
         const con = await oracledb.getConnection(dbConfig);
         for(var i = 0; i < id.length; i++){
-            let sql = `update speak_question_game set question='${question[i]}', answer='${answer[i]}', language=${Number(language[i])}, level_step=${Number(level[i])} where id='${Number(id[i])}'`;
+            let sql = `update speak_question_game set question='${question[i]}', answer='${answer[i]}', qlanguage=${Number(qlanguage[i])}, alanguage=${Number(alanguage[i])}, level_step=${Number(level[i])} where id='${Number(id[i])}'`;
             try{
                 await con.execute(sql);
             }catch(err){
@@ -185,7 +190,7 @@ const gameCrud = {
 
     insert : async (body) => {
         console.log(body.level);
-        const sql = `insert into speak_question_game values(${Number(body.id)}, '${body.question}', '${body.answer}', ${Number(body.language)}, ${Number(body.level)})`;
+        const sql = `insert into speak_question_game values(${Number(body.id)}, '${body.question}', '${body.answer}', ${Number(body.qlanguage)}, ${Number(body.alanguage)}, ${Number(body.level)})`;
         const con = await oracledb.getConnection(dbConfig);
         let result;
 
@@ -198,11 +203,13 @@ const gameCrud = {
 
     search : async (body) => {
         const sql = `select g.* from speak_question_game g
-        inner join speak_question_language la on g.language = la.id
+        inner join speak_question_language ql on g.qlanguage = ql.id
+        inner join speak_question_language al on g.alanguage = al.id
         inner join speak_question_level le on g.level_step = le.id
         where g.question like '%${body.searchId}%' 
         or g.answer like '%${body.searchId}%' 
-        or la.language like '%${body.searchId}%' 
+        or ql.language like '%${body.searchId}%' 
+        or al.language like '%${body.searchId}%' 
         or le.level_step like '%${body.searchId}%'
         order by g.id desc`;
 

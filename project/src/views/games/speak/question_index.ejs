@@ -66,11 +66,11 @@
                             </div>
                         </div>
                     </div>
-                    <% if(languageCheck == 0){ %>
-                        <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
-                    <% }else{ %>
-                        <input type="hidden" value="<%= list.QUESTION %>" id="rightInput<%=cnt%>">
-                    <% } %>
+                        <% if(sameLang == 0) { %>
+                            <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
+                        <%}else{%>
+                            <input type="hidden" value="<%= list.QUESTION %>" id="rightInput<%=cnt%>">
+                        <%}%>
                     
                     <div class="answerBox">
                         <div style="display:flex;">
