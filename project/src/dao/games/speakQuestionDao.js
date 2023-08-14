@@ -33,6 +33,20 @@ const speakQuestion = {
 
         console.log(result);
         return result.rows;
+    },
+
+    getLanguage : async (language) => {
+        const sql = `select language from speak_question_language where id = ${language}`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        console.log(result);
+        return result.rows[0];
     }
 }
 

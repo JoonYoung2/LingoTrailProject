@@ -50,12 +50,7 @@
         <div class="speakBodySection">
             <div class="speakBodyLocation">
                 <div id="questionInput<%=cnt%>" class="questionInput" style="display:none">
-                    <% if(list.LANGUAGE == 1){ %>
-                        <div class="speakBodyTitle">영어로 작성하세요</div>
-                    <% }else{ %>
-                        <div class="speakBodyTitle">한국어로 작성하세요</div>
-                    <% } %>
-
+                    <div class="speakBodyTitle">Write in <%=language.LANGUAGE%></div>
                     <div style="display:flex; align-items:center; padding-left: 60px;">
                         <div>
                             <img src="/static/img/joon/game/<%=imgNum%>.png">

@@ -63,6 +63,10 @@ const speakQuestion = {
         console.log("service getWord word ==> ", word);
 
         return word;
+    },
+
+    getLanguage : async (language) => {
+        return await dao.speakQuestion.getLanguage(language);
     }
 }
 

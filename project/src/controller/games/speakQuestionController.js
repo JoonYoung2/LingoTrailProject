@@ -4,11 +4,12 @@ const speakQuestion = {
     startGame : async (req, res) => {
         let data = await service.speakQuestion.startGame(req.body, req.session);
         let word = await service.speakQuestion.getWord(data.rows, req.body.answerLang);
+        let language = await service.speakQuestion.getLanguage(req.body.answerLang);
         let languageCheck = 0;
         if(req.body.answerLang == req.body.language){
             languageCheck = 1; // question과 answer이 같으면
         }
-        res.render("games/speak/question_index", {data : data.rows, word, content : req.body.contentState, languageCheck});
+        res.render("games/speak/question_index", {data : data.rows, word, content : req.body.contentState, languageCheck, language});
     }
 }
 
