@@ -35,4 +35,14 @@ router.get("/level_insert", controller.levelCrud.insert);
 
 router.get("/level_delete", controller.levelCrud.delete);
 
+router.get("/word_form", controller.wordCrud.getList);
+
+router.get("/word_insert_list", controller.wordCrud.getMaxId);
+
+router.post("/word_insert", controller.wordCrud.insert);
+
+router.post("/word_delete", controller.wordCrud.delete);
+
+router.post("/word_update", controller.wordCrud.update);
+
 module.exports = router;

@@ -219,6 +219,8 @@ const gameCrud = {
     }
 }
 
+// admin language CRUD
+
 const languageCrud = {
     getMaxId : async () => {
         const sql = "select nvl(max(id), 0)+1 ID from speak_question_language";
@@ -235,18 +237,31 @@ const languageCrud = {
 
     insert : async (body) => {
         const sql = `insert into speak_question_language values(${Number(body.id)}, '${body.language}')`;
+        const addColmnSql = `alter table speak_word_language add ${body.language} varchar2(255)`;
         const con = await oracledb.getConnection(dbConfig);
         try{
             result = await con.execute(sql);
+            await con.execute(addColmnSql);
         }catch(err){
             console.log(err);
         }
     },
 
-    delete : async (body) => {
+    delete : async (body, names) => {
         const sql = `delete from speak_question_language where id in (${body.values})`;
         const gameSql = `delete from speak_question_game where language in (${body.values})`;
         const con = await oracledb.getConnection(dbConfig);
+
+        // 관련된 컬럼 삭제
+        names.forEach( async (list) => {
+            let sql = `alter table speak_word_language drop column ${list.LANGUAGE}`;
+            try{
+                await con.execute(sql);
+            }catch(err){
+                console.log(err);
+            }
+        })
+
         try{
             await con.execute(sql);
             await con.execute(gameSql);
@@ -255,16 +270,33 @@ const languageCrud = {
         }
     },
 
-    update : async (id, language) => {
+    update : async (id, language, names) => {
         const con = await oracledb.getConnection(dbConfig);
         for(var i = 0; i < id.length; i++){
             let sql = `update speak_question_language set language='${language[i]}' where id='${Number(id[i])}'`;
+
+            // 컬럼 명 수정
+            let modifySql = `ALTER TABLE speak_word_language RENAME COLUMN ${names[i].LANGUAGE} TO ${language[i]}`;
             try{
                 await con.execute(sql);
+                await con.execute(modifySql);
             }catch(err){
                 console.log(err);
             }
         }
+    },
+
+    getLanguageNames : async (body) => {
+        const sql = `select language from speak_question_language where id in (${body.values})`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows;
     }
 }
 
@@ -318,4 +350,94 @@ const levelCrud = {
     }
 }
 
-module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud};
+const wordCrud = {
+    getWordList : async (start, end) => {
+        const sql = `select B.* from (select rownum rn , A.* from(select * from speak_word_language order by id desc) A)B where rn between ${start} and ${end}`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows;
+    },
+
+    getTotalContent : async () => {
+        const sql = "select count(*) from speak_word_language"
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows[0]['COUNT(*)'];
+    },
+
+    getMaxId : async () => {
+        const sql = "select nvl(max(id), 0)+1 ID from speak_word_language";
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows[0]['ID'];
+    },
+
+    insert : async (body, language) => {
+        let message = "";
+        language.forEach((list) => {
+            message += "'" + body[list.LANGUAGE] + "',";
+        })
+        message = message.substring(0, message.length - 1);
+
+        const sql = `insert into speak_word_language values(${body.id}, ${message})`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    delete : async (body) => {
+        const sql = `delete from speak_word_language where id in (${body.values})`;
+        const con = await oracledb.getConnection(dbConfig);
+
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    update : async (id, content, language) => {
+        console.log("dao",content);
+        const con = await oracledb.getConnection(dbConfig);
+        for(var i = 0; i < id.length; i++){
+            let sql = `update speak_word_language set `;
+            let contents = content[i].split(",");
+            for(var j = 0; j < language.length; j++){
+                sql += language[j].LANGUAGE + "='" + contents[j] + "',";
+            }
+            sql = sql.substring(0, sql.length-1);
+            
+            sql += `where id=${id[i]}`;
+            try{
+                await con.execute(sql);
+            }catch(err){
+                console.log(err);
+            }
+        }
+    }
+}
+
+module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud, wordCrud};

@@ -162,13 +162,17 @@ const languageCrud = {
     },
 
     delete : async (body) => {
-        await dao.languageCrud.delete(body);
+        let languageNames = await dao.languageCrud.getLanguageNames(body);
+        await dao.languageCrud.delete(body, languageNames);
     },
 
     update : async (body) => {
+        body.values = body[0].id;
+        let languageNames = await dao.languageCrud.getLanguageNames(body);
         let id = body[0].id.split(',');
         let language = body[1].language.split(',');
-        await dao.languageCrud.update(id, language);
+        
+        await dao.languageCrud.update(id, language, languageNames);
     }
 }
 
@@ -181,6 +185,50 @@ const levelCrud = {
     delete : async () => {
         let highId = await dao.levelCrud.getHighId();
         await dao.levelCrud.delete(highId);
+    }
+}
+
+const wordCrud = {
+    getWordList : async (start, totalCounter) => {
+        start = (start && start > 1)?Number(start):1; // Number == 문자열을 숫자로 변환
+        const page = pageOperation(start, totalCounter);
+
+        let getList = await dao.wordCrud.getWordList(page.startNum, page.endNum);
+
+        data = {};
+        data.start = start;
+        data.list = getList;
+        data.page = page;
+
+        return data;
+    },
+
+    getTotalContent : async () => {
+        return await dao.wordCrud.getTotalContent();
+    },
+
+    getMaxId : async () => {
+        return await dao.wordCrud.getMaxId();
+    },
+
+    insert : async (body) => {
+        let language = await dao.gameCrud.getLanguage();
+        console.log("asdfasdf => ", language);
+        await dao.wordCrud.insert(body, language);
+        let msg = "등록 완료";
+        let url = "/speak_question/word_form";
+        return sendMessage(msg, url);
+    },
+
+    delete : async (body) => {
+        await dao.wordCrud.delete(body);
+    },
+
+    update : async (body) => {
+        let id = body[0].id.split(',');
+        let language = await dao.gameCrud.getLanguage();
+        console.log(language);
+        await dao.wordCrud.update(id, body[1], language);
     }
 }
 
@@ -201,4 +249,4 @@ const sendMessage = (msg, url) => {
             </script>`
 }
 
-module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud};
+module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud, wordCrud};

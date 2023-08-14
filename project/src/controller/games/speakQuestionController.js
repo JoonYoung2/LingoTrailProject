@@ -117,4 +117,40 @@ const levelCrud = {
     }
 }
 
-module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud};
+const wordCrud = {
+    getList : async (req, res) => {
+        const totalCounter = await service.wordCrud.getTotalContent();
+        const start = req.query.start;
+        let language = await service.gameCrud.getLanguage();
+        let word = await service.wordCrud.getWordList(start, totalCounter);
+
+        console.log(language);
+        console.log(word);
+
+        res.render("admin/games/speak/word_form", {language, word : word.list, start : word.start, page : word.page});
+    },
+
+    getMaxId : async (req, res) => {
+        let maxId = await service.wordCrud.getMaxId();
+        let language = await service.gameCrud.getLanguage();
+        res.json({maxId, language});
+    },
+
+    insert : async (req, res) => {
+        let msg = await service.wordCrud.insert(req.body);
+        res.send(msg);
+    },
+
+    delete : async (req, res) => {
+        await service.wordCrud.delete(req.body);
+        res.json(1);
+    },
+
+    update : async (req, res) => {
+        console.log("body ==> ", req.body);
+        await service.wordCrud.update(req.body);
+        res.json(1);
+    }
+}
+
+module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud, wordCrud};
