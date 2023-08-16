@@ -87,11 +87,15 @@ const views = {
 
 const process = {
 
-  modify: async(req, res) =>{
-    console.log("??????", req.body.recordId)
-    res.send("???")
+  modify: async (req, res) => {
+    try {
+      await game1Service.modify(req.body);
+      res.json({ success: true });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false });
+    }
   },
-
   delete: async (req, res)=>{
     console.log("req.body.delete_checkbox > : ",req.body.delete_checkbox);
     const deleteList =  req.body.delete_checkbox;

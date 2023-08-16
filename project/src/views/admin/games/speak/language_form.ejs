@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <%- include("../../../default/adminHeader") %>
+    <section class="speakLanguageFormPage">
+        <div>
+            <div class="categoryButton">
+                <div>
+                    <a href="/speak_question/list_form">LIST</a>
+                </div>
+                <div>
+                    <a href="/speak_question/level_form">LEVEL</a>
+                </div>
+                <div>
+                    <a href="/speak_question/word_form">WORD</a>
+                </div>
+            </div>
+            <div class="speakListTitle">
+                <span>
+                    LanguageCategoryList
+                </span>
+            </div>
+            <table border="1">
+                <tr>
+                    <th>NO</th>
+                    <th style="width:200px;">LANGUAGE</th>
+                    <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
+                </tr>
+                <%
+                    language.forEach((list) => {
+                %>
+                <tr>
+                    <td>
+                        <input type="text" value="<%= list.ID %>" class="languageId" readonly>
+                    </td>
+                    <td>
+                        <input type="text" value="<%= list.LANGUAGE %>" class="languageLanguage speakLanguage">
+                    </td>
+                    <td class="speakCheckBox">
+                        <input type="checkbox" onclick="checkItemsClick();" class="speakCheckBoxList" name="id" value="<%=list.ID%>">
+                    </td>
+                </tr>
+                <%
+                    })
+                %>
+            </table>
+            <div id="insertZone"></div>
+            <div class="speakGameListButton">
+                <div id="speakGameListButtons" class="speakGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                <div class="speakGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
+                <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/joon/common.js"></script>
+    <script src="/static/js/joon/language_form.js"></script>
+</body>
+</html>
