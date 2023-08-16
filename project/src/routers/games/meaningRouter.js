@@ -7,6 +7,8 @@ router.get("/",(req, res) =>{
 
 router.get("/condition", controller.configure.condition);
 router.post("/showGames", controller.configure.showGames);
+router.get("/listForm", controller.meaningCrud.getList);
+router.get("/result", controller.configure.result);
 
 
 module.exports = router;
