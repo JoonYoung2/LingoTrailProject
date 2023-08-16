@@ -32,19 +32,18 @@ const views = {
           selectedQuestions.push(randomGame);                                                                                                                                                                                         
         }
       }
-      console.log("cont, 받아온 5개의 문제: ", selectedQuestions);
       req.session.selectedQuestions = selectedQuestions;
       req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
       const nextIndex = 0;
       req.session.currentIndex = nextIndex;
 
-      const selectedAnswer = req.body.selected_answer; // selected_answer 추가
+      const selectedAnswer = req.body.selected_answer;
       const explain = undefined;
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer });
-      console.log("currentQuestion : ctrl", currentQuestion);
-      console.log("nextIndex : ctrl", nextIndex)
-      console.log("explain : ctrl", explain)
+      const heartCount = req.session.heartCount = 3;
+
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer, heartCount });
+      
     } catch (err) {
       console.log(err);
       res.status(500).send("알 수 없는 오류 발생");
@@ -73,12 +72,12 @@ const views = {
       const nextIndex = currentIndex;
       req.session.currentIndex = nextIndex;
 
-      //backup
       const explain = undefined;
       const selectedAnswer = req.body.selected_answer; // selected_answer 추가
-      
+      const heartCount = req.session.heartCount;
 
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer })
+
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, selectedAnswer, heartCount })
     } catch (err) {
       console.log(err);
       res.status(500).send("알 수 없는 오류 발생")
@@ -126,22 +125,30 @@ const process = {
     try {
       const recordId = req.body.record_id;
       const selectedAnswer = req.body.selected_answer;
-      const nextIndex = req.body.nextIndex;
+      const nextIndex = req.session.currentIndex;
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
-
       const currentQuestion = req.session.selectedQuestions[req.session.currentIndex];
+      const explain = undefined;
+
+      if (!selectedAnswer) {
+        const heartCount = req.session.heartCount;
+        res.render("games/game1/gamePage", { currentQuestion, explain, heartCount, nextIndex});
+        return; // 선택하지 않았을 때
+      }
 
       if (isCorrect === 1) {
         const explain = currentQuestion.EXPLAIN;
-
         const currentScore = req.session.score || 0;
         req.session.score = currentScore + 1;
-        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex });
+        let heartCount = req.session.heartCount;
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount });
 
       } else {
         // 오답일 때
         const explain = "오답입니다 다음 문제를 풀어보세요";
-        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex });
+        let heartCount = req.session.heartCount -= 1;
+
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount });
       }
     } catch (err) {
       console.error(err);
