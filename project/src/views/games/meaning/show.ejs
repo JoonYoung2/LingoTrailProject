@@ -9,35 +9,47 @@
 </head>
 
 <body>
-    <h3>게임페이지입니당</h3>
+    
     <!--Main Page for문 start-->
+    <section class="showPage">
+        <div>
     <%
         console.log("viewPage QeAn ==> ",QeAn);
         console.log("viewPage given ==> ",given);
-        
+        let counter = 0;
         for(var i = 0; i < QeAn.length; i++){
             
             let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
             let question = qna[0].QUESTION;
             let selectors = given[i];
             let answer = qna[0].ANSWER;
+            
             console.log("qna ===> ",qna);
-            %>
-            <div id="mainPage<%= i %>" class="mainPage">
-                <%=question%> <br> 
-            <%    for(var j = 0; j<given[0].length; j++){ %>
-                    <button id ="answerItems<%=j%>" onclick = "answerBtnClick('<%=selectors[j]%>')" ><%=selectors[j]%></button>
-                    <%}%>
+            %>      
 
-                    <br><br>
-                    <!--<button onclick="markingBtm( <)"-->
-                    <button id = "marking<%=i%>" class = "marking" onclick="marking('<%=answer%>')">채점하기<%=i%></button>/////////
-                    <button id = "next<%=i%>" class = "next" onclick="nextViewBtn('<%=i%>')">다음으로<%=i%></button>///////////////
+            
+            <div id="mainPage<%= i %>" class="mainPage">
+                
+                <div class="score"> </div>
+                        <h3>문제 : <%=question%> </h3>
+                    <%    for(var j = 0; j<given[0].length; j++){ %>
+                            <button id ="answerItems<%=j%>" class="answerItems answerItems<%=counter%>" onclick = "answerBtnClick('<%=selectors[j]%>', '<%=counter%>')"><%=selectors[j]%></button>
+                            <% counter++;}%>
+
+                            <br><br>
+                            <span class = "markingResult"></span>
+                            <!--<button onclick="markingBtm( <)"-->
+                            <button id = "marking<%=i%>" class = "marking" onclick="marking('<%=answer%>','<%=i%>','<%=QeAn.length%>')">채점하기<%=i%></button>
+                            <button id = "next<%=i%>" class = "next" onclick="nextViewBtn('<%=i%>')">다음으로<%=i%></button>
+                        </div>
+                    <%
+                    }
+                    
+                    
+                    %>
                 </div>
-            <%
-            }
-    
-    %>
+            </section>
+                    
     <!--Main Page for문 end-->
     <script src="/static/js/sua/show.js"></script>
 </body>
