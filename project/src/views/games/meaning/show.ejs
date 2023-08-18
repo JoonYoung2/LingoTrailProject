@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/static/js/sua/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css"/>
 </head>
 
 <body>
@@ -14,18 +14,14 @@
     <section class="showPage">
         <div>
     <%
-        console.log("viewPage QeAn ==> ",QeAn);
-        console.log("viewPage given ==> ",given);
         let counter = 0;
         for(var i = 0; i < QeAn.length; i++){
             
             let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
-            let question = qna[0].QUESTION;
+            let question = qna[i][getQuestion];
             let selectors = given[i];
-            let answer = qna[0].ANSWER;
-            
-            console.log("qna ===> ",qna);
-            %>      
+            let answer = qna[i][getAnswer];
+    %>      
 
             
             <div id="mainPage<%= i %>" class="mainPage">
