@@ -1,0 +1,55 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+<form id="deleteForm" action="/board/delete" method="post">
+  <table class="table custom-table" style="border: 1px; border-color:bisque;">
+    <tr>
+      <input type="hidden" name="id" id="id" value="<%= boardDetail.BOARD_ID %>">
+      <td><%= boardDetail.TITLE %></td>
+      <td><%= boardDetail.CONTENT %></td>
+      <td><%= boardDetail.AUTHOR %></td>
+      <td><%= boardDetail.DATE %></td>
+      <td><%= boardDetail.VIEWS %></td>
+    </tr>
+  </table>
+  <a href="<%= boardDetail.BOARD_ID %>/modify_form"><button type="button">수정하기</button></a>
+  <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제하기</button>
+  <a href="/board"><button type="button">뒤로가기</button></a>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">게시글 삭제 확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        정말로 이 게시글을 삭제하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-danger" id="confirmDelete">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script> // modal확인 클릭시 삭제 날아가게
+  document.addEventListener("DOMContentLoaded", function() {
+    const confirmDeleteButton = document.getElementById("confirmDelete");
+    confirmDeleteButton.addEventListener("click", async function() {
+
+      const id = document.getElementById("id").value;
+      const deleteForm = document.getElementById("deleteForm");
+
+      deleteForm.submit();
+      const deleteSuccessModal = new bootstrap.Modal(document.getElementById("deleteSuccessModal"));
+
+      deleteSuccessModal.show();
+    });
+  });
+</script>

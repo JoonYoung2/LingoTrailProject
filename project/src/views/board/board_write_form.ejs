@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .h2 {
+      text-align: center;
+      margin-top: 10%;
+    }
+
+    .form-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      margin-right: 10px;
+      width: 100px; 
+      flex-shrink: 0;
+    }
+
+    .form-input {
+      padding: 5px;
+      width: 70%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-submit {
+      margin-top: 10px;
+    }
+  </style>
+  <title>게시글 작성</title>
+</head>
+<body>
+  <h2 class="h2">게시글을 작성하세요</h2>
+  
+  <div class="form-section">
+    <form action="/board/submit" method="post">
+      <div class="form-group">
+        <label class="form-label" for="title">Title:</label>
+        <input class="form-input" type="text" id="title" name="title" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="content">Content:</label>
+        <textarea class="form-input" id="content" name="content" rows="5" maxlength="500" required></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="author">Author:</label>
+        <input class="form-input" type="text" id="author" name="author" required>
+      </div>
+      
+      <div class="form-submit">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
