@@ -59,12 +59,12 @@
     <% list.forEach((item) => { %>
       <tr>
         <td><img src="/static/game1_files/<%= item.IMG %>" alt="Image" width="100" height="50"></td>
-        <td><input type="text" name="question" value="<%= item.QUESTION %>"></td>
-        <td><input type="number" name="question_level" value="<%= item.QUESTION_LEVEL %>"></td>
-        <td><input type="text" name="answer" value="<%= item.ANSWER %>"></td>
-        <td><input type="text" name="wrong1" value="<%= item.WRONG1 %>"></td>
-        <td><input type="text" name="wrong2" value="<%= item.WRONG2 %>"></td>
-        <td><input type="text" name="wrong3" value="<%= item.WRONG3 %>"></td>
+        <td><input type="text" name="question_<%= item.RECORD_ID %>" value="<%= item.QUESTION %>"></td>
+        <td><input type="number" name="question_level_<%= item.RECORD_ID %>" value="<%= item.QUESTION_LEVEL %>"></td>
+        <td><input type="text" name="answer_<%= item.RECORD_ID %>" value="<%= item.ANSWER %>"></td>
+        <td><input type="text" name="wrong1_<%= item.RECORD_ID %>" value="<%= item.WRONG1 %>"></td>
+        <td><input type="text" name="wrong2_<%= item.RECORD_ID %>" value="<%= item.WRONG2 %>"></td>
+        <td><input type="text" name="wrong3_<%= item.RECORD_ID %>" value="<%= item.WRONG3 %>"></td>
         <!-- <td><a href="/game1/edit/<%= item.RECORD_ID %>"><button type="button" class="btn btn-warning" style="margin-top: 5;" >수정</button></a></td> -->
         <td><button type="button" class="btn btn-warning" style="margin-top: 5;" onclick="modifyRecord('<%= item.RECORD_ID %>')" >수정</button></td>
         <td><input type="checkbox" name="delete_checkbox" value="<%= item.RECORD_ID %>"></td>
@@ -73,18 +73,22 @@
   </table>
 </form>
 
-<a href="/game1/register"><button class="btn btn-info" style="color:beige ;">문제 등록</button></a>
+<a href="/game1/register">
+  <div style="text-align: center;">
+    <button class="btn btn-info" style="color: beige;">문제 등록</button>
+  </div>
+</a>
 
 
 <script>
   function modifyRecord(recordId) {
     
-  const question = document.querySelector(`input[name="question"]`).value;
-  const questionLevel = document.querySelector(`input[name="question_level"]`).value;
-  const answer = document.querySelector(`input[name="answer"]`).value;
-  const wrong1 = document.querySelector(`input[name="wrong1"]`).value;
-  const wrong2 = document.querySelector(`input[name="wrong2"]`).value;
-  const wrong3 = document.querySelector(`input[name="wrong3"]`).value;
+  const question = document.querySelector(`input[name="question_${recordId}"]`).value;
+  const questionLevel = document.querySelector(`input[name="question_level_${recordId}"]`).value;
+  const answer = document.querySelector(`input[name="answer_${recordId}"]`).value;
+  const wrong1 = document.querySelector(`input[name="wrong1_${recordId}"]`).value;
+  const wrong2 = document.querySelector(`input[name="wrong2_${recordId}"]`).value;
+  const wrong3 = document.querySelector(`input[name="wrong3_${recordId}"]`).value;
 
     const data = {
       recordId: recordId,
@@ -104,8 +108,7 @@
     .then(res => res.json())
     .then(result => {
       if (result.success) {
-        alert('수정 완료');
-        window.location.reload(); // 새로고침 해야하나
+        alert('수정');
       } else {
         alert('수정 실패');
       }

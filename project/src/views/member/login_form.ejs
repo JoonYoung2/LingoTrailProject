@@ -24,6 +24,19 @@
 	  	font-size: 15px;
 	}
 
+	input[type=password]{
+	  	width: 25%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+
 	input[type=submit] {
 	  	width: 25%;
 	  	background-color: #00a0ff;
@@ -53,13 +66,17 @@
 </head>
 <body>	
 	<div>
-		<form action="/member/login.do" method="post">
-			<h2>로그인</h2>
-	    	<input type="text" id="id" name="id" placeholder="이메일 또는 아이디"><br>
-	    	<input type="text" id="pw" name="pw" placeholder="비밀번호" ><br>
-			<input type="submit" value="로그인"><br>
-	  		회원이 아니라면? <a href="/member/register">가입하기</a>
-		</form>
+		<% if(userId === undefined) { %>
+			<form action="/member/login.do" method="post">
+				<h2>로그인</h2>
+				<input type="text" id="id" name="id" placeholder="이메일 또는 아이디"><br>
+				<input type="password" id="pw" name="pw" placeholder="비밀번호" ><br>
+				<input type="submit" value="로그인"><br>
+				회원이 아니라면? <a href="/member/register">가입하기</a>
+			</form>
+		<% } else { %>
+			
+		<% } %>
   	</div>
 </body>
 </html>
