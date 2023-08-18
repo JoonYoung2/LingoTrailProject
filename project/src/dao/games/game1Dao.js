@@ -108,25 +108,33 @@ const deleteRecord = async (deleteList) => {
 };
 
 const modify = async (data) => {
-  const recordId = data.record_id;
-  const question = data.question;
-  const questionLevel = parseInt(data.question_level);
-  const answer = data.answer;
-  const wrong1 = data.wrong1;
-  const wrong2 = data.wrong2;
-  const wrong3 = data.wrong3;
-
+  console.log("dao data? :", data);
   const con = await oracledb.getConnection(dbConfig);
   const sql = `
-  UPDATE MATCH_PICTURE_GAME SET QUESTION ='${question}', QUESTION_LEVEL =${questionLevel},
-  ANSWER = ${answer}, WRONG1 = ${wrong1}, WRONG2 = ${wrong2}, WRONG3 = ${wrong3}
-  WHERE RECORD_ID = ${recordId}`;
+    UPDATE MATCH_PICTURE_GAME
+    SET QUESTION = :question,
+        QUESTION_LEVEL = :questionLevel,
+        ANSWER = :answer,
+        WRONG1 = :wrong1,
+        WRONG2 = :wrong2,
+        WRONG3 = :wrong3
+    WHERE RECORD_ID = :recordId`;
+
+  const bindParams = {
+    question: data.question,
+    questionLevel: parseInt(data.question_level),
+    answer: data.answer,
+    wrong1: data.wrong1,
+    wrong2: data.wrong2,
+    wrong3: data.wrong3,
+    recordId: data.record_id
+  };
+  
   try {
-    const result = await con.execute(sql);
+    const result = await con.execute(sql, bindParams);
     console.log("dao update: ", result);
   } catch (err) {
     console.log(err);
   }
 }
-
 module.exports = { get, insert, deleteRecord, modify };
