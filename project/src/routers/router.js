@@ -4,9 +4,10 @@ module.exports = (app) => {
     const game1Router = require("./games/game01Router");
     const speakQuetionRouter = require("./games/speakQuestionRouter");
     const meaningRouter = require("./games/meaningRouter");
+    const rankingRouter = require("./ranking/rankingRouter");
     
     app.get("/", (req, res) => {
-        res.render("index");
+        res.render("index", { userId : req.session.userId });
     })
     /* 
     TODO: session 으로 admin 검증합시다
@@ -20,5 +21,6 @@ module.exports = (app) => {
     app.use("/game1", game1Router);
     app.use("/speak_question", speakQuetionRouter);
     app.use("/meaning", meaningRouter);
+    app.use("/ranking", rankingRouter);
     return router;
 }
