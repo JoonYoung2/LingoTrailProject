@@ -11,16 +11,79 @@
 <body>
     <%- include("../../default/header") %>
 
-    <% 
 
-    %>
     <section class="stepPage">
         <form action="blank_quetionStart.do" method="post">
             <div>
-                
+            <div class="stepPageLocation">
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">LEVEL</div>
+                            <select class="stepSelectItems" name="level">
+                                <% level.forEach((list) => { %>
+                                    <option value="<%= list.ID %>">Level <%= list.LEVEL_STEP %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">QUESTION</div>
+                            <select class="stepSelectItems" name="language">
+                                <% language.forEach((list) => { %>
+                                    <option value="<%=list.ID%>"><%=list.LANGUAGE%></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">CONTENT</div>
+                            <select class="stepSelectItems" name="questionNum">
+                                <option value="1">5 question</option>
+                                <option value="2">10 question</option>
+                                <option value="3">15 question</option>
+                                <option value="4">20 question</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">ANSWER</div>
+                            <select class="stepSelectItems" name="partName">
+                                <% partName.forEach((list) => { %>
+                                    <option value="<%= list.ID %>"><%= list.PART_NAME %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="stepStartBtnDiv">
+                <div>
+                    <input class="stepStartBtn" type="submit" value="시작하기">
+                </div>
+            </div>
+        </div>
         </form>
     </section>
+
+
+
+
+
+
+
+
+    <!-- GDGDGDGGDGDGDGDGDGDGDGDGDGDGDGGDGDGDGDGD -->
+
+   
 </body>
 
 </html>
