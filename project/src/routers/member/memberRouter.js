@@ -31,7 +31,6 @@ router.post("/pwCheck.do", controller.member.pwCheckDo);
 router.get("/update", controller.member.update);
 router.post("/update.do", controller.member.updateDo);
 
-
 router.get("/unregister", controller.member.unregister);
 router.post("/unregister.do", controller.member.unregisterDo);
 module.exports = router;

@@ -11,7 +11,7 @@
 		
 		table {
 			font-family: arial, sans-serif;
-			border-collapse: collapse;	
+			border-collapse: collapse;
 			margin: auto;
 			width: 30%;
 			border-top: 1px solid #dddddd;
@@ -31,7 +31,7 @@
 		}
 		
 		input[type=button] {
-	  	width: 15%;
+	  	width: 10%;
 	  	background-color: #00a0ff;
 	  	color: white;
 	  	padding: 10px 20px;
@@ -49,6 +49,9 @@
 </head>
 <body>	
 	<div>
+		<% if(userId === undefined) { %>
+
+		<% } else { %>
 		<h2>마이페이지</h2>
         <br>
 		<table>		  	
@@ -70,7 +73,9 @@
 		  	</tr>
 		</table>
 		<a href="/member/update"><input type="button" value="수정하기"></a>&nbsp;
-		<a href="/"><input type="button" value="메인으로"></a>
+		<a href="/ranking/score"><input type="button" value="랭킹보기"></a>&nbsp;
+		<a href="#"><input type="button" value="탈퇴하기"></a>
+		<% } %>
 	</div>
 </body>
 </html>

@@ -1,9 +1,13 @@
 <%- include("../default/header") %>
 회원정보 수정
-<form action="/member/update.do" method="post">
-    아이디 : <input type="text" id="id" name="id" value="<%=member.ID%>" readonly><br>
-    이름 : <input type="text" id="name" name="name" value="<%=member.NAME%>"><br>
-    이메일주소 : <input type="text" id="email" name="email" value="<%=member.EMAIL%>"><br>
-    비밀번호 : <input type="password" id="pw" name="pw" value="<%=member.PW%>"><br>
-    <input type="submit" value="수정하기">
-</form>
+<% if(userId === undefined) { %>
+    window.history.back();
+<% } else { %>
+    <form action="/member/update.do" method="post">
+        아이디 : <input type="text" id="id" name="id" value="<%=member.ID%>" readonly><br>
+        이름 : <input type="text" id="name" name="name" value="<%=member.NAME%>"><br>
+        이메일주소 : <input type="text" id="email" name="email" value="<%=member.EMAIL%>"><br>
+        비밀번호 : <input type="password" id="pw" name="pw" value="<%=member.PW%>"><br>
+        <input type="submit" value="수정하기">
+    </form>
+<% } %>

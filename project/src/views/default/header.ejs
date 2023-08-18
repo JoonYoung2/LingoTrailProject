@@ -24,7 +24,7 @@
 			text-decoration: none;
 			color: #00a0ff;
 			font-weight: bold;
-		}	
+		}
 		
 		img {
 			width: 200px;
@@ -32,16 +32,23 @@
 		}
 		
 		#l {
-			margin-left: 900px;
+			margin-left: 950px;
 		}
 	</style>
 </head>
-<body>	
-	<div class="header">		
-		<a href="/"><img src="/static/img/lingotrail.png"></a>			
-		<a href="/member/login" id="l">로그인</a>&nbsp;
-		<a href="/member/register">회원가입</a>
-		<a href="/member/info">내정보</a>
-	</div>
+<body>
+	<% if(userId === undefined) { %>
+		<div class="header">
+			<a href="/"><img src="/static/img/lingotrail.png"></a>
+			<a href="/member/login" id="l">로그인</a>&nbsp;
+			<a href="/member/register">회원가입</a>
+		</div>	
+	<% } else { %>
+		<div class="header">
+			<a href="/"><img src="/static/img/lingotrail.png"></a>
+			<a href="/member/logout" id="l">로그아웃</a>&nbsp;
+			<a href="/member/info">내정보</a>
+		</div>
+	<% } %>	
 </body>
 </html>

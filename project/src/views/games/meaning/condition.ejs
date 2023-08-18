@@ -1,8 +1,26 @@
-난이도 설정
 
-<% for(var i=1; i<=5; i++){ %>
-    <form action="/meaning/showGames" method="post">
-        <input type = "hidden" id = "level" name="level" value="<%=i%>">
-        <button type="submit">Level <%=i%></button>       
-    </form>
-<% } %>
+
+
+
+<form action="/meaning/showGames" method="post">
+        <h3>레벨을 선택해주세요.</h3>
+        <select name="level_step">
+            <% level.forEach((list) =>{ %>
+                <option value="<%= list.ID %>">Level<%= list.LEVEL_STEP %></option>
+            <% }) %>
+        </select>
+        <h3>어떤 언어를 보고 맞추고 싶은가요?</h3>
+        <select name="questionLanguage">
+            <% language.forEach((list) => { %>
+                <option value="<%= list.ID %>"><%= list.LANGUAGE %></option>
+            <% }) %>
+        </select>
+        <h3>어떤 언어들로 매칭해줄까요?(답)</h3>
+        <select name="answerLanguage">
+            <% language.forEach((list) => { %>
+                <option value="<%= list.ID %>"><%= list.LANGUAGE %></option>
+            <% }) %>
+        </select>
+        <input type="submit" value="시작하기">
+        
+</form>

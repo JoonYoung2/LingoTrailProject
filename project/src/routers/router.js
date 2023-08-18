@@ -5,9 +5,11 @@ module.exports = (app) => {
     const speakQuetionRouter = require("./games/speakQuestionRouter");
     const meaningRouter = require("./games/meaningRouter");
     const blankQuestionRouter = require("./games/blankQuestionRouter");
+    const rankingRouter = require("./ranking/rankingRouter");
+    const boardRouter = require("./board/boardRouter");
     
     app.get("/", (req, res) => {
-        res.render("index");
+        res.render("index", { userId : req.session.userId });
     })
     /* 
     TODO: session 으로 admin 검증합시다
@@ -22,5 +24,8 @@ module.exports = (app) => {
     app.use("/speak_question", speakQuetionRouter);
     app.use("/meaning", meaningRouter);
     app.use("/blank_question", blankQuestionRouter);
+    app.use("/ranking", rankingRouter);
+    app.use("/board", boardRouter);
+    
     return router;
 }

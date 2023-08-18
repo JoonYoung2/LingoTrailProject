@@ -1,0 +1,66 @@
+<%- include("../default/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            div {
+                width: 100%;
+                padding: 20px;
+                text-align: center;
+            }
+            
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                margin: auto;
+                width: 80%;
+                border-top: 1px solid #dddddd;
+            }
+
+            th {
+                color: #ffffff;
+                background-color: #00a0ff;
+                font-weight: bold;
+                height: 40px;
+            }
+            
+            td {
+                border-bottom: 1px solid #dddddd;                
+                text-align: center;
+            }           
+    </style>
+</head>
+<body>
+    <div>
+        <h2>내 점수</h2>
+        <!--
+        <%= total.SCORE_ID %>
+        <%= total.MEMBER_ID %>
+        <%= total.UPDATE_DATE %>
+        <%= total.GAME1_SCORE %>
+        <%= total.GAME2_SCORE %>
+        <%= total.GAME3_SCORE %>
+        -->
+        <table>
+            <tr>
+                <th>GAME1 점수</th>
+                <th>GAME2 점수</th>
+                <th>GAME3 점수</th>
+                <th>TOTAL</th>
+            </tr>
+            <% for(var i=0; i<total.length; i++) { %>
+            <tr>              
+                <td><%= total[i].GAME1_SCORE %></td>
+                <td><%= total[i].GAME2_SCORE %></td>
+                <td><%= total[i].GAME3_SCORE %></td>
+                <td><%= total[i].GAME1_SCORE+total[i].GAME2_SCORE+total[i].GAME3_SCORE %></td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+</body>
+</html>

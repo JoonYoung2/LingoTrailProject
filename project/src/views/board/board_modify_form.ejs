@@ -1,0 +1,12 @@
+
+  <form action="/board/modify" method="post">
+    <input type="hidden" name="id" value="<%= boardDetail.BOARD_ID %>"><br>
+    <input type="text" name="title" value="<%= boardDetail.TITLE %>"><br>
+    <input type="text" name="content" value="<%= boardDetail.CONTENT %>"><br>
+    <button>제출</button>
+  </form>
+
+<a href="/board/detail/<%= boardDetail.BOARD_ID %>"><button>이전으로</button></a>
+
+
+
