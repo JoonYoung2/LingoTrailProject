@@ -62,4 +62,24 @@ const insert = async (body, imageFilePath) => {
   }
 };
 
-module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3, deleteRecord };
+const modify = async (body) => {
+  try
+  {
+    const data = {
+    record_id: body.recordId,
+    question: body.question,
+    question_level: parseInt(body.question_level),
+    answer: body.answer,
+    wrong1: body.wrong1,
+    wrong2: body.wrong2,
+    wrong3: body.wrong3
+  };
+  console.log("data : ", data);
+  await dao.modify(data);
+  } catch (err) {
+    console.log(err)
+  }
+  
+}
+
+module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3, deleteRecord, modify };

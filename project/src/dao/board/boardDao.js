@@ -1,0 +1,146 @@
+const oracledb = require("oracledb");
+const dbConfig = require("../../../config/database/db_config");
+
+oracledb.outFormat = oracledb.OBJECT;
+oracledb.autoCommit = true;
+
+
+const views = {
+
+  list: async () => {
+    let con;
+    try {
+      const sql = `select * from board order by new_date desc`;
+      con = await oracledb.getConnection(dbConfig);
+      const result = await con.execute(sql);
+      return result.rows;
+
+    } catch (err) {
+      console.error(err);
+      throw err;
+
+    } finally {
+      if (con) {
+        try {
+          await con.close();
+        } catch (error) {
+          console.error("connection 닫기:", error);
+        }
+      }
+    }
+  },
+
+  detail: async (boardId) => {
+    let con;
+    try {
+      const sql = `select * from board where board_id = ${boardId}`;
+      con = await oracledb.getConnection(dbConfig);
+      const result = await con.execute(sql);
+      return result.rows;
+    } catch (error) {
+      console.error("Error in daoList:", error);
+      throw error;
+    } finally {
+      if (con) {
+        try {
+          await con.close();
+        } catch (error) {
+          console.error("Connection close error", error);
+        }
+      }
+    }
+  },
+
+}
+
+
+const process = {
+  insert : async (data) =>{
+    let title = data.title; let content = data.content; let author = data.author;
+
+    let con;
+    try {
+    const sql = `
+      INSERT INTO board (BOARD_ID, TITLE, CONTENT, AUTHOR, CREATE_DATE, new_date)
+      VALUES (BOARD_ID_SEQ.nextval, ${title}, ${content}, ${author}, SYSTIMESTAMP, SYSTIMESTAMP)
+    `;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    return result;
+
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}},
+
+  modify : async (data) =>{
+    let id = parseInt(data.id); let title = data.title; let content = data.content;
+    let con;
+    try {
+    const sql = `
+      update board set title = '${title}', content = '${content}', modification_date = SYSTIMESTAMP, new_date = SYSTIMESTAMP where board_id =${id}`;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    console.log("result?", result);
+    return result;
+
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}},    
+
+
+  updateCount: async (ID) =>{
+    let id = parseInt(ID);
+    let con;
+    try {
+    const sql = `update board set views = views + 1 where board_id = ${id}`;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    console.log("result?", result);
+    return result;
+
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}},      
+
+
+  remove : async (ID) => {
+    let id = parseInt(ID);
+    let con;
+    try {
+    const sql = `delete board where board_id = ${id}`;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    console.log("result?", result);
+    return result;
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}}
+}      
+
+
+
+module.exports = { views, process };

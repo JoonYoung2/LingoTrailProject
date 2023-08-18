@@ -1,0 +1,60 @@
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <style>
+    th, td {
+      text-align: center;
+    }
+    
+    .custom-table {
+      border: 1px;
+      width: 80%;
+      border-radius: 10px;
+    }
+
+    .qnaSection{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      
+    }
+
+    .h2{
+      text-align: center;
+      margin-top: 10%;
+      margin-bottom: 20;
+      
+    }
+
+
+  </style>
+
+  <h2 class="h2">QnA 게시판 입니다</h2>
+  <div class="qnaSection">
+  <table  class="table custom-table" style="border: 1px; border-color:skyblue;" >
+      <tr class="table-info">
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Author</th>
+        <th scope="col">Date</th>
+        <th scope="col">Views</th>
+      </tr>
+    
+    <tbody>
+      <% list.forEach((item) => { %>
+        <tr>
+          <td><%= item.BOARD_ID %></td>
+          <td><%= item.TITLE %></td>
+          <td><a href="/board/detail/<%= item.BOARD_ID %>"><%= item.CONTENT %></a></td>
+          <td><%= item.AUTHOR %></td>
+          <td><%= item.DATE %></td>
+          <td><%= item.VIEWS %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+  <div style="text-align: center;">
+  <a href="/board/writeForm"><button class="btn btn-primary" style="color: beige;">게시글쓰기</button></a>
+  </div>

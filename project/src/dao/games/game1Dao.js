@@ -95,13 +95,6 @@ const deleteRecord = async (deleteList) => {
 
   try {
     const deleteArray = Array.isArray(deleteList) ? deleteList : [deleteList];
-
-    // TODO: 제일 편한 쿼리 같다
-    // deleteArray = [ '1', '2', '3' ] 이러한 방식으로 들어온다
-    // deleteArray.join () 매개변수 하나 받는다
-    // 그러면 그 매개변수를 이용해 하나의 문자열로 배열이 합쳐진다
-    // ✨ ['1', '2', '3']   === >    1, 2, 3
-    // sql = ~~~ where record_id in (1, 2, 3);
     const sql = `DELETE FROM MATCH_PICTURE_GAME 
                  WHERE RECORD_ID IN (${deleteArray.join(', ')})`;
     
@@ -114,5 +107,34 @@ const deleteRecord = async (deleteList) => {
   } 
 };
 
+const modify = async (data) => {
+  console.log("dao data? :", data);
+  const con = await oracledb.getConnection(dbConfig);
+  const sql = `
+    UPDATE MATCH_PICTURE_GAME
+    SET QUESTION = :question,
+        QUESTION_LEVEL = :questionLevel,
+        ANSWER = :answer,
+        WRONG1 = :wrong1,
+        WRONG2 = :wrong2,
+        WRONG3 = :wrong3
+    WHERE RECORD_ID = :recordId`;
 
-module.exports = { get, insert, deleteRecord };
+  const bindParams = {
+    question: data.question,
+    questionLevel: parseInt(data.question_level),
+    answer: data.answer,
+    wrong1: data.wrong1,
+    wrong2: data.wrong2,
+    wrong3: data.wrong3,
+    recordId: data.record_id
+  };
+  
+  try {
+    const result = await con.execute(sql, bindParams);
+    console.log("dao update: ", result);
+  } catch (err) {
+    console.log(err);
+  }
+}
+module.exports = { get, insert, deleteRecord, modify };
