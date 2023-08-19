@@ -44,7 +44,7 @@ const quest = {
     },
     updateDate : async(id, today)=>{
         const con = await oracledb.getConnection(dbConfig);
-        console.log(today);
+        console.log("dao today",today);
         const sql = `UPDATE member_info SET attend_date='${today}' WHERE id='${id}'`;
         
         try{
