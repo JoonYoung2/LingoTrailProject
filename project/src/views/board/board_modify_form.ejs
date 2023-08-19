@@ -1,12 +1,54 @@
+<title>게시글 수정</title>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
+<style>
+  .h2 {
+    height: 10%;
+    margin: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: CFF4FC;
+  }
+
+  .custom-btn {
+    width: 200;
+    background-color: #CFF4FC;
+    font-weight: 600;
+    color: black;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
+</style>
+
+<!-- 수정 폼 -->
+<div class="container">
+  <h2 class="h2"><%= boardDetail.AUTHOR %> 님의 글 수정</h2>
   <form action="/board/modify" method="post">
-    <input type="hidden" name="id" value="<%= boardDetail.BOARD_ID %>"><br>
-    <input type="text" name="title" value="<%= boardDetail.TITLE %>"><br>
-    <input type="text" name="content" value="<%= boardDetail.CONTENT %>"><br>
-    <button>제출</button>
+    <input type="hidden" name="id" value="<%= boardDetail.BOARD_ID %>">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="title" class="form-label">제목</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= boardDetail.TITLE %>">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-12">
+        <label for="content" class="form-label">내용</label>
+        <textarea class="form-control" id="content" name="content" rows="10"><%= boardDetail.CONTENT %></textarea>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button type="submit" class="btn custom-btn" style="margin-right: 5%;">수정 완료</button>
+      <a href="/board/detail/<%= boardDetail.BOARD_ID %>" class="btn custom-btn">이전으로</a>
+    </div>
   </form>
-
-<a href="/board/detail/<%= boardDetail.BOARD_ID %>"><button>이전으로</button></a>
-
-
-
+</div>
