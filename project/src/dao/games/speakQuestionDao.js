@@ -407,6 +407,7 @@ const wordCrud = {
 
         const sql = `insert into speak_word_language values(${body.id}, ${message})`;
         const con = await oracledb.getConnection(dbConfig);
+        console.log(sql);
         let result;
         try{
             result = await con.execute(sql);

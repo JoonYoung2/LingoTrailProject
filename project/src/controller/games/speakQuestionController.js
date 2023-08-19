@@ -19,7 +19,7 @@ const gameConfig = {
         let config = await service.gameConfig.getConfig(req.session);
         let level = await service.gameConfig.getLevel();
         let language = await service.gameConfig.getLanguage();
-        res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0]});
+        res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0], userId : req.session.userId});
     }
 }
 

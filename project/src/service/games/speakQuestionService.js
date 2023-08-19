@@ -189,7 +189,6 @@ const wordCrud = {
 
     insert : async (body) => {
         let language = await dao.gameCrud.getLanguage();
-        console.log("asdfasdf => ", language);
         await dao.wordCrud.insert(body, language);
         let msg = "등록 완료";
         let url = "/speak_question/word_form";
@@ -200,6 +199,7 @@ const wordCrud = {
         await dao.wordCrud.delete(body);
     },
 
+    
     update : async (body) => {
         let id = body[0].id.split(',');
         let language = await dao.gameCrud.getLanguage();
