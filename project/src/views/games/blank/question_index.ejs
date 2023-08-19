@@ -71,7 +71,7 @@
                                             </div>
                                             <% for(var i=0; i < answer.length; i++){ %>
                                                 <div class="blank_choose_box">
-                                                    <button onclick="userChoose('<%=choose%>')"
+                                                    <button onclick="userChoose('<%=choose%>','<%=cnt%>')"
                                                         id="userChoose<%=choose%>" class="userChoose"
                                                         value="<%= answer[i] %>">
                                                         <div class="blank_choose_num"><%=i+1%></div>
