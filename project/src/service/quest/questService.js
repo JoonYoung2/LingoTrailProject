@@ -40,8 +40,10 @@ const quest = {
     attendDo: async (session) => {
         //db에 스탬프 개수 1증가, 오늘 출첵 날짜 db에 업데이트,  하트 증가, alert (확인)=> 한칸 증가된 이미지 출력.
         console.log("121212121212jejejeje");
-        let stampAmount = await dao.quest.getStampAmount(session);//스탬프 개수 가져오기(업뎃 전)
-        await dao.quest.addStamp(session,stampAmount);//스탬프 1 증가
+        let beforeStampAmount = await dao.quest.getStampAmount(session);//스탬프 개수 가져오기(업뎃 전)
+        await dao.quest.addStamp(session,beforeStampAmount);//스탬프 1 증가
+
+        let stampAmount = await dao.quest.getStampAmount(session);
         let today = new Date();
         console.log(today);
         console.log("todaytoday questService",today);
@@ -50,7 +52,27 @@ const quest = {
         
         await dao.quest.addHeart(session, stampAmount);//하트 증가
         console.log("stampAmount",stampAmount);
-        return stampAmount;
+        return stampAmount.rows[0].STAMP;
+    },
+    attendanceCheck : async (session)=>{
+        const attendance = await dao.quest.attendanceCheck(session);//Sat Aug 19 2023 17:33:17 GMT+0900 (대한민국 표준시)
+        const attendancedb = new Date(attendance);
+        const today = new Date();
+
+        const isSameDate = (
+            attendancedb.getFullYear() === today.getFullYear() &&
+            attendancedb.getMonth() === today.getMonth() &&
+            attendancedb.getDate() === today.getDate()
+        );
+
+        if (isSameDate) {
+            console.log('이미 출석함. ');
+            return true;
+
+        } else {
+            console.log('오늘 출석 안함');
+            return false;
+        }
     }
 }
 module.exports = { quest };

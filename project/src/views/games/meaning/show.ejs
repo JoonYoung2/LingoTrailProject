@@ -5,48 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css" />
 </head>
 
 <body>
-    
+    <input type="hidden" value="<%=QeAn.length%>" id="questionNum">
     <!--Main Page for문 start-->
     <section class="showPage">
-        <div>
-    <%
-        let counter = 0;
-        for(var i = 0; i < QeAn.length; i++){
-            
-            let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
-            let question = qna[i][getQuestion];
-            let selectors = given[i];
-            let answer = qna[i][getAnswer];
-    %>      
-
-            
-            <div id="mainPage<%= i %>" class="mainPage">
-                
-                <div class="score"> </div>
-                        <h3>문제 : <%=question%> </h3>
-                    <%    for(var j = 0; j<given[0].length; j++){ %>
-                            <button id ="answerItems<%=j%>" class="answerItems answerItems<%=counter%>" onclick = "answerBtnClick('<%=selectors[j]%>', '<%=counter%>')"><%=selectors[j]%></button>
-                            <% counter++;}%>
-
-                            <br><br>
-                            <span class = "markingResult"></span>
-                            <!--<button onclick="markingBtm( <)"-->
-                            <button id = "marking<%=i%>" class = "marking" onclick="marking('<%=answer%>','<%=i%>','<%=QeAn.length%>')">채점하기<%=i%></button>
-                            <button id = "next<%=i%>" class = "next" onclick="nextViewBtn('<%=i%>')">다음으로<%=i%></button>
+        <div style="width:100%;">
+            <div>
+                <div style="width: 100%; display:flex; justify-content:center; padding-top: 150px; align-items:center;">
+                    <div style="width:100%;">
+                        <div style="width:100%; display:flex; ">
+                            <div class="score scoreText"> </div>
                         </div>
-                    <%
-                    }
-                    
-                    
-                    %>
+                        <div style="width:100%; display:flex; justify-content:center;">
+                            <div class="energyDiv">
+                                <div id="energyBar"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="padding-top:50px;"><span style="padding-left:480px; font-size:30px; font-weight:bold;">Select a matching word.</span></div>
+                        </div>
+                    </div>
                 </div>
-            </section>
-                    
+                
+                <div style="width:100%; display:flex; justify-content: center;">
+                    <div>
+
+                        <% let counter=0; for(var i=0; i < QeAn.length; i++){ let randomNum=Math.floor(Math.random() * 10); let
+                            qna=QeAn.filter(list=> list.QUESTION == QeAn[i].QUESTION );
+                            let question = qna[i][getQuestion];
+                            let selectors = given[i];
+                            let answer = qna[i][getAnswer];
+                            %>
+
+
+                            <div id="mainPage<%= i %>" class="mainPage">
+                                    <div class="meaningImgDiv">
+                                        <div><img class="imgFile" src="/static/img/joon/game/<%=randomNum%>.png"></div>
+
+                                        <div class="meaningQuestionDiv">
+                                            <div class="questionBox">
+                                                <%=question%>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <% for(var j=0; j<given[0].length; j++){ %>
+                                        <button id="answerItems<%=j%>" class="answerItems answerItems<%=counter%>"
+                                            onclick="answerBtnClick('<%=selectors[j]%>', '<%=counter%>')">
+                                            <%=selectors[j]%>
+                                        </button>
+                                        <% counter++;}%>
+                                            <div style="height: 130px; display: flex; justify-content:center; align-items:center;">
+                                                <span class="markingResult"></span>
+                                            </div>
+                                            <!--<button onclick="markingBtm( <)"-->
+                                        <div style="width: 100%; display: flex; justify-content: center;">
+                                            <button id="marking<%=i%>" class="marking"
+                                                onclick="marking('<%=answer%>','<%=i%>','<%=QeAn.length%>')">MARKING</button>
+                                            <button id="next<%=i%>" class="next" onclick="nextViewBtn('<%=i%>')">NEXT</button>
+                                        </div>
+                                </div>
+                            
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--Main Page for문 end-->
     <script src="/static/js/sua/show.js"></script>
 </body>
+
 </html>

@@ -20,7 +20,16 @@
 <%if(userId !== undefined){ %>
     <script type="text/javascript">
         function openPop(){
-            var popup = window.open('/quest/attend', 'attendent', 'width=640px, height=700px,scrollbars=yes');
+
+            fetch("/quest/attendanceCheck", {method : "get"})
+            .then(res => res.json())
+            .then(data => {
+                if(data == 0){
+                    window.open('/quest/attend', 'attendent', 'width=640px, height=700px,scrollbars=yes');
+                }else{
+                    alert("이미 출석이 완료 됐습니다.");
+                }
+            })
         }
     </script>
  
