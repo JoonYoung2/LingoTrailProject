@@ -7,6 +7,7 @@ module.exports = (app) => {
     const blankQuestionRouter = require("./games/blankQuestionRouter");
     const rankingRouter = require("./ranking/rankingRouter");
     const boardRouter = require("./board/boardRouter");
+    const questRouter = require("./quest/questRouter");
     
     app.get("/", (req, res) => {
         res.render("index", { userId : req.session.userId });
@@ -26,6 +27,6 @@ module.exports = (app) => {
     app.use("/blank_question", blankQuestionRouter);
     app.use("/ranking", rankingRouter);
     app.use("/board", boardRouter);
-    
+    app.use("/quest", questRouter);
     return router;
 }
