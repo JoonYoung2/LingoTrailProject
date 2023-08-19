@@ -63,7 +63,7 @@ const gameCrud = {
     search : async (req, res) => {
         let language = await service.gameCrud.getLanguage();
         let level = await service.gameCrud.getLevel();
-        let partName = await service.gameCrud.getParts();
+        let parts = await service.gameCrud.getParts();
         let data = await service.gameCrud.search(req.body);
         console.log("data", data);
         console.log("language ==> ", language);
@@ -71,7 +71,7 @@ const gameCrud = {
         if(data[0] === undefined){
             res.json({data : undefined, input : req.body});
         }else{
-            res.json({language, level, data, input : req.body})
+            res.json({language, level, data, input : req.body, parts})
         }
     }
 }
@@ -185,12 +185,14 @@ const wordCrud = {
     },
 
     search : async (req, res) => {
+        console.log("gdgd");
         let language = await service.gameCrud.getLanguage();
+        let parts = await service.gameCrud.getParts();
         let data = await service.wordCrud.search(req.body, language);
         if(data[0] === undefined){
             res.json({language, data : undefined, input : req.body});
         }else{
-            res.json({language, data, input : req.body})
+            res.json({language, data, input : req.body, parts})
         }
     }
 }

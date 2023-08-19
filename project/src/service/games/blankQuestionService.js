@@ -127,13 +127,17 @@ const languageCrud = {
     },
 
     updateList : async (body) => {
+        body.values = body[0].id;
         let id = body[0].id.split(',');
         let language = body[1].language.split(',');
-        await dao.languageCrud.updateList(id, language);
+        let languageNames = await dao.languageCrud.getLanguageNames(body);
+
+        await dao.languageCrud.updateList(id, languageNames, language);
     },
 
     deleteList : async (body) => {
-        await dao.languageCrud.deleteList(body);
+        let languageNames = await dao.languageCrud.getLanguageNames(body);
+        await dao.languageCrud.deleteList(body, languageNames);
     }
 }
 
