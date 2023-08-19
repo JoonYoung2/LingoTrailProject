@@ -2,23 +2,24 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 <style>
-  /* Custom styles for the game page */
   .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 5%;
   }
 
   .game-question {
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 0;
+    margin-right: 50px; /* 가로 간격을 늘리려는 부분 */
+
   }
 
   .game-image {
       width: 100%;
-      max-height: 300px;
+      max-height: 200px;
       border-radius: 10px;
       object-fit: cover;
     }
@@ -29,7 +30,8 @@
 
   .game-answer-form {
     text-align: center;
-    margin-bottom: auto;
+    margin-top: 20;
+    
   }
 
  .game-next-button {
@@ -40,15 +42,51 @@
       margin-top: 20px;
       width: 100%;
     }
+
+  .game-answer-form input[type="radio"] + label {
+      margin-right: 30px;
+  }  
+
+  
+  .balloon_03 {
+   position:relative;
+   margin: 0 auto;
+   width:300px;
+   height:50px;
+   background:#CFF4FC;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+  }
+
+  .balloon_03:after {
+   border-top: 0px solid transparent;
+   border-left: 15px solid transparent;
+   border-right: 0px solid transparent;
+   border-bottom: 15px solid #CFF4FC;
+   content:"";
+   position:absolute;
+   top:35px;
+   left:-10px;
+  }
+ 
 </style>
 
 <body>
-  <div class="container game-container">
-    <div class="game-question">
-      <img src="/static/game1_files/<%= currentQuestion.IMG %>" class="game-image" alt="Question Image">
-      <p><%= currentQuestion.QUESTION %></p>
-    </div>
+    <div class="container game-container">
 
+      <div class="balloon_03" style="font-weight: bold;"><%= currentQuestion.QUESTION %></div>
+
+      <div class="d-flex flex-wrap justify-content-center" style="margin-bottom: 40;"> 
+        <div class="game-question">
+          <img src="/static/game1_files/곰탱이.png" class="game-image" alt="Question Image">
+        </div>
+        <div class="game-question">
+          <img src="/static/game1_files/<%= currentQuestion.IMG %>" class="game-image" alt="Question Image">
+        </div>
+      </div>
+    
     <div class="game-result">
       <% if (explain) { %>
         <div class="game-explain alert alert-info">
@@ -65,23 +103,17 @@
       <% } %>
     </div>
 
-
     <div class="game-answer-form">
       <form action="/game1/checkAnswer" method="post">
         <input type="hidden" name="record_id" value="<%= currentQuestion.RECORD_ID %>">
-        <br><br>
         <% const options=[currentQuestion.WRONG1, currentQuestion.WRONG2, currentQuestion.WRONG3, currentQuestion.ANSWER];options.sort(() => Math.random() - 0.5);options.forEach((option, index) => { %>
           <input type="radio" class="btn-check" name="selected_answer" id="option<%= index + 1 %>" value="<%= option %>" <% if (explain !== undefined)  { %>disabled <% } %>>
           <label class="btn" for="option<%= index + 1 %>"><%= option %></label>
         <% }); %>
         <br><br>
-        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerModal">문제확인</button> <!-- 검증 버튼 추가 -->
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerModal" style="margin-right: 30;">문제확인</button> 
+        <a href="/game1/next" class="btn btn-secondary">다음 문제</a>
       </form>        
-      </form>
-    </div>
-
-    <div class="game-next-button">
-      <a href="/game1/next" class="btn btn-secondary">다음 문제</a>
     </div>
 
   <div class="progress" role="progressbar" aria-label="Animated striped example" style="height: 30px; margin: 0 auto; width: 50%; margin: 20;">
