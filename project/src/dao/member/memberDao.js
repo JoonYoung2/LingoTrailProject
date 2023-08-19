@@ -18,7 +18,7 @@ const member = {
     },
     registerDo : async (body)=>{
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `INSERT INTO member_info (id, name, email, pw, login_type) VALUES(:id, :name, :email, :pw, 0)`;
+        const sql = `INSERT INTO member_info (id, name, email, pw, login_type, attend_date, stamp, heart) VALUES(:id, :name, :email, :pw, 0, '0', 0, 0)`;
 
         let result = 0;
         try {

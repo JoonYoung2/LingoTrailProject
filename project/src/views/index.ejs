@@ -1,19 +1,41 @@
 <%- include("./default/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
 
-index.ejs<br>
+    index.ejs<br>
 <a href="/member">/member로 가고 싶져? 나를 눌러봐여</a>
 
 <br>
+<hr>
 
 <a href="/game1/list">이미지를 보고 정답을 맞추세요!</a>
 
 <%if(userId !== undefined){ %>
-    <form action="/session/login_check" method="post">
-        <input type ="submit" id="attend" value="출석하기"><br>
-    </form>
-    <% }%>
-<hr>
+    <script type="text/javascript">
+        function openPop(){
+            var popup = window.open('/quest/attend', 'attendent', 'width=640px, height=700px,scrollbars=yes');
+        }
+    </script>
+ 
+    <button><a href="#none"  onclick="openPop()">출석하기</a></button>
+ <% }%>
+
+
+
+    
 <button><a href="/ranking/list">점수 보기</a></button>
 <br>
 
 <a href="/board">게시판!</a>
+
+
+</body>
+</html>
+
