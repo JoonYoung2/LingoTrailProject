@@ -14,18 +14,20 @@
         let imsi = [{answer : "우와 정말 대단해요!!"}, {answer : "정말 대단한데요!?"}, {answer : "우와 짱이다!!"}, {answer : "정말 잘했어요!"}, {answer : "다음문제로 고고씽!"}];
         let cnt = 0;
         let answerCnt = 0;
+        let imgNum = 0;
         data.forEach((list) => {  
         msg = imsi[Math.floor(Math.random() * imsi.length)].answer;
+        imgNum = Math.floor(Math.random() * 10);
     %>
     
-    <!-- Speak Question & User Answer Page -->
+    <!-- Speak Question & User Answer Page Start -->
     <div id="mainPage<%=cnt%>" class="mainPage" style="display:none">
 
         <!-- header Start -->
         <div id="speakHeaderSection<%=cnt%>" class="headerSection" style="display:none">
             <div class="headerSectionTitle">
                 <div class="questionTitle">
-                   <div class="cancelBtn"><button type="button" onclick="gameExit()">X</button></div>
+                   <div class="cancelBtn"><button type="button" onclick="gameExit()"><img src="/static/img/joon/x_button.svg"></button></div>
                    <div class="energyBar">
                         <div id="energyBarFill<%=cnt%>" class="energyBarFill"><br></div>
                    </div>
@@ -47,18 +49,37 @@
         <!-- Body Start -->
         <div class="speakBodySection">
             <div class="speakBodyLocation">
-                <div id="questionInput<%=cnt%>" class="" style="display:none">
-                    <input onclick="responsiveVoice.speak('<%= list.QUESTION %>');" type="button" value="Play"> <%= list.QUESTION %><br><br>
-                    <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
-
-                    <hr>
-                    <div style="display:flex;">
-                        <div id="userAnswerDiv<%=cnt%>"></div>
-                    </div>
-                    <hr>
-
-                    <div style="display:flex;">
+                <div id="questionInput<%=cnt%>" class="questionInput" style="display:none">
+                    <div class="speakBodyTitle">Write in <%=language.LANGUAGE%></div>
+                    <div style="display:flex; align-items:center; padding-left: 60px;">
                         <div>
+                            <img src="/static/img/joon/game/<%=imgNum%>.png">
+                        </div>
+                        <div class="contentWindow">
+                            <div class="speakerImgBox">
+                                <button onclick="responsiveVoice.speak('<%= list.QUESTION %>');" class="speakButton"><img style="width: 25px;" src="/static/img/joon/speaker.png"></button>
+                            </div>
+                            <div>
+                                <% if(content == 1){%>
+                                    <span class="speakContent"><%= list.QUESTION %></span>
+                                <%}%>
+                            </div>
+                        </div>
+                    </div>
+                        <% if(sameLang == 0) { %>
+                            <input type="hidden" value="<%= list.ANSWER %>" id="rightInput<%=cnt%>">
+                        <%}else{%>
+                            <input type="hidden" value="<%= list.QUESTION %>" id="rightInput<%=cnt%>">
+                        <%}%>
+                    
+                    <div class="answerBox">
+                        <div style="display:flex;">
+                            <div class="userAnswerDiv" id="userAnswerDiv<%=cnt%>"></div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;">
+                        <div class="userAnswerBox">
                             <% 
                                 let answer = word[cnt].random.split(' ');
                                 for(var i = 0; i < answer.length; i++){
@@ -82,40 +103,47 @@
 
         <!-- Footer Start -->
 
-        <div>
-            <div id="underBarBasicDiv<%=cnt%>" style = "display:none;">
-                <input type="button" onclick="jumpBtn('<%=cnt%>')" value="건너뛰기"> <input type="button" onclick="CheckBtn('<%=cnt%>')" value="확인하기">
-            </div>
-            <div id="underBarWrongDiv<%=cnt%>" style="display:none;">
-                <div>
-                    이미지
+        <div class="footerStartDiv">
+            <div class="footerLocation">
+                <div id="underBarBasicDiv<%=cnt%>" class="underBarBasicDiv">
+                    <div class="footerBasicBtnBox">
+                        <input class="footerBasicBtn" type="button" onclick="jumpBtn('<%=cnt%>')" value="건너뛰기"> 
+                    </div>
+                    <div class="footerBasicBtnBox">
+                        <input class="footerBasicBtn checkBtn" type="button" onclick="CheckBtn('<%=cnt%>')" value="확인" disabled>
+                    </div>
                 </div>
-                <div>
-                    <div id="rightAnswer<%=cnt%>"></div>
+                <div id="underBarWrongDiv<%=cnt%>" class="underBarWrongDiv" style="display:none;">
+                    <div style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 100px; background-color: white;">
+                        <img src="/static/img/joon/wrong.svg">
+                    </div>
+                    <div>
+                        <div id="rightAnswer<%=cnt%>"></div>
+                    </div>
+                    <div style="display:flex;">
+                        <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="다시풀기" onclick="restartBtn('<%=cnt%>')"></div>
+                        <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="정답보기" onclick="rightViewBtn('<%=cnt%>')"></div>
+                        <div><input class="footerBasicBtn wrongContinueDiv" type="button" value="계속하기" onclick="wrongContinueBtn('<%=cnt%>');"></div>
+                    </div>
                 </div>
-                <div>
-                    <input type="button" value="다시풀기" onclick="restartBtn('<%=cnt%>')">
-                    <input type="button" value="정답보기" onclick="rightViewBtn('<%=cnt%>')">
-                    <input type="button" value="계속하기" onclick="wrongContinueBtn('<%=cnt%>');">
-                </div>
-            </div>
-            <div id="underBarRightDiv<%=cnt%>" style="display:none;">
-                <div>
-                    이미지
-                </div>
-                <div>
-                    정답!!<br><span style="color: green; font-size:30px;"><%=msg%></span>
-                </div>
-                <div>
-                    <input type="button" value="계속하기" onclick="rightContinueBtn('<%=cnt%>');">
+                
+                <div id="underBarRightDiv<%=cnt%>" class="underBarRightDiv" style="display:none;">
+                    <div style="display: flex;">
+                        <div style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 100px; background-color: white;"><img src="/static/img/joon/check.svg"></div>
+                        <div style="display: flex; justify-content: center; align-items: center; padding-left: 20px;">
+                            <span style="color: green; font-size:30px;"><%=msg%></span>
+                        </div>
+                    </div>
+                    <div>
+                        <input class="footerBasicBtn RightContinueDiv" type="button" value="계속하기" onclick="rightContinueBtn('<%=cnt%>');">
+                    </div>
                 </div>
             </div>
         </div>
-
         <!-- Footer End -->
 
     </div>
-
+    <!-- Speak Question & User Answer Page End -->
     <% cnt++;}) %>
 
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=oTMD5yMg"></script>

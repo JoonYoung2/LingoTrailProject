@@ -8,12 +8,12 @@ const member = {
         const con = await oracledb.getConnection(dbConfig);
         const sql = `select * from member_info where id = '${id}'`;
         let member;
-        try{
+        try {
             member = await con.execute(sql);
-        }catch(err){
+        } catch(err) {
             console.log(err);
         }
-        console.log(member)
+        console.log(member);
         return member;
     },
     registerDo : async (body)=>{
@@ -21,10 +21,10 @@ const member = {
         const sql = `INSERT INTO member_info (id, name, email, pw, login_type) VALUES(:id, :name, :email, :pw, 0)`;
 
         let result = 0;
-        try{
+        try {
             result = await con.execute(sql, body);
-        }catch(err){
-            console.log(err)
+        } catch(err){
+            console.log(err);
         }
         console.log("dao insert : ", result);
         return result.rowsAffected;
@@ -34,9 +34,9 @@ const member = {
         console.log("id==>",id);
         const sql = `DELETE FROM member_info WHERE id = '${id}'`;
 
-        try{
+        try {
             await con.execute(sql);
-        }catch(err){
+        } catch(err){
             console.log(err);
         }
     },

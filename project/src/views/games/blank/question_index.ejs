@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="hidden" id="dataSize" value="<%=amount%>">
+    
+    <div style="width:100%;">
+        <div style="width:100%;">
+            <% console.log("data==> ", data); console.log("words ==> ", words); %>
+
+
+                <% let cnt=0; let choose=0; data.forEach((list)=> {
+                    let question = list.QUESTION.replace(".", "____");
+                    let imsi = Math.floor(Math.random() * 10);
+                    let answer = words[cnt].substring(0, words[cnt].length-1).split(" ");
+                    let meaning = list.MEANING;
+                    for(var i = 0; i < answer.length; i++){ 
+                        let ranNum=Math.floor(Math.random() * answer.length); 
+                        let tmp=answer[i]; 
+                        answer[i]=answer[ranNum]; 
+                        answer[ranNum]=tmp; } 
+                        let result=list.ANSWER; 
+                        %>
+                        <div id="section<%=cnt%>" class="sectionDiv">
+                            <div style="width:100%">
+                                <input type="hidden" value="<%=question%>" id="answerInput">
+                                <!-- header start -->
+
+                                <div id="speakHeaderSection<%=cnt%>" class="headerSection">
+                                    <div class="blankHeaderSectionTitle">
+                                        <div class="questionTitle">
+                                            <div class="cancelBtn"><button type="button" onclick="gameExit()"><img
+                                                        src="/static/img/joon/x_button.svg"></button></div>
+                                            <div class="energyBar">
+                                                <div id="energyBarFill<%=cnt%>" class="energyBarFill"><br></div>
+                                            </div>
+                                            <div class="lifeView">
+                                                <% for(var i=3; i>= 1; i--){
+                                                    %>
+                                                    <span class="gameLife<%=i%>">♥</span>
+                                                    <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- header end -->
+
+                                <!-- body start -->
+
+                                <div class="blank_body_section">
+                                    <div class="blank_body_div">
+                                        <div>
+                                            <div class="blank_title_box">
+                                                <span class="blank_title">빈칸에 알맞은 단어를 입력해주세요.</span>
+                                            </div>
+                                            <div class="blank_body_header">
+                                                <div>
+                                                    <img src="/static/img/joon/game/<%=imsi%>.png">
+                                                </div>
+                                                <div id="questionId" class="blank_question">
+                                                    <%=question%>
+                                                </div>
+                                            </div>
+                                            <% for(var i=0; i < answer.length; i++){ %>
+                                                <div class="blank_choose_box">
+                                                    <button onclick="userChoose('<%=choose%>')"
+                                                        id="userChoose<%=choose%>" class="userChoose"
+                                                        value="<%= answer[i] %>">
+                                                        <div class="blank_choose_num"><%=i+1%></div>
+                                                        <div>
+                                                            <%= answer[i] %>
+                                                        </div>
+                                                        <div></div>
+                                                    </button>
+                                                </div>
+                                                <% choose++; } %>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- body end -->
+
+                                <!-- footer start -->
+
+                                <div class="blank_footer_section">
+                                    <div style="width:100%">
+                                        <div class="blank_footer_div">
+                                            <div id="basicDivButton<%=cnt%>" class="button_parent_div">
+                                                <div style="width:100%; display:flex; justify-content:center">
+                                                    <div style="width:80%; display:flex; justify-content: space-between;">
+                                                        <div>
+                                                            <button class="footerBasicBtn"
+                                                                onclick="jump('<%=cnt%>', '<%=amount%>')">
+                                                                건너뛰기
+                                                            </button>
+                                                        </div>
+                                                        <div>
+                                                            <button class="footerBasicBtn checkBtn"
+                                                                onclick="check('<%=cnt%>', '<%=result%>', '<%=meaning%>')">
+                                                                확인
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div style="width:100%;">
+                                            <div id="rightDivButton<%=cnt%>" class="button_parent_div blank_button_parent_right" style="display:none;">
+                                                <div style="width:100%; display:flex; justify-content:center;">
+                                                    <div style="width:80%; display:flex; justify-content:space-between;">
+                                                        <div style="display: flex; align-items: center;">
+                                                            <div style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 100px; background-color: white;">
+                                                                <img src="/static/img/joon/check.svg">
+                                                            </div>
+                                                            <div style="display: flex; justify-content: center; align-items: center; padding-left: 20px;">
+                                                                <span style="color: green; font-size:25px; padding-left: 30px;">
+                                                                    <%=meaning%>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display:flex; align-items: center;">
+                                                            <button class="footerBasicBtn RightContinueDiv"
+                                                                onclick="rightContinueButton('<%=cnt%>', '<%=amount%>')">
+                                                                계속하기
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="wrongDivButton<%=cnt%>" style="display:none;">
+                                            <div class="button_parent_div" style="height: 100px; width:100%; background-color: rgba(255, 128, 128, 0.5);">
+                                                <div style="width:100%; display:flex; justify-content: center;">
+                                                    <div style="width:80%; display:flex; justify-content: space-between;">
+                                                        <div class="blank_wrong_box">
+                                                            <div
+                                                                style="width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 100px; background-color: white;">
+                                                                <img src="/static/img/joon/wrong.svg">
+                                                            </div>
+                                                            <div
+                                                                style="display: flex; justify-content: center; align-items: center; padding-left: 20px;">
+                                                                <span style="color: red; font-size:25px;">
+                                                                    <%=meaning%>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div style="display:flex; align-items: center;">
+                                                            <button class="footerBasicBtn wrongContinueDiv"
+                                                                onclick="wrongContinueButton('<%=cnt%>', '<%=amount%>')">
+                                                                계속하기
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- footer end -->
+
+                            </div>
+                        </div>
+                        <% cnt++; }) %>
+        </div>
+    </div>
+
+   
+    <script src="/static/js/joon/blank_question.js"></script>
+</body>
+
+</html>

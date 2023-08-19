@@ -7,6 +7,13 @@ index.ejs<br>
 
 <a href="/game1/list">이미지를 보고 정답을 맞추세요!</a>
 
+<%if(userId !== undefined){ %>
+    <form action="/session/login_check" method="post">
+        <input type ="submit" id="attend" value="출석하기"><br>
+    </form>
+    <% }%>
+<hr>
+<button><a href="/ranking/list">점수 보기</a></button>
 <br>
 
 <a href="/board">게시판!</a>

@@ -5,31 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/static/js/sua/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css"/>
 </head>
 
 <body>
-    <h3>게임페이지입니당</h3>
-    <!--Main Page for문 start-->
-    <%
-        console.log("viewPage QeAn ==> ",QeAn);
-        
-        for(var i = 0; i < QeAn.length; i++){
-        let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
-        let question = qna[0].QUESTION;
-        let answer = qna[0].ANSWER;
-        console.log("qna ===> ",qna);
-    %>
-        <div id="mainPage<%= i %>" class="mainPage">
-            <%=question%> <br> <%=answer%> <br>
-            
-            <!--<button onclick="markingBtm( <)"-->
-            <button onclick="nextViewBtn('<%=i%>')">다음으로</button>
-        </div>
-    <%
-    }
     
-    %>
+    <!--Main Page for문 start-->
+    <section class="showPage">
+        <div>
+    <%
+        let counter = 0;
+        for(var i = 0; i < QeAn.length; i++){
+            
+            let qna = QeAn.filter(list => list.QUESTION == QeAn[i].QUESTION );
+            let question = qna[i][getQuestion];
+            let selectors = given[i];
+            let answer = qna[i][getAnswer];
+    %>      
+
+            
+            <div id="mainPage<%= i %>" class="mainPage">
+                
+                <div class="score"> </div>
+                        <h3>문제 : <%=question%> </h3>
+                    <%    for(var j = 0; j<given[0].length; j++){ %>
+                            <button id ="answerItems<%=j%>" class="answerItems answerItems<%=counter%>" onclick = "answerBtnClick('<%=selectors[j]%>', '<%=counter%>')"><%=selectors[j]%></button>
+                            <% counter++;}%>
+
+                            <br><br>
+                            <span class = "markingResult"></span>
+                            <!--<button onclick="markingBtm( <)"-->
+                            <button id = "marking<%=i%>" class = "marking" onclick="marking('<%=answer%>','<%=i%>','<%=QeAn.length%>')">채점하기<%=i%></button>
+                            <button id = "next<%=i%>" class = "next" onclick="nextViewBtn('<%=i%>')">다음으로<%=i%></button>
+                        </div>
+                    <%
+                    }
+                    
+                    
+                    %>
+                </div>
+            </section>
+                    
     <!--Main Page for문 end-->
     <script src="/static/js/sua/show.js"></script>
 </body>
