@@ -82,4 +82,32 @@ const modify = async (body) => {
   
 }
 
-module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3, deleteRecord, modify };
+const updateScore = async (userId, score) =>{
+  try {
+    const result = await dao.updateScore(userId, score);
+    
+  } catch (err) {
+    console.log(err);
+  }
+  
+}
+
+const getHeartItem = async (userId) =>{
+  try {
+    const result = await dao.getHeartItem(userId);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+  
+}
+
+const updateHeart = async (userId) =>{
+  try {
+    await dao.updateHeart(userId);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports = { getAll, insert, verifyAnswer, getRandomQuestionV3, deleteRecord, modify, updateScore, getHeartItem, updateHeart };
