@@ -11,14 +11,86 @@
 <body>
     <%- include("../../default/header") %>
 
-    <% 
+    <%console.log("userView config ==> ",config)%>
 
-    %>
     <section class="stepPage">
         <form action="blank_quetionStart.do" method="post">
             <div>
-                
+            <div class="stepPageLocation">
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">LEVEL</div>
+                            <select class="stepSelectItems" name="level">
+                                <% level.forEach((list) => { %>
+                                    <option value="<%= list.ID %>" 
+                                        <% if(list.ID == config[0].LEVEL_STEP){ %>
+                                            selected
+                                        <% } %>
+                                        >Level <%= list.LEVEL_STEP %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">QUESTION</div>
+                            <select class="stepSelectItems" name="language">
+                                <% language.forEach((list) => { %>
+                                    <option value="<%=list.ID%>"
+                                        <% if(list.ID == config[0].LANGUAGE){ %>
+                                            selected
+                                        <% } %>
+                                        ><%=list.LANGUAGE%></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="stepPageWidth">
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">PART</div>
+                            <select class="stepSelectItems" name="partName">
+                                <% partName.forEach((list) => { %>
+                                    <option value="<%= list.ID %>"
+                                        <% if(list.ID == config[0].PART){ %>
+                                            selected
+                                        <% } %>
+                                        ><%= list.PART_NAME %></option>
+                                <% }) %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="stepSelectDiv">
+                        <div>
+                            <div class="selectTitle">COUNT</div>
+                            <select class="stepSelectItems" name="questionNum">
+                                <% 
+                                var questionCnt = 1;
+                                for(var i = 0; i < 4; i++){ 
+                                    questionCnt = (i+1) * 5; %>
+                                    <option value="<%=i+1%>"
+                                        <% if(i+1 == config[0].QUESTION_AMOUNT){ %>
+                                            selected
+                                        <% } %>
+                                        ><%=questionCnt%> question</option>
+                                <% } %>
+                            </select>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="stepStartBtnDiv">
+                <div>
+                    <input class="stepStartBtn" type="submit" value="시작하기">
+                </div>
+            </div>
+        </div>
         </form>
     </section>
 </body>

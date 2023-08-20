@@ -3,27 +3,30 @@ const boardService = require("../../service/board/boardService");
 const views = {
   list: async (req, res) => {
     let list = await boardService.views.getAll();
-    res.render("board/board_index", { list : list });
+    res.render("board/board_index", { list : list , userId : req.session.userId });
   },
 
   detail: async (req, res) => {
     let list = await boardService.views.getDetail(req.params.id);
-    res.render("board/board_detail", { boardDetail : list })
+    let commentList = await boardService.commentViews.getComment(req.params.id);
+    console.log("commentLisT? : ", commentList);
+    res.render("board/board_detail", { boardDetail : list, comments : commentList, userId : req.session.userId })
   },
 
   writeForm: (req, res) => {
-    res.render("board/board_write_form");
+    res.render("board/board_write_form", {userId : req.session.userId});
   },
 
   modifyForm: async (req, res) => {
     let list = await boardService.views.getDetail(req.params.id);
-    res.render("board/board_modify_form", { boardDetail : list });
+    res.render("board/board_modify_form", { boardDetail : list , userId : req.session.userId});
   }
 
 }
 
 const process = {
   submit: async (req, res) => {
+    console.log("controller req.body? : ", req.body)
     const insertItem = await boardService.process.submit(req.body);
     console.log("item???: ",insertItem)
     if ( insertItem === 1 ) {
@@ -45,7 +48,7 @@ const process = {
   },
   
   remove : async(req, res)=>{
-    console.log("body?", req.body);
+    console.log("delete body?", req.body);
     const deleteItem = await boardService.process.remove(req.body);
     if ( deleteItem === 1 ) {
       res.redirect("/board");
@@ -56,5 +59,31 @@ const process = {
 
 };
 
+const commentProcess = {
+  submit : async (req, res) => {
+    console.log("req.body?:", req.body );
+    console.log("req.params?:", req.params );
+    const submitItem = await boardService.commentProcess.submit(req.body.comment, req.params.id);
+    if(submitItem === 1){
+      res.redirect(`/board/detail/${req.params.id}`);
+    } else {
+      res.redirect("/");
+    }
+  },
 
-module.exports = { views, process };
+  remove : async (req, res)=>{
+    console.log("req.body : ? ",req.params);
+    const deleteItem = await boardService.commentProcess.remove(req.params.commentId);
+    if(deleteItem === 1){
+      res.redirect(`/board/detail/${req.params.boardId}`);
+    } else {
+      res.redirect("/");
+    }
+
+  }
+}
+
+
+
+
+module.exports = { views, process, commentProcess };

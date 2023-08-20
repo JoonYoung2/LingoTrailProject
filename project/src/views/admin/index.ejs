@@ -1,13 +1,72 @@
 <%- include("../default/adminHeader") %>
 
-<hr>
-<a href="/game1/updateForm"><button>game1 List</button></a>
-<hr>
+<style>
+  .h2 {
+    height: 10%;
+    width: 50%;
+    margin: 5% auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: CFF4FC;
+  }
 
-<hr>
-<a href="/speak_question/list_form">SpeakList GoGo</a>
-<hr>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
 
-<hr>
-수아꺼 <a href="/meaning/listForm">meaning</a>
-<hr>
+  .square-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 30px; 
+    width: 500px; 
+    height: 500px;
+    background-color: CFF4FC;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6ab6e8;
+    border-radius: 10px;
+  }
+
+  .btn {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+  }
+
+  .btn-block:hover {
+    color: #FFFFFF;
+    background-color: #4281ae;
+    border-radius: 5%;
+  }
+  
+</style>
+<h2 class="h2"><a href="/admin" style="text-decoration: none;"> 관리자 페이지 </a></h2>
+
+<div class="container">
+  <div class="square-container">
+    <div class="square">
+      <a href="/meaning/listForm" class="btn btn-block">MEANING</a>
+    </div>
+    <div class="square">
+      <a href="/game1/updateForm" class="btn btn-block">PHOTO</a>
+    </div>
+    <div class="square">
+      <a href="/blank_question/list_form" class="btn btn-block">BLANK</a>
+    </div>
+    <div class="square">
+      <a href="/speak_question/list_form" class="btn btn-block">LISTENING</a>
+    </div>
+  </div>
+</div>

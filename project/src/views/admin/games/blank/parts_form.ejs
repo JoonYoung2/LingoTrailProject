@@ -12,37 +12,40 @@
         <div>
             <div class="categoryButton">
                 <div>
-                    <a href="/speak_question/list_form">LIST</a>
+                    <a href="/blank_question/list_form">LIST</a>
                 </div>
                 <div>
-                    <a href="/speak_question/level_form">LEVEL</a>
+                    <a href="/blank_question/language_form">LANGUAGE</a>
                 </div>
                 <div>
-                    <a href="/speak_question/word_form">WORD</a>
+                    <a href="/blank_question/level_form">LEVEL</a>
+                </div>
+                <div>
+                    <a href="/blank_question/word_form">WORD</a>
                 </div>
             </div>
-            <div class="speakListTitle">
+            <div class="blankListTitle">
                 <span>
-                    LanguageCategoryList
+                    PartsCategoryList
                 </span>
             </div>
             <table border="1">
                 <tr>
                     <th>NO</th>
-                    <th style="width:200px;">LANGUAGE</th>
+                    <th style="width:200px;">NAME</th>
                     <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
                 </tr>
                 <%
-                    language.forEach((list) => {
+                    partName.forEach((list) => {
                 %>
                 <tr>
                     <td>
                         <input type="text" value="<%= list.ID %>" class="languageId" readonly>
                     </td>
                     <td>
-                        <input type="text" value="<%= list.LANGUAGE %>" class="languageLanguage speakLanguage">
+                        <input type="text" value="<%= list.PART_NAME %>" class="languageLanguage speakLanguage">
                     </td>
-                    <td class="speakCheckBox">
+                    <td class="blankCheckBox">
                         <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
                     </td>
                 </tr>
@@ -51,15 +54,15 @@
                 %>
             </table>
             <div id="insertZone"></div>
-            <div class="speakGameListButton">
-                <div id="insertBtnChange" class="speakGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
-                <div class="speakGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
-                <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+            <div class="blankGameListButton">
+                <div id="insertBtnChange" class="blankGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                <div class="blankGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
+                <div class="blankGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
             </div>
         </div>
     </section>
 
     <script src="/static/js/joon/common.js"></script>
-    <script src="/static/js/joon/speak_game/speak_language_form.js"></script>
+    <script src="/static/js/joon/blank_game/blank_parts_form.js"></script>
 </body>
 </html>

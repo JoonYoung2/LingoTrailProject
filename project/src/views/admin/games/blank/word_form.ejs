@@ -12,13 +12,16 @@
         <div>
             <div class="categoryButton">
                 <div>
-                    <a href="/speak_question/list_form">LIST</a>
+                    <a href="/blank_question/list_form">LIST</a>
                 </div>
                 <div>
-                    <a href="/speak_question/language_form">LANGUAGE</a>
+                    <a href="/blank_question/language_form">LANGUAGE</a>
                 </div>
                 <div>
-                    <a href="/speak_question/level_form">LEVEL</a>
+                    <a href="/blank_question/level_form">LEVEL</a>
+                </div>
+                <div>
+                    <a href="/blank_question/parts_form">PARTS</a>
                 </div>
             </div>
             <div class="speakListTitle">
@@ -37,6 +40,7 @@
 
                 <tr>
                     <th>NO</th>
+                    <th>PART</th>
                     <% 
                         console.log("userView => ",language);
                         let title = {};
@@ -60,8 +64,19 @@
 
                     <tr>
                         <td><%= list.ID %></td>
+                        <td>
+                            <select class="blankPartInput">
+                                <% parts.forEach((part) => { %>
+                                    <option value="<%=part.ID%>"
+                                        <% if(part.ID == list.PART_ID){ %>
+                                            selected
+                                        <% } %>
+                                        ><%=part.PART_NAME%></option>
+                                <% }) %>
+                            </select>
+                        </td>
                         <%for(var i = 0; i < languageName.length; i++){%>
-                            <td><input type="text" value="<%= list[languageName[i]] %>" class="speakWordInput speakWordInput<%=i%>"></td>
+                            <td><input type="text" value="<%= list[languageName[i]] %>" class="speakWordInput blankWordInput<%=i%>"></td>
                         <%}%>
                         <td class="speakCheckBox">
                             <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
@@ -72,18 +87,18 @@
 
                 <% });%>
                 <tr>
-                    <td colspan="<%=languageName.length + 2%>" class="pagingButton">
+                    <td colspan="<%=languageName.length + 3%>" class="pagingButton">
                         <div>
                             <% if( start <= 1){ %>
                                 <button disabled>이전</button>
                             <%}else{%>
                                 <button type="button" onclick="
-                                    location.href='/speak_question/word_form?start=<%=start - 1%>'">이전</button>
+                                    location.href='/blank_question/word_form?start=<%=start - 1%>'">이전</button>
                             <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
-                                <a href="/speak_question/word_form?start=<%= i %>"><%= i %></a>
+                                <a href="/blank_question/word_form?start=<%= i %>"><%= i %></a>
                             <% }if( start < page.totPage ){%>
                                 <button type="button" onclick="
-                                    location.href='/speak_question/word_form?start=<%=start + 1%>'">다음</button>
+                                    location.href='/blank_question/word_form?start=<%=start + 1%>'">다음</button>
                             <% }else{ %>
                                 <button disabled>다음</button>
                             <% } %>
@@ -102,7 +117,7 @@
 
 
 <script src="/static/js/joon/common.js"></script>
-<script src="/static/js/joon/speak_game/word_form.js"></script>
+<script src="/static/js/joon/blank_game/blank_word_form.js"></script>
     
 </body>
 </html>

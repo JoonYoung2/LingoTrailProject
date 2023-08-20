@@ -1,37 +1,104 @@
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 <script src="/static/js/image_read.js"></script>
 
 
-<form action="/game1/register" method="post" enctype="multipart/form-data">
+<style>
+.h2 {
+  height: 10%;
+  width: 50%;
+  margin: 5% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: CFF4FC;
+}
 
-  <label for="question">문제:</label>
-  <input type="text" id="question" name="question" value="이것은 무엇일까요??"><br>
+.container {
+  margin-top: 20;
+  margin-bottom: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  <label for="image">이미지 업로드:</label>
-  <input type="file" id="image" name="image" onchange="readURL(this)"><br>
-  <img src="#" id="preview" width="100" height="100" alt="미리보기"><br>
+.form-container {
+  width: 500px;
+  padding: 20px;
+  border: 1px solid #CFF4FC;
+  border-radius: 10px;
+  background-color: #CFF4FC;
+}
+ 
+.form-control {  
+  margin-bottom: 10px;
+  border: 1px solid #3498db;
+}
 
-  <label for="answer">정답:</label>
-  <input type="text" id="answer" name="answer"><br>
+.image-preview {
+  max-width: 100%;
+  height: auto;
+}
 
-  <label for="wrong1">오답1:</label>
-  <input type="text" id="wrong1" name="wrong1"><br>
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.form-label {
+  font-weight: bold;
+}
 
-  <label for="wrong2">오답2:</label>
-  <input type="text" id="wrong2" name="wrong2"><br>
+.custom-btn {
+width: 200;
+background-color: #CFF4FC;
+font-weight: 600;
+color: black;
+}
 
-  <label for="wrong3">오답3:</label>
-  <input type="text" id="wrong3" name="wrong3"><br>
+.btn:hover {
+  background-color: #1e6ac9;
+}
+</style>
 
-  <label for="level">LEVEL:</label>
-  <input type="text" id="level" name="level"><br>
+<title>게임1 등록</title>
 
-  <label for="explain">정답설명:</label>
-  <input type="text" id="explain" name="explain"><br>
-
-  <input type="submit" value="문제 추가"><br>
-</form>
-
-<hr>
-
-<a href="/"><button>home</button></a>
-<a href="/game1/updateForm"><button>game1 List</button></a>
+<h2 class="h2">게임을 등록하세요</h2>
+<div class="container">
+  <div class="form-container">
+      <form action="/game1/register" method="post" enctype="multipart/form-data">
+          <label for="question" class="form-label">문제:</label>
+          <input type="text" id="question" name="question" class="form-control" value="이것은 무엇일까요??"><br>
+          
+          <label for="image" class="form-label">이미지 업로드:</label>
+          <input type="file" id="image" name="image" class="form-control" onchange="readURL(this)"><br>
+          <img src="#" id="preview" class="image-preview" alt="미리보기"><br>
+          
+          <label for="answer" class="form-label">정답:</label>
+          <input type="text" id="answer" name="answer" class="form-control"><br>
+          
+          <label for="wrong1" class="form-label">오답1:</label>
+          <input type="text" id="wrong1" name="wrong1" class="form-control"><br>
+          
+          <label for="wrong2" class="form-label">오답2:</label>
+          <input type="text" id="wrong2" name="wrong2" class="form-control"><br>
+          
+          <label for="wrong3" class="form-label">오답3:</label>
+          <input type="text" id="wrong3" name="wrong3" class="form-control"><br>
+          
+          <label for="level" class="form-label">LEVEL:</label>
+          <input type="text" id="level" name="level" class="form-control"><br>
+          
+          <label for="explain" class="form-label">정답설명:</label>
+          <input type="text" id="explain" name="explain" class="form-control"><br>
+          
+          <input type="submit" value="문제 추가" class="btn btn-success"><br>
+      </form>
+      <div class="button-container">
+          <a href="/" class="btn"><button class="btn custom-btn">home</button></a>
+          <a href="/game1/updateForm" class="btn"><button class="btn custom-btn">뒤로가기</button></a>
+      </div>
+  </div>
+</div>
