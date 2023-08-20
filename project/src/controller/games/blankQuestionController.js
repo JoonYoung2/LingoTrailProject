@@ -5,8 +5,10 @@ const blankQuestion = {
         let data = await service.blankQuestion.startGame(req.body, req.session);
         let words = await service.blankQuestion.getWord(data, req.body);
         let amount = req.body.questionNum * 5;
+        let heart = await service.blankQuestion.getHeart(req.session);
+        let level = req.body.level;
     
-        res.render("games/blank/question_index", {data, words, amount});
+        res.render("games/blank/question_index", {data, words, amount, heart, level});
     }
 }
 
@@ -73,6 +75,16 @@ const gameCrud = {
         }else{
             res.json({language, level, data, input : req.body, parts})
         }
+    },
+
+    heartUpdate : async (req, res) => {
+        await service.gameCrud.heartUpdate(req.body, req.session);
+        res.json(1);
+    },
+
+    saveScore : async (req, res) => {
+        await service.gameCrud.saveScore(req.body, req.session);
+        res.json(1);
     }
 }
 

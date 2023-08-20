@@ -6,11 +6,13 @@ const speakQuestion = {
         let language = await service.speakQuestion.getLanguage(req.body.answerLang);
         console.log("controller language ==> ",language);
         let word = await service.speakQuestion.getWord(data.rows, language, req.body.language, req.body.answerLang);
+        let heart = await service.speakQuestion.getHeart(req.session);
         let sameLang = 0;
+        let level = req.body.level_step;
         if(req.body.language == req.body.answerLang){
             sameLang = 1;
         }
-        res.render("games/speak/question_index", {data : data.rows, word, sameLang, content : req.body.contentState, language});
+        res.render("games/speak/question_index", {data : data.rows, word, sameLang, content : req.body.contentState, language, heart, level});
     }
 }
 
@@ -74,6 +76,16 @@ const gameCrud = {
         }else{
             res.json({language, level, data, input : req.body})
         }
+    },
+
+    heartUpdate : async (req, res) => {
+        await service.gameCrud.heartUpdate(req.body, req.session);
+        res.json(1);
+    },
+
+    saveScore : async (req, res) => {
+        await service.gameCrud.saveScore(req.body, req.session);
+        res.json(1);
     }
 }
 

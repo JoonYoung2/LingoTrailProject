@@ -17,6 +17,10 @@ router.post("/blank_delete", controller.gameCrud.deleteList);
 
 router.post("/blank_search_list", controller.gameCrud.search);
 
+router.post("/heart_update", controller.gameCrud.heartUpdate);
+
+router.post("/save_score", controller.gameCrud.saveScore);
+
 router.get("/level_form", controller.levelCrud.getList);
 
 router.get("/level_insert", controller.levelCrud.insert);

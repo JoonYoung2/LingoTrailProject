@@ -22,7 +22,7 @@ const blankQuestion = {
 
     getWord : async (language, partName) => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select ${language[0].LANGUAGE} from blank_word_language where part_id = ${partName}`;
+        const sql = `select * from (select ${language[0].LANGUAGE} from blank_word_language where part_id=${partName} order by dbms_random.value) where rownum <= 100`;
         let result;
 
         try{
@@ -48,6 +48,19 @@ const blankQuestion = {
 
         console.log(result);
         return result.rows;
+    },
+
+    getHeart : async (session) => {
+        const sql = `select heart from member_info where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows[0].HEART;
     }
 }
 
@@ -262,6 +275,27 @@ const gameCrud = {
         }
 
         return result.rows;
+    },
+
+    heartUpdate : async (body, session) => {
+        const sql = `update member_info set heart=${body.userHeart} where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    saveScore : async (body, session) => {
+        const sql = `update member_info set blank_game=${body.gameScore}+blank_game where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        try{
+            await con.execute(sql)
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 

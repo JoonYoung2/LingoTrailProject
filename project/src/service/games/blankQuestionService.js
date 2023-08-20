@@ -21,7 +21,7 @@ const blankQuestion = {
         for(var i = 0; i < rownum; i++){
             tmp += data[i].ANSWER + " "; //문제 정답
             for(var j = 0; j < 4; j++){
-                let num = Math.floor(Math.random() * 72);
+                let num = Math.floor(Math.random() * word.length);
                 tmp += word[num][getLanguageName[0].LANGUAGE] + " ";
             }
             answer[i] = tmp;
@@ -29,6 +29,10 @@ const blankQuestion = {
         }
         console.log("tmp ==> ",tmp);
         return answer;
+    },
+
+    getHeart : async (session) => {
+        return await dao.blankQuestion.getHeart(session);
     }
 }
 
@@ -111,6 +115,14 @@ const gameCrud = {
         let data = await dao.gameCrud.search(body);
         console.log("search data ==> ", data);
         return data;
+    },
+
+    heartUpdate : async (body, session) => {
+        await dao.gameCrud.heartUpdate(body, session);
+    },
+
+    saveScore : async (body, session) => {
+        await dao.gameCrud.saveScore(body, session);
     }
 }
 
