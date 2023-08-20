@@ -70,6 +70,20 @@
    top:35px;
    left:-10px;
   }
+
+  .custom-btn {
+    width: 200px;
+    background-color: #CFF4FC;
+    font-weight: 600;
+    color: black;
+    }
+
+  .custom-heartbtn{
+    width: 140px;
+    background-color: rgb(229, 60, 144);
+    font-weight: 600;
+    color: white;
+  }  
  
 </style>
 
@@ -112,7 +126,11 @@
         <% }); %>
         <br><br>
         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerModal" style="margin-right: 30;">문제확인</button> 
-        <a href="/game1/next" class="btn btn-secondary">다음 문제</a>
+        <% if (flag !== true) { %>
+          <a href="#" class="btn btn-secondary" disabled>다음 문제</a>
+        <% } else { %>
+          <a href="/game1/next/0" class="btn btn-secondary" >다음 문제</a>
+        <% } %>
       </form>        
     </div>
 
@@ -125,13 +143,18 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="heartZeroModalLabel">하트 소진</h5>
+          <h5 class="modal-title" id="heartZeroModalLabel">하트 소진 (남은 하트: <%= myHeart %>)</h5>
           <a href="/game1/list"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></a>
         </div>
         <div class="modal-body">
           하트가 모두 소진되었습니다.
         </div>
         <div class="modal-footer">
+          <% if (myHeart > 0) { %>
+            <a href="/game1/next/1" class="btn custom-heartbtn">하트 사용하기</a>
+          <% } else { %>
+            <a href="#" class="btn custom-heartbtn">하트개수 0</a>
+          <% } %>
           <a href="/game1/list" class="btn btn-primary">홈으로 가기</a>
         </div>
       </div>

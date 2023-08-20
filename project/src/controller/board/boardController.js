@@ -3,23 +3,23 @@ const boardService = require("../../service/board/boardService");
 const views = {
   list: async (req, res) => {
     let list = await boardService.views.getAll();
-    res.render("board/board_index", { list : list });
+    res.render("board/board_index", { list : list , userId : req.session.userId });
   },
 
   detail: async (req, res) => {
     let list = await boardService.views.getDetail(req.params.id);
     let commentList = await boardService.commentViews.getComment(req.params.id);
     console.log("commentLisT? : ", commentList);
-    res.render("board/board_detail", { boardDetail : list, comments : commentList })
+    res.render("board/board_detail", { boardDetail : list, comments : commentList, userId : req.session.userId })
   },
 
   writeForm: (req, res) => {
-    res.render("board/board_write_form");
+    res.render("board/board_write_form", {userId : req.session.userId});
   },
 
   modifyForm: async (req, res) => {
     let list = await boardService.views.getDetail(req.params.id);
-    res.render("board/board_modify_form", { boardDetail : list });
+    res.render("board/board_modify_form", { boardDetail : list , userId : req.session.userId});
   }
 
 }

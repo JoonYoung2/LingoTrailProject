@@ -1,8 +1,12 @@
+<%- include("../../../default/header") %>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 <style>
   h1 {
+    display: flex;
+    justify-content: center;
     text-align: center;
   }
 
@@ -13,12 +17,13 @@
   input {
     width: 90%;
     text-align: center;
-    margin-top: 10;
+    margin-top: 20px;
   }
   
   input[type=checkbox] {
+    display: flex;
     transform: scale(2); /* Standard */
-    margin-top: 20;
+    margin-top: 50px auto;
   } 
 
   /* 첫번째요소는 10% (img) 나머지는 7% 너비를 갖는다 */
@@ -58,7 +63,7 @@
 
     <% list.forEach((item) => { %>
       <tr>
-        <td><img src="/static/game1_files/<%= item.IMG %>" alt="Image" width="100" height="50"></td>
+        <td><img src="/static/game1_files/<%= item.IMG %>" alt="Image" width="100px" height="70px"></td>
         <td><input type="text" name="question_<%= item.RECORD_ID %>" value="<%= item.QUESTION %>"></td>
         <td><input type="number" name="question_level_<%= item.RECORD_ID %>" value="<%= item.QUESTION_LEVEL %>"></td>
         <td><input type="text" name="answer_<%= item.RECORD_ID %>" value="<%= item.ANSWER %>"></td>
@@ -66,8 +71,8 @@
         <td><input type="text" name="wrong2_<%= item.RECORD_ID %>" value="<%= item.WRONG2 %>"></td>
         <td><input type="text" name="wrong3_<%= item.RECORD_ID %>" value="<%= item.WRONG3 %>"></td>
         <!-- <td><a href="/game1/edit/<%= item.RECORD_ID %>"><button type="button" class="btn btn-warning" style="margin-top: 5;" >수정</button></a></td> -->
-        <td><button type="button" class="btn btn-warning" style="margin-top: 5;" onclick="modifyRecord('<%= item.RECORD_ID %>')" >수정</button></td>
-        <td><input type="checkbox" name="delete_checkbox" value="<%= item.RECORD_ID %>"></td>
+        <td><button type="button" class="btn btn-warning" style="margin-top: 20px;" onclick="modifyRecord('<%= item.RECORD_ID %>')" >수정</button></td>
+        <td><input type="checkbox" name="delete_checkbox" value="<%= item.RECORD_ID %>" style="margin-top: 30px;"></td>
       </tr>
     <% }); %>
   </table>
