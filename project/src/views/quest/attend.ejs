@@ -13,7 +13,11 @@
          class="fit-picture"
         src="\static\img\sua\attendBoard\attendBoard<%=stampResult%>.png"
         alt="매일 한개씩 하트를 얻을 수 있는 출석체크"/>
+        <% if(num){ %>
+            <button class = "attendBtn" onclick="alert('이미 출석했습니다.')"></button>
+        <%}else{%>
         <button class = "attendBtn"  onclick="location.href='/quest/attend.do';"></button>
+        <%}%>
         </div>
 
 

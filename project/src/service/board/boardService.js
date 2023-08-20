@@ -4,8 +4,20 @@ const toSysdate = date => {
   const currentDate = new Date();
   const inputDate = new Date(date);
   const timeDifference = currentDate - inputDate;
+  
+  const secondsDifference = Math.floor(timeDifference / 1000); // 그냥 밀리초단위 -> 게시판에 사용하자
+  if (secondsDifference < 60) { // 60초 밑이면
+    return `${secondsDifference}초 전`;
+  }
+  const minutesDifference = Math.floor(secondsDifference / 60);
+  if (minutesDifference < 60) { // 60 분 밑이면
+    return `${minutesDifference}분 전`;
+  }
+  const hoursDifference = Math.floor(minutesDifference / 60);
+  if (hoursDifference < 24) { // 24시간 밑이면
+    return `${hoursDifference}시간 전`;
+  }
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24)); // -> 밀리초 * 초 * 분 * 시 = 하루 (단위로 내림) -> * 1.5일 >>> 1 >>> 하루전
-
   if (daysDifference === 0) {
     return "오늘";
   } else if (daysDifference === 1) {
@@ -64,6 +76,23 @@ const views = {
   }
 };
 
+const commentViews = {
+  getComment : async (boardId) => {
+    const list = await dao.commentViews.getList(boardId);
+    const formattedList = list.map(item => {
+      const formattedDate = toSysdate(item.COMMENT_DATE);
+      return {
+        COMMENT_ID: item.COMMENT_ID,
+        COMMENT_TEXT: item.COMMENT_TEXT,
+        COMMENT_AUTHOR: item.COMMENT_AUTHOR,
+        COMMENT_DATE: formattedDate
+      };
+    });
+    return formattedList;
+  }
+}
+
+
 const process = {
   
   submit : async (data) => {
@@ -95,5 +124,27 @@ const process = {
   }
 };
 
+const commentProcess = {
+  submit : async (data, boardId) => {
+    try {
+      console.log("service data? : ", data);
+      console.log("service boardID? : ", boardId);
+      const result = await dao.commentProcess.insert(data, boardId);
+      return result.rowsAffected;
+    } catch (err) {
+      console.err(err);
+    }
+  },
 
-module.exports = { views , process };
+  remove : async (commentId) => {
+    try {      
+      console.log("service commentID? : ", commentId);
+      const result = await dao.commentProcess.remove(commentId);
+      return result.rowsAffected;
+    } catch (err) {
+      console.err(err);
+    }
+  }
+}
+
+module.exports = { views , commentViews, process ,commentProcess};

@@ -11,11 +11,19 @@ const configure = {
         let given = await service.configure.getGiven(req.body, QeAn); //given means given selectors.
         let getQuestion = await service.configure.getQuestion(req.body);
         let getAnswer = await service.configure.getAnswer(req.body);
-        res.render("games/meaning/show", {QeAn, given, getQuestion, getAnswer});
+        let getHeart = await service.configure.getHeart(req.session.userId);
+        let chosenLevel = req.body.level_step;
+        console.log(chosenLevel);
+        res.render("games/meaning/show", {QeAn, given, getQuestion, getAnswer, getHeart, chosenLevel});
     },
-    result : (req, res)=>{
-        let score=req.query.score;
-        res.render("games/meaning/result",{score});
+    result : async (req, res)=>{
+        //let score=req.query.score;
+        let rankingPoint=req.query.rankingPoint;
+        let heart = req.query.heart;
+        let id = req.session.userId;
+        await service.configure.setHeart(heart, id);
+        await service. configure.setScore(rankingPoint, id);
+        res.render("games/meaning/result");
     }
 
 }

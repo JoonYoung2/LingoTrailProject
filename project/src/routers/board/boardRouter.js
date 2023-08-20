@@ -12,5 +12,9 @@ router.post("/submit", boardCtrl.process.submit);
 router.post("/modify", boardCtrl.process.modify);
 router.post("/delete", boardCtrl.process.remove);
 
+// 댓글
+router.post("/addComment/:id", boardCtrl.commentProcess.submit);
+router.get("/deleteComment/:commentId/:boardId", boardCtrl.commentProcess.remove);
+
 
 module.exports = router;

@@ -1,6 +1,9 @@
+<%- include("../default/header") %>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
+  <title>게시판</title>
   <style>
     th, td {
       text-align: center;
@@ -21,10 +24,24 @@
 
     .h2{
       text-align: center;
-      margin-top: 10%;
-      margin-bottom: 20;
+      margin-top: 5%;
+      margin-bottom: 40px;
       
     }
+
+    .text-content{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 20px; 
+    }
+
+    .custom-btn {
+    background-color: #CFF4FC;
+    font-weight: 600;
+    color: black;
+  }
+
 
 
   </style>
@@ -45,8 +62,8 @@
       <% list.forEach((item) => { %>
         <tr>
           <td><%= item.BOARD_ID %></td>
-          <td><%= item.TITLE %></td>
-          <td><a href="/board/detail/<%= item.BOARD_ID %>"><%= item.CONTENT %></a></td>
+          <td class="text-content"><%= item.TITLE %></td>
+          <td class="text-content"><a href="/board/detail/<%= item.BOARD_ID %>"><%= item.CONTENT %></a></td>
           <td><%= item.AUTHOR %></td>
           <td><%= item.DATE %></td>
           <td><%= item.VIEWS %></td>
@@ -56,5 +73,8 @@
   </table>
 </div>
   <div style="text-align: center;">
-  <a href="/board/writeForm"><button class="btn btn-primary" style="color: beige;">게시글쓰기</button></a>
+  <a href="/board/writeForm"><button class="btn custom-btn" style="margin: 5%;">게시글쓰기</button></a>
   </div>
+
+
+  

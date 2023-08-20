@@ -66,11 +66,11 @@ const quest = {
     addHeart : async(id, stamp)=>{
         const con = await oracledb.getConnection(dbConfig);
         let num;
-        if(stamp == 4){
+        if(stamp == 5){
             num=2;
-        }else if(stamp == 9){
+        }else if(stamp == 10){
             num=3;
-        }else if(stamp ==14){
+        }else if(stamp ==15){
             num=4;
         }else{
             num=1;
@@ -83,6 +83,17 @@ const quest = {
             console.log(err)
         }
     },
+    attendanceCheck : async(id)=>{
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT attend_date FROM member_info WHERE id='${id}'`;
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err)
+        }console.log("Dao result===>",result.rows[0].ATTEND_DATE);
+        return result.rows[0].ATTEND_DATE;
+    }
 
 
 }

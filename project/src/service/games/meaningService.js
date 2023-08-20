@@ -1,3 +1,4 @@
+const { SYSASM } = require("oracledb");
 const dao = require("../../dao/games/meaningDao");
 const configure = {
     getQeAn : async (body)=>{ //{ level: '1' }
@@ -70,10 +71,20 @@ const configure = {
         let answerLanguageSet = await dao.configure.getLanguageSet(body.answerLanguage);
         
         return answerLanguageSet;
+    },
+    getHeart : async (session) =>{
+        let heart = await dao.configure.getHeart(session);
+        return heart;
+    },
+    setHeart : async (heart, session)=>{
+        await dao.configure.setHeart(heart, session);
+    },
+    setScore : async (rankingPoint, id)=>{
+        await dao.configure.setScore(rankingPoint, id);
     }
 }
 const meaningCrud = {
-    getAllforAdmin : async (body) => {
+    getAllforAdmin : async () => {
         let info = await dao.meaningCrud.getAllforAdmin();
         return info;
     },

@@ -37,6 +37,52 @@
 		<a href="/member/login" id="l">로그인</a>&nbsp;
 		<a href="/member/register">회원가입</a>
 	</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Page Title</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		/* Style the body */
+		.header body {
+		  	font-family: Arial;
+		  	margin: 0;
+		}
+		
+		/* Header/Logo Title */
+		.header header {
+		  	padding: 20px;
+		  	background: #ffffff;
+		  	color: white;
+		  	font-size: 15px;
+		}
+		
+		.header a {
+			font-size: 16px;
+			text-decoration: none;
+			color: #00a0ff;
+			font-weight: bold;
+		}
+		
+		.header img {
+			width: 200px;
+			height: 60px;
+		}
+		
+		.header #l {
+			margin-left: 950px;
+		}
+	</style>
+</head>
+<body>
+	<% if(userId === undefined) { %>
+		<div class="header">
+			<a href="/"><img src="/static/img/lingotrail.png"></a>
+			<a href="/member/login" id="l">로그인</a>&nbsp;
+			<a href="/member/register">회원가입</a>
+		</div>	
 	<% } else { %>
 		<div class="header">
 			<a href="/"><img src="/static/img/lingotrail.png"></a>
