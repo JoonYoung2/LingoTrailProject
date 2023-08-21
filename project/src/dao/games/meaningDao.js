@@ -105,11 +105,11 @@ const configure = {
     },
     setScore : async (rankingPoint, id)=>{
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `UPDATE member_info SET meaning_game='${rankingPoint}' WHERE id = '${id}'`;
+        const sql = `UPDATE member_info SET meaning_game=meaning_game+'${rankingPoint}' WHERE id = '${id}'`;
         try{
             await con.execute(sql);
         }catch(err){
-            console.log(err);
+            console.log(err);0
         }
     }
 }

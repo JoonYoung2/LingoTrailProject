@@ -16,9 +16,25 @@ const member = {
             return "이메일을 입력해주세요.";
         } else if(body.pw.length ==0 || body.pw==""){
             return "비밀번호를 입력해주세요.";
-        } else if(body.pw.login_type == 0 || body.login_type == ""){
-            return "타입을 선택해주세요.";
         }
+
+
+
+        if (body.id.length < 6) {
+            return "아이디는 6글자 이상이어야 합니다.";
+        }
+          // email 검증: @ 포함
+        if (!body.email.includes('@')) {
+            return "이메일의 형식이 올바르지 않습니다.";
+        }
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%^*#?&])[A-Za-z\d@$!%^*#?&]{10,}$/;
+        // password 검증: 영어, 숫자, 특수문자 각각 1개 이상, 10글자 이상
+        if (!passwordRegex.test(body.pw)) {
+            return "비밀번호는 영어, 숫자, 특수문자 모두 포함, 총 10글자 이상이어야 합니다.";
+        } 
+
+
+
 
         const pwd = body.pw;
         const changePwd = bcrypt.hashSync(pwd, 10);
@@ -36,24 +52,27 @@ const member = {
     loginDo : async (body, session)=>{ //{ id: 'rr', pw: 'rr' }
         let existCh = await dao.member.getMemInfo(body.id);
         let dbInfo = existCh.rows[0];
-        const result = bcrypt.compareSync(body.pw, dbInfo.PW);
-
+        console.log("Service dbInfo: ", dbInfo);
+        
         if(dbInfo == undefined){
             return "가입된 아이디가 아닙니다.";
+        }
+
+        const result = bcrypt.compareSync(body.pw, dbInfo.PW);
+        if(!result) {
+            return "비밀번호가 올바르지 않습니다."
         } else {
-            if(!result) {
-                return "비밀번호가 올바르지 않습니다."
-            } else {
-                session.userId = dbInfo.ID;
-                session.loginType = dbInfo.LOGIN_TYPE;
-                return "로그인 되었습니다.";
-            }
+            session.userId = dbInfo.ID;
+            session.loginType = dbInfo.LOGIN_TYPE;
+            return "로그인 되었습니다.";
         }
     },
 
     unregisterDo : async(body, session)=>{
         let existCh = await dao.member.getMemInfo(body.id);
         let dbInfo = existCh.rows[0];
+        console.log("else문전임 if문임. dbInfo는 여기 : ",dbInfo);
+        console.log("body는 여기 : ", body);
         // console.log("session.userId : ",session.userId);
         // console.log("body : ",body);
         // console.log("existCh : ", existCh);
@@ -67,6 +86,8 @@ const member = {
         if(session.userId !== body.id){
             return "아이디가 올바르지 않습니다.";
         } else {
+            console.log("else문으로 옴. dbInfo는 여기 : ",dbInfo);
+            console.log("body는 여기 : ", body);
             if(body.pw !== dbInfo.PW) {
                 return "비밀번호가 올바르지 않습니다.";
             }else{

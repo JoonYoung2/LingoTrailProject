@@ -59,8 +59,7 @@ const nextViewBtn = (cnt) => {
             heartUsingCh();
         }else{
             alert("보유한 하트가 없습니다. 게임을 종료합니다.");
-            console.log(rightAnswerCnt*pointByLevel);
-            location.href = "meaning/result?score=" + score + "&heart=" + heartNum +"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+            location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
         }
     }
     answerItemValue = "";
