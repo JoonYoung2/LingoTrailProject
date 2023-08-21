@@ -1,19 +1,49 @@
-<%- include("./default/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:100%; height: 100vh; display: flex; justify-content: center; align-items:center;">
+        <div>
+            <div style="display:flex; justify-content: space-between;">
+                <div>
+                    <!-- <div style="padding: 30px 50px; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(0, 0, 0, 0.1);">
+                        Welcome to 어쩌구~~
+                    </div> -->
+                    <div style="display:flex;">
+                        <% for(var i = 0; i < 2; i++){ %>
+                            <div><img src="/static/img/joon/game/<%=i%>.png"></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin:0 80px;"><img style="width:500px;" src="/static/img/joon/lingoTrail.png"></div>
+                    <div style="display: flex; justify-content: center;">
+                        <div class="studyTextDiv">
+                            <div><a id="b" class="studyText" href="/member">➤ Let's Go Study</a></div>
+                        </div>
+                    </div>
+                </div>
 
-index.ejs<br>
-<a href="/member">/member로 가고 싶져? 나를 눌러봐여</a>
+                <div>
+                    <!-- <div style="padding: 30px 50px; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(0, 0, 0, 0.1);">
+                        Welcome to 어쩌구~~
+                    </div> -->
+                    <div style="display:flex;">
+                        <% for(var i = 2; i < 4; i++){ %>
+                            <div><img src="/static/img/joon/game/<%=i%>.png"></div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>
 
-<br>
 
-<a href="/game1/list">이미지를 보고 정답을 맞추세요!</a>
-
-<%if(userId !== undefined){ %>
-    <form action="/session/login_check" method="post">
-        <input type ="submit" id="attend" value="출석하기"><br>
-    </form>
-    <% }%>
-<hr>
-<button><a href="/ranking/list">점수 보기</a></button>
-<br>
-
-<a href="/board">게시판!</a>

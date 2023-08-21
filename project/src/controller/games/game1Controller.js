@@ -11,7 +11,7 @@ const views = {
   },
 
   register: (req, res) => {
-    res.render("admin/games/game1/game1_register_form");
+    res.render("admin/games/game1/game1_register_form", {userId : req.session.userId});
   },
 
   updateForm: async (req, res) => {
