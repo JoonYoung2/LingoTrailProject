@@ -1,5 +1,59 @@
 <%- include("../default/header") %>
-<form action="/member/pwCheck.do" method="post">
-    <input type="password" id="pw" name="pw" placeholder="현재 비밀번호">
-    <input type="submit" value="본인 검증하기">
-</form>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+		div {
+			width: 100%;
+			padding: 20px;
+			text-align: center;            
+		}		
+
+        input[type=password]{
+            width: 20%;
+            padding: 12px 30px;
+            margin-top: 160px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type=submit] {
+            width: 15%;
+            background-color: #00a0ff;
+            color: white;
+            padding: 10px 30px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow:
+                inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+                inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input[type=submit]:hover {
+            background-color: #00b2ff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form action="/member/pwCheck.do" method="post">
+            <input type="password" id="pw" name="pw" placeholder="현재 비밀번호">
+            <input type="submit" value="본인 검증하기">
+        </form>
+    </div>
+</body>
+</html>

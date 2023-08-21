@@ -10,7 +10,7 @@ const views = {
         let member;
         try {
             member = await con.execute(sql);
-        } catch(err){
+        } catch(err) {
             console.log(err);
         }
         console.log("member : ", member.rows);
@@ -18,7 +18,7 @@ const views = {
     },
     getGame01Info : async () => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from game_score order by game1_score desc`;
+        const sql = `select * from member_info order by game1_score desc`;
         let member;
         try{
             member = await con.execute(sql);
@@ -30,7 +30,7 @@ const views = {
     },
     getGame02Info : async () => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from game_score order by game2_score desc`;
+        const sql = `select * from member_info order by game2_score desc`;
         let member;
         try{
             member = await con.execute(sql);
@@ -42,7 +42,7 @@ const views = {
     },
     getGame03Info : async () => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from game_score order by game3_score desc`;
+        const sql = `select * from member_info order by game3_score desc`;
         let member;
         try{
             member = await con.execute(sql);
@@ -54,7 +54,7 @@ const views = {
     },
     getTotalInfo : async () => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from game_score order by (game1_score+game2_score+game3_score) desc`;
+        const sql = `select * from member_info order by (game1_score+game2_score+game3_score) desc`;
         let member;
         try{
             member = await con.execute(sql);
@@ -66,8 +66,4 @@ const views = {
     }
 };
 
-const process = {
-
-};
-
-module.exports = {views, process};
+module.exports = {views};

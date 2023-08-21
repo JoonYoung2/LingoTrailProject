@@ -1,0 +1,96 @@
+<%- include("../default/header") %>
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		div {
+			width: 100%;
+			padding: 20px;
+			text-align: center;
+		}
+		
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			margin: auto;
+			width: 30%;
+			border-top: 1px solid #dddddd;
+		}
+		
+		td {
+			border-bottom: 1px solid #dddddd;
+			text-align: left;
+			padding: 10px;
+		}
+		
+		#c {
+            width: 25%;
+			color: #ffffff;
+			background-color: #00a0ff;
+			font-weight: bold;
+		}
+		
+		input[type=button] {
+			width: 10%;
+			background-color: #00a0ff;
+			color: white;
+			padding: 10px 20px;
+			margin: 10px 0;
+			border: none;
+			border-radius: 12px;
+			cursor: pointer;
+			box-shadow:
+				inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+				inset -2px -2px 3px rgba(0, 0, 0, 0.6);	
+			font-weight: bold;
+			font-size: 16px;
+		}
+		
+		input[type=button]:hover {
+			background-color: #00b2ff;
+		}
+	</style>
+</head>
+<body>	
+	<div>
+		<% if(userId === undefined) { %>
+
+		<% } else { %>
+			<h2>마이페이지</h2>
+			<br>
+			<table>		  	
+				<tr>
+					<td id="c">아이디</td>
+					<td><%=member[0].ID%></td>
+				</tr>
+				<tr>
+					<td id="c">성명</td>
+					<td><%=member[0].NAME%></td>
+				</tr>
+				<tr>
+					<td id="c">이메일</td>
+					<td><%=member[0].EMAIL%></td>
+				</tr>
+				<tr>
+					<td id="c">타입</td>
+					<td>
+						<% if(member[0].LOGIN_TYPE == 0) { %>
+							사용자
+						<% } else if(member[0].LOGIN_TYPE == 1) { %>
+							관리자
+						<% } %>
+					</td>
+				</tr>
+			</table>
+			
+			<a href="/member/pwCheck"><input type="button" value="수정하기"></a>&nbsp;
+			<a href="/ranking/score"><input type="button" value="점수보기"></a>&nbsp;
+			<a href="/member/unregister"><input type="button" value="탈퇴하기"></a>
+
+			<% if(member[0].LOGIN_TYPE == 1) { %>
+				<br><a href="/member/memberlist">멤버리스트</a>
+			<% } %>
+		<% } %>
+	</div>
+</body>
+</html>

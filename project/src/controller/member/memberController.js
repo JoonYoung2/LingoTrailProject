@@ -1,11 +1,12 @@
 const service = require("../../service/member/memberService");
 
+var cnt = 1;
 const member = {
     register : (req, res)=>{
-        res.render("member/register_form", {member:member.rows, userId : req.session.userId});
+        res.render("member/register_form", {member : member.rows, userId : req.session.userId});
     },
 
-    registerDo : async (req, res)=>{
+    registerDo : async (req, res) => {
         const msg = await service.member.registerDo(req.body);
         if(msg!=="회원 가입이 완료되었습니다.로그인해주세요.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
@@ -14,15 +15,15 @@ const member = {
         }
     },
 
-    login : (req, res)=>{
-        res.render("member/login_form", {member:member.rows, userId : req.session.userId});
+    login : (req, res) => {
+        res.render("member/login_form", {member : member.rows, userId : req.session.userId});
     },
 
-    loginDo : async (req, res)=>{
+    loginDo : async (req, res) => {
         const msg = await service.member.loginDo(req.body, req.session);
-        if(msg !=="로그인 되었습니다.") {
+        if(msg !== "로그인 되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
-        }else{
+        } else{
             res.send(`<script>alert('${msg}'); location.href="/";</script>`);
 
             //res.redirect("/");
@@ -50,13 +51,13 @@ const member = {
     },
 
     info : async (req, res)=>{
-        let member= await service.member.getMember(req.session.userId);
+        let member = await service.member.getMember(req.session.userId);
         console.log("여기야 여기", member);
-        res.render("member/info_from", {member:member.rows, userId : req.session.userId});
+        res.render("member/info_form", {member : member.rows, userId : req.session.userId});
     },
 
     pwCheck : (req,res)=>{
-        res.render("member/pwCheck_form", {member:member.rows, userId : req.session.userId});
+        res.render("member/pwCheck_form", {member : member.rows, userId : req.session.userId});
     },
 
     pwCheckDo : async (req, res)=>{
@@ -73,7 +74,7 @@ const member = {
         let member = getMember.rows[0];
         //getMember.rows[0] = { ID: 're', NAME: 're', EMAIL: 're', PW: 're', LOGIN_TYPE: 0 }
         console.log("member==>", member);
-        res.render("member/update_form", {member:member, userId : req.session.userId});
+        res.render("member/update_form", {member : member, userId : req.session.userId});
     },
 
     updateDo : async (req, res)=>{
@@ -86,17 +87,52 @@ const member = {
     },
 
     unregister : (req, res)=>{
-        res.render("member/unregister_form", {member:member.rows, userId : req.session.userId});
+        res.render("member/unregister_form", {member : member.rows, userId : req.session.userId});
     },
 
-    unregisterDo : async(req, res)=>{
+    unregisterDo : async(req, res) => {
         const msg = await service.member.unregisterDo(req.body, req.session);
-        if(msg !== "회원탈퇴가 완료되었습니다."){
+        if(msg !== "회원탈퇴가 완료되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
-        }else{
+        } else {
             res.send(`<script>alert('${msg}'); location.href="/";</script>`);
+        }
+    },
+
+    memberlist : async (req, res) => {
+        let member = await service.member.getMemberList(req.session.userId);
+        console.log("여기야 여기", member);
+        res.render("member/memberlist", {member : member.rows, userId : req.session.userId, cnt : cnt});
+    },
+
+    modify : (req, res)=>{
+        console.log("타입 1: ", req.params.id);
+        console.log("타입 2: ", req.params.login_type);
+        res.send(
+            `
+            <script>
+                if(window.confirm('타입 변경?')){
+                    location.href='/member/modify.do/${req.params.id}/${req.params.login_type}';
+                } else {
+                    window.history.back();
+                }
+            </script>
+            `
+        )
+    },
+
+    modifyDo : async (req, res)=>{
+        console.log("타입 변경 성공 : ", req.params.login_type);
+        console.log("여기 안옴");
+
+        let msg = await service.member.modifyDo(req.params.id, req.params.login_type);
+
+        if(msg == "타입 변경이 완료되었습니다.") {
+            res.send(`<script>alert('${msg}'); location.href="/member/memberlist";</script>`);
+        } else {
+            res.send(`<script>alert('${msg}'); window.history.back();</script>`);
         }
     }
 }
 
-module.exports={member};
+module.exports={ member };

@@ -1,0 +1,92 @@
+<%- include("../default/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+            
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin: auto;
+            width: 80%;
+            border-top: 1px solid #dddddd;
+        }
+
+        th {
+            color: #ffffff;
+            background-color: #00a0ff;
+            font-weight: bold;
+            height: 40px;
+        }
+            
+        td {
+            border-bottom: 1px solid #dddddd;                
+            text-align: center;
+        }
+
+        input[type=button] {
+            width: 40%;
+            height: 40px;
+            background-color: #00a0ff;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            
+            font-weight: bold;
+            font-size: 16px;           
+        }
+
+        input[type=button]:hover {
+            background-color: #00b2ff;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>멤버 리스트</h2>
+        <table>
+            <tr>
+                <th>No</th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>타입</th>
+                <th>GAME1</th>
+                <th>GAME2</th>
+                <th>GAME3</th>          
+            </tr>
+            <% for(var i=0; i<member.length; i++) { %>
+                <tr>
+                    <td><%= cnt++ %></td>
+                    <td><%= member[i].ID %></td>
+                    <td><%= member[i].NAME %></td>
+                    <td><%= member[i].EMAIL %></td>
+                    <td>
+                        <% if(member[i].LOGIN_TYPE == 0) { %>
+                            사용자
+                        <% } else if(member[i].LOGIN_TYPE == 1) { %>
+                            관리자
+                        <% } %>
+                        &nbsp;<a href="/member/modify/<%= member[i].ID %>/<%=member[i].LOGIN_TYPE%>"><input type="button" value="변경하기"></a>
+                    </td>
+                    <td><%= member[i].GAME1_SCORE %></td>
+                    <td><%= member[i].GAME2_SCORE %></td>
+                    <td><%= member[i].GAME3_SCORE %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>  
+</body>
+</html>

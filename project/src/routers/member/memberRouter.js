@@ -3,10 +3,10 @@ const controller = require("../../controller/member/memberController");
 
 router.get("/", (req, res) => {
     let msg = "";
-    if(req.session.userId){
-        msg="세션 있음, 로그인 되어 있는 상태임";
-    }else{
-        msg="세션 없음. 로그인 안되어 있는 상태임";
+    if(req.session.userId) {
+        msg = "세션 있음, 로그인 되어 있는 상태임";
+    } else {
+        msg = "세션 없음. 로그인 안되어 있는 상태임";
     }
     res.send(`member/index 페이지 입니당<br><a href="/member/login">로그인</a> <a href="/member/register">회원가입</a>
                 <a href="/member/logout">로그아웃</a> <a href="/member/unregister">회원탈퇴</a>
@@ -33,4 +33,10 @@ router.post("/update.do", controller.member.updateDo);
 
 router.get("/unregister", controller.member.unregister);
 router.post("/unregister.do", controller.member.unregisterDo);
+
+router.get("/memberlist", controller.member.memberlist);
+
+router.get("/modify/:id/:login_type", controller.member.modify);
+router.get("/modify.do/:id/:login_type", controller.member.modifyDo);
+
 module.exports = router;
