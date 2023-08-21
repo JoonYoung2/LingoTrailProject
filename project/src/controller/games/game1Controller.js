@@ -1,5 +1,22 @@
 const game1Service = require("../../service/games/game1Service");
 
+function checkSession(req, res) {
+  if (!req.session.userId) {
+    res.send(`<script>alert("로그인 후 이용해주세요."); location.href="/member/login";</script>`);
+    return false;
+  }
+  return true;
+}
+
+function checkAdmin(req, res) {
+  console.log("???session",req.session);
+  if (req.session.loginType !== 1) {
+    res.send(`<script>alert("관리자 권한이 필요합니다."); location.href="/member/login";</script>`);
+    return false;
+  }
+  return true;
+}
+  
 const views = {
   index: (req, res) => {
     res.render("games/game1/game1_index", { userId : req.session.userId });
@@ -11,10 +28,16 @@ const views = {
   },
 
   register: (req, res) => {
+    if (!checkAdmin(req, res)) {
+      return;
+    }
     res.render("admin/games/game1/game1_register_form", {userId : req.session.userId});
   },
 
   updateForm: async (req, res) => {
+    if (!checkAdmin(req, res)) {
+      return;
+    }
     let list = await game1Service.getAll();
     let msg = undefined;
     res.render("admin/games/game1/game1_update_form", { list: list, msg: msg , userId : req.session.userId });
@@ -22,6 +45,9 @@ const views = {
 
   // TODO: V3
   start: async (req, res) => {
+    if (!checkSession(req, res)) {
+      return;
+    }
     try {
       const myHeartItem = await game1Service.getHeartItem(req.session.userId);
       req.session.myHeart = myHeartItem;
@@ -52,6 +78,9 @@ const views = {
   },
 
   next: async (req, res) => {
+    if (!checkSession(req, res)) {
+      return;
+    }
     try {
       
       if(req.params.heart === '1'){
@@ -64,6 +93,14 @@ const views = {
     
       const selectedQuestions = req.session.selectedQuestions;
       const currentIndex = req.session.currentIndex + 1 || 0;
+      const currentQuestion = selectedQuestions[currentIndex];
+      const nextIndex = currentIndex;
+      req.session.currentIndex = nextIndex;
+
+      const explain = undefined;
+      const heartCount = req.session.heartCount;
+      console.log("heartCount가 늘어나고 있나?? ", heartCount);
+      const flag = false;
 
       if (currentIndex >= selectedQuestions.length) {
         req.session.selectedQuestions = undefined;
@@ -78,14 +115,6 @@ const views = {
         req.session.score = 0;
         return;
       }
-      const currentQuestion = selectedQuestions[currentIndex];
-      const nextIndex = currentIndex;
-      req.session.currentIndex = nextIndex;
-
-      const explain = undefined;
-      const heartCount = req.session.heartCount;
-      console.log("heartCount가 늘어나고 있나?? ", heartCount);
-      const flag = false;
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, flag:flag , myHeart:req.session.myHeart})
     } catch (err) {
       console.log(err);
@@ -97,6 +126,9 @@ const views = {
 const process = {
 
   modify: async (req, res) => {
+    if (!checkAdmin(req, res)) {
+      return;
+    }
     try {
       await game1Service.modify(req.body);
       res.json({ success: true });
@@ -106,6 +138,9 @@ const process = {
     }
   },
   delete: async (req, res) => {
+    if (!checkAdmin(req, res)) {
+      return;
+    }
     console.log("req.body.delete_checkbox > : ", req.body.delete_checkbox);
     const deleteList = req.body.delete_checkbox;
 
@@ -124,6 +159,9 @@ const process = {
   },
 
   register: async (req, res) => {
+    if (!checkAdmin(req, res)) {
+      return;
+    }
     const imageFilePath = req.file.path;
     console.log("controller imageFilePath: ", imageFilePath);
     await game1Service.insert(req.body, imageFilePath);
