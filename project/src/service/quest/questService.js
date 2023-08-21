@@ -44,6 +44,7 @@ const quest = {
         await dao.quest.addStamp(session,beforeStampAmount);//스탬프 1 증가
 
         let stampAmount = await dao.quest.getStampAmount(session);
+        console.log("gdgdgdgdgdgdggdgdgdd",stampAmount);
         let today = new Date();
         console.log(today);
         console.log("todaytoday questService",today);
@@ -52,7 +53,7 @@ const quest = {
         
         await dao.quest.addHeart(session, stampAmount);//하트 증가
         console.log("stampAmount",stampAmount);
-        return stampAmount.rows[0].STAMP;
+        return stampAmount;
     },
     attendanceCheck : async (session)=>{
         const attendance = await dao.quest.attendanceCheck(session);//Sat Aug 19 2023 17:33:17 GMT+0900 (대한민국 표준시)

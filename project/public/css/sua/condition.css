@@ -1,0 +1,73 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/static/img/sua/whiteWall2.jpg'); /* 이미지 파일 경로 입력 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    border-radius: 10px;
+
+    line-height: 1.5;
+
+    max-width: 800px; /* 2배 크기로 확대 */
+    height: 80vh; /* 현재 높이의 80%로 설정 */
+    margin: auto;
+}
+
+h3 {
+    margin-top: 20px;
+    margin-bottom: 3px;
+    /*font-size: 48pt;  2배로 크기 키우기 */
+}
+
+select, input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 18pt;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.small-select {
+    width: 60%; /* 선택 박스의 크기를 70%로 설정 */
+    font-size: 10pt; /* 폰트 크기를 조정하거나 필요하다면 변경하세요 */
+}
+
+.form-container select {
+    margin-right: 5px; /* 왼쪽 간격은 위에서 설정한 margin-top 값과 같도록 설정합니다. */
+    margin-left: 5px;  /* 오른쪽 간격은 위에서 설정한 margin-top 값과 같도록 설정합니다. */
+    width: calc(50% - 10px); /* 왼쪽 오른쪽 간격을 제외한 남은 공간의 50%로 설정합니다. */
+    margin-bottom: 1em; /* 각 select 아래에 1em(한 줄 크기)의 간격을 추가합니다. */
+
+}
+
+input[type="submit"] {
+    
+    background-color: #2f5885;
+    color: #ffffff;
+    cursor: pointer;
+    width: 40%;
+    padding: 10px;
+    font-size: 15pt;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #2f5885;
+
+}
