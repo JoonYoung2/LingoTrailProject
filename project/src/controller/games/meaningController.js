@@ -17,13 +17,13 @@ const configure = {
         res.render("games/meaning/show", {QeAn, given, getQuestion, getAnswer, getHeart, chosenLevel});
     },
     result : async (req, res)=>{
-        //let score=req.query.score;
+        let score=req.query.score;
         let rankingPoint=req.query.rankingPoint;
         let heart = req.query.heart;
         let id = req.session.userId;
         await service.configure.setHeart(heart, id);
         await service. configure.setScore(rankingPoint, id);
-        res.render("games/meaning/result");
+        res.render("games/meaning/result",{score,rankingPoint});
     }
 
 }
