@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <%- include("../../../default/adminHeader") %>
+    <section class="speakListPage">
+        <div>
+            <div class="categoryButton">
+                <div>
+                    <a href="/speak_question/list_form">LIST</a>
+                </div>
+                <div>
+                    <a href="/speak_question/language_form">LANGUAGE</a>
+                </div>
+                <div>
+                    <a href="/speak_question/level_form">LEVEL</a>
+                </div>
+            </div>
+            <div class="speakListTitle">
+                <span>
+                    Word List
+                </span>
+            </div>
+            <table id="speakListTable" border="1">
+                <tr>
+                    <td colspan="6">
+                        <input id="speakListSearch" class="speakListSearch" type="text" placeholder="search" value="" onchange="speakListSearch();">
+                    </td>
+                </tr>
+
+                <!-- table title start -->
+
+                <tr>
+                    <th>NO</th>
+                    <% 
+                        console.log("userView => ",language);
+                        let title = {};
+                        let languageName = [];
+                        let cnt = 0;
+                        language.forEach((list) => { 
+                        title = list.LANGUAGE.toUpperCase(); //toUpperCase안하면 컬럼이 소문자일 때 뷰에 뿌려줄 수 없음
+                        languageName[cnt] = title;
+                        cnt++;
+                    %>
+                        <th><%= list.LANGUAGE %></th>
+                    <% }); %>
+                    <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
+                </tr>
+
+                <!-- table title end -->
+
+                <!-- table content start -->
+
+                <% word.forEach((list) => { %>
+
+                    <tr>
+                        <td><%= list.ID %></td>
+                        <%for(var i = 0; i < languageName.length; i++){%>
+                            <td><input type="text" value="<%= list[languageName[i]] %>" class="speakWordInput speakWordInput<%=i%>"></td>
+                        <%}%>
+                        <td class="speakCheckBox">
+                            <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
+                        </td>
+                    </tr>
+                
+                <!-- table content End -->
+
+                <% });%>
+                <tr>
+                    <td colspan="<%=languageName.length + 2%>" class="pagingButton">
+                        <div>
+                            <% if( start <= 1){ %>
+                                <button disabled>이전</button>
+                            <%}else{%>
+                                <button type="button" onclick="
+                                    location.href='/speak_question/word_form?start=<%=start - 1%>'">이전</button>
+                            <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
+                                <a href="/speak_question/word_form?start=<%= i %>"><%= i %></a>
+                            <% }if( start < page.totPage ){%>
+                                <button type="button" onclick="
+                                    location.href='/speak_question/word_form?start=<%=start + 1%>'">다음</button>
+                            <% }else{ %>
+                                <button disabled>다음</button>
+                            <% } %>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="insertZone"></div>
+            <div class="speakGameListButton">
+                <div id="insertBtnChange" class="speakGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                <div class="speakGameListButtons"><button onclick="updateCheck('<%=languageName.length%>');">UPDATE</button></div>
+                <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+            </div>
+        </div>
+    </section>
+
+
+<script src="/static/js/joon/common.js"></script>
+<script src="/static/js/joon/speak_game/speak_word_form.js"></script>
+    
+</body>
+</html>
+

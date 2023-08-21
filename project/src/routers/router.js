@@ -4,8 +4,10 @@ module.exports = (app) => {
     const game1Router = require("./games/game01Router");
     const speakQuetionRouter = require("./games/speakQuestionRouter");
     const meaningRouter = require("./games/meaningRouter");
+    const blankQuestionRouter = require("./games/blankQuestionRouter");
     const rankingRouter = require("./ranking/rankingRouter");
     const boardRouter = require("./board/boardRouter");
+    const questRouter = require("./quest/questRouter");
     
     app.get("/", (req, res) => {
         res.render("index", { userId : req.session.userId });
@@ -22,7 +24,9 @@ module.exports = (app) => {
     app.use("/game1", game1Router);
     app.use("/speak_question", speakQuetionRouter);
     app.use("/meaning", meaningRouter);
+    app.use("/blank_question", blankQuestionRouter);
     app.use("/ranking", rankingRouter);
     app.use("/board", boardRouter);
+    app.use("/quest", questRouter);
     return router;
 }

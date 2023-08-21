@@ -1,6 +1,7 @@
 const oracledb = require("oracledb");
 const dbConfig = require("../../../config/database/db_config");
 
+
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 
@@ -53,6 +54,32 @@ const views = {
 
 }
 
+const commentViews = {
+  getList : async (boardId) => {
+    let con;
+    try {
+      const sql = `select * from comments where board_id = ${boardId} order by comment_date desc`;
+      con = await oracledb.getConnection(dbConfig);
+      const result = await con.execute(sql);
+      return result.rows;
+
+    } catch (err) {
+      console.error(err);
+      throw err;
+
+    } finally {
+      if (con) {
+        try {
+          await con.close();
+        } catch (error) {
+          console.error("connection 닫기:", error);
+        }
+      }
+    }
+  }
+
+}
+
 
 const process = {
   insert : async (data) =>{
@@ -62,7 +89,7 @@ const process = {
     try {
     const sql = `
       INSERT INTO board (BOARD_ID, TITLE, CONTENT, AUTHOR, CREATE_DATE, new_date)
-      VALUES (BOARD_ID_SEQ.nextval, ${title}, ${content}, ${author}, SYSTIMESTAMP, SYSTIMESTAMP)
+      VALUES (BOARD_ID_SEQ.nextval, '${title}', '${content}', '${author}', SYSTIMESTAMP, SYSTIMESTAMP)
     `;
     con = await oracledb.getConnection(dbConfig);
     const result = await con.execute(sql);
@@ -142,5 +169,50 @@ const process = {
 }      
 
 
+const commentProcess = {
+  insert : async (data, boardId) => {
+    let comment = data;
+    let id = parseInt(boardId);
 
-module.exports = { views, process };
+    let con;
+    try {
+    const sql = `
+    insert into comments (comment_id, board_id, comment_text, comment_author, comment_date)
+    VALUES (comment_id_seq.nextval, ${id}, '${comment}', 'test', SYSTIMESTAMP)
+  `;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    return result;
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}},
+
+
+  remove : async (commentId) => {
+    let cId = parseInt(commentId);
+    try {
+    const sql = `
+    delete from comments where comment_id = ${cId} 
+  `;
+    con = await oracledb.getConnection(dbConfig);
+    const result = await con.execute(sql);
+    return result;
+  } catch (error) {
+    console.error("Error in insert:", error);
+    throw error;
+  } finally {
+    if (con) {
+      try {
+        await con.close();
+      } catch (err) {
+        console.err(err);}}}},      
+
+
+}
+module.exports = { views, commentViews, process, commentProcess };

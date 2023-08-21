@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css"/>
+
+</head>
+<body>
+    <div id="attendBorad">
+        <img
+         class="fit-picture"
+        src="\static\img\sua\attendBoard\attendBoard<%=stampResult%>.png"
+        alt="매일 한개씩 하트를 얻을 수 있는 출석체크"/>
+        <% if(num){ %>
+            <button class = "attendBtn" onclick="alert('이미 출석했습니다.')"></button>
+        <%}else{%>
+        <button class = "attendBtn"  onclick="location.href='/quest/attend.do';"></button>
+        <%}%>
+        </div>
+
+
+    <script src="/static/js/sua/attend.js"></script>
+</body>
+</html>

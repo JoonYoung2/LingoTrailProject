@@ -1,5 +1,6 @@
 const oracledb = require("oracledb");
 const dbConfig = require("../../../config/database/db_config");
+const { use } = require('../../routers/games/game01Router');
 
 oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
@@ -103,7 +104,7 @@ const deleteRecord = async (deleteList) => {
     return result.rowsAffected;
 
   } catch (error) {
-    console.error(error);
+    console.log(error);
   } 
 };
 
@@ -137,4 +138,37 @@ const modify = async (data) => {
     console.log(err);
   }
 }
-module.exports = { get, insert, deleteRecord, modify };
+
+const updateScore = async (userId, score) =>{
+  const con = await oracledb.getConnection(dbConfig);
+  const sql = `update member_info set photo_game = photo_game + ${score} where id ='${userId}'`;
+  try {
+    const result = await con.execute(sql);
+    console.log("dao update: ", result);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const getHeartItem = async (userId) =>{
+  const con = await oracledb.getConnection(dbConfig);
+  const sql = `select heart from member_info where id = '${userId}' `;
+  try {
+    const result = await con.execute(sql);
+    return result.rows[0].HEART;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const updateHeart = async (userId) =>{
+  const con = await oracledb.getConnection(dbConfig);
+  const sql = `update member_info set heart = heart - 1 where id = '${userId}'`;
+    try {
+    const result = await con.execute(sql);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+module.exports = { get, insert, deleteRecord, modify, updateScore, getHeartItem, updateHeart };

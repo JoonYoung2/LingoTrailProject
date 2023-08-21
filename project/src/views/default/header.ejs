@@ -1,3 +1,43 @@
+<style>
+	/* Style the body */
+	body {
+		font-family: Arial;
+		margin: 0;
+	}
+
+	/* Header/Logo Title */
+	.header {
+		padding: 20px;
+		background: #ffffff;
+		color: white;
+		font-size: 15px;
+	}
+
+	a {
+		font-size: 16px;
+		text-decoration: none;
+		color: #00a0ff;
+		font-weight: bold;
+	}
+
+	img {
+		width: 200px;
+		height: 60px;
+	}
+
+	#l {
+		margin-left: 950px;
+	}
+</style>
+
+
+<% if(userId===undefined) { %>
+	<div class="header">
+		<a href="/"><img src="/static/img/lingotrail.png"></a>
+		<a href="/member/login" id="l">로그인</a>&nbsp;
+		<a href="/member/register">회원가입</a>
+	</div>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +46,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 	<style>
 		/* Style the body */
-		body {
+		.header body {
 		  	font-family: Arial;
 		  	margin: 0;
 		}
@@ -15,31 +55,29 @@
 			width : 100%;
 			text-align: center;
 			padding: 20px;
-		}
+		}		
 		
-		/* Header/Logo Title */
-		.header {
-		  	padding: 20px 10px;
+		.header header {
+		  	padding: 20px;
 		  	background: #ffffff;
 		  	color: white;
 		  	font-size: 15px;
 		}
 		
-		a {
+		.header a {
 			font-size: 16px;
 			text-decoration: none;
 			color: #00a0ff;
 			font-weight: bold;
 		}
 		
-		img {
+		.header img {
 			width: 200px;
 			height: 60px;
 		}
 		
-		#l {			
-			margin-left: 900px;
-			color: #00a0ff;
+		.header #l {
+			margin-left: 950px;
 		}
 	</style>
 </head>
@@ -53,9 +91,7 @@
 	<% } else { %>
 		<div class="header">
 			<a href="/"><img src="/static/img/lingotrail.png"></a>
-			<a href="/member/logout" id="l">로그아웃</a>&nbsp;
-			<a href="/member/info">내정보</a>
+			<a href="/member/info" id="l">내정보</a>&nbsp;
+			<a href="/member/logout">로그아웃</a>
 		</div>
-	<% } %>	
-</body>
-</html>
+		<% } %>

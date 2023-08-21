@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+    <%- include("../../../default/adminHeader") %>
+    <section class="speakLanguageFormPage">
+        <div>
+            <div class="categoryButton">
+                <div>
+                    <a href="/blank_question/list_form">LIST</a>
+                </div>
+                <div>
+                    <a href="/blank_question/language_form">LANGUAGE</a>
+                </div>
+                <div>
+                    <a href="/blank_question/parts_form">PARTS</a>
+                </div>
+                <div>
+                    <a href="/blank_question/word_form">WORD</a>
+                </div>
+            </div>
+            <div class="speakListTitle">
+                <span>
+                    LevelCategoryList
+                </span>
+            </div>
+            <table border="1">
+                <tr>
+                    <th>NO</th>
+                    <th style="width:200px;">LEVEL</th>
+                </tr>
+                <%
+                    level.forEach((list) => {
+                %>
+                <tr>
+                    <td>
+                        <input type="text" value="<%= list.ID %>" class="levelId" readonly>
+                    </td>
+                    <td>
+                        <input type="text" value="Level <%= list.LEVEL_STEP %>" class="speakLevel categoryLevel" readonly>
+                    </td>
+                </tr>
+                <%
+                    })
+                %>
+            </table>
+            <div id="insertZone"></div>
+            <div class="blankGameListButton">
+                <div id="levelInsertButton" class="levelInsertButton"><button onclick="insertCheck();">INSERT</button></div>
+                <div class="levelDeleteButton"><button onclick="deleteCheck();">DELETE</button></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/joon/blank_game/blank_level_form.js"></script>
+</body>
+</html>
