@@ -1,0 +1,23 @@
+ .gd {
+     color: red;
+ }
+
+ p {
+     text-align: center;
+     padding-top: 140px;
+     font-size: 14px;
+ }
+
+ td {
+     border: solid 1px rgba(0, 0, 0, 1);
+ }
+
+ .IdandLevel{
+    all:unset;
+    width: 30px;
+    text-align: center;
+ }
+
+ .level_text_left{
+    text-align: left;
+ }
