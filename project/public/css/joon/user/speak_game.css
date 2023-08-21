@@ -1,0 +1,201 @@
+.mainPage{
+    width: 100%;
+    height: 100%;
+}
+
+.headerSection{
+    width: 100%;
+}
+
+.headerSectionTitle{
+    padding: 50px 200px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.questionTitle{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.energyBar{
+    width: 80%;
+    background-color: rgba(128, 128, 128, 0.2);
+    border-radius: 20px;
+}
+
+.energyBarFill{
+    width:0%;
+    height: 100%;
+    background-color: red;
+    border-radius: 20px;
+}
+
+.cancelBtn{
+    width: 10%;
+    display:flex;
+    justify-content: right;
+    padding-right: 10px;
+}
+
+.cancelBtn button{
+    all: unset;
+    cursor: pointer;
+}
+
+.lifeView{
+    width: 10%;
+    display:flex;
+    justify-content: center;
+}
+
+.gameLife1{
+    color: red;
+    font-size: 20px;
+}
+.gameLife2{
+    color: red;
+    font-size: 20px;
+}
+.gameLife3{
+    color: red;
+    font-size: 20px;
+}
+
+.questionInput{
+    width: 90%;
+}
+
+.speakBodyTitle{
+    font-size: 30px;
+    font-weight: bold;
+    padding: 40px 0px 20px 0px;
+}
+
+.userAnswerDiv{
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.userAnswerValues{
+    all: unset;
+    height: 30px;
+    padding: 10px 20px;
+    border: solid 1px rgba(0,0,0,0.3);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.inputCancelItems{
+    all: unset;
+    height: 30px;
+    padding: 10px 20px;
+    border: solid 1px rgba(0,0,0,0.3);
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.answerBox{
+    width: 100%;
+    padding: 5px 0px;
+    border-top: solid 1px rgba(0, 0, 0, 0.3);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+
+.userAnswerBox{
+    display: flex;
+    width: 100%;
+    height: 110px;
+    justify-content: center;
+}
+
+.contentWindow {
+    display: flex;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #999;
+    border-radius: 10px;
+    position: relative;
+  }
+
+.speakContent{
+    cursor: default;
+    display: flex;
+    padding: 0 0 4px;
+    background: url(https://d35aaqx5ub95lt.cloudfront.net/images/06f94a15de0c0937cce25dc5dc083e6e.svg) 0 100% repeat-x;
+    font-size: 20px;
+}
+
+.speakButton{
+    all: unset;
+    cursor: pointer;
+}
+
+.speakerImgBox{
+    display: flex;
+    margin-right: 10px;
+}
+
+.underBarBasicDiv{
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+}
+
+.underBarWrongDiv{
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.underBarRightDiv{
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerLocation{
+    width:70%;
+}
+
+.footerBasicBtn{
+    all: unset;
+    cursor: pointer;
+    width: 150px;
+    height: 50px;
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 20px;
+}
+
+.footerStartDiv{
+    border-top: solid 1px rgba(0,0,0,0.1); 
+    width:100%; 
+    height: 175px; 
+    display:flex; 
+    justify-content: center;  
+    align-items: center;
+}
+
+.checkBtn{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.RightContinueDiv{
+    background-color: green;
+    color : white;
+}
+
+.wrongContinueDiv{
+    background-color: red;
+    color : white;
+}

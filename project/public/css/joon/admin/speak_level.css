@@ -1,0 +1,31 @@
+.levelId{
+    all: unset;
+    width: 20px;
+    text-align: center;
+}
+
+.levelInput{
+    all: unset;
+    width: 20px;
+    text-align: center;
+}
+
+.levelDeleteButton{
+    width: 50%;
+}
+
+.levelInsertButton{
+    width: 50%;
+}
+
+.levelDeleteButton button{
+    width: 100%;
+}
+
+.levelInsertButton button{
+    width: 100%;
+}
+
+.categoryLevel{
+    width: 250px;
+}

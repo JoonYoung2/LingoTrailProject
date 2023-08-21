@@ -1,0 +1,115 @@
+@import "admin/speak_list.css";
+@import "admin/speak_language.css";
+@import "admin/speak_level.css";
+@import "admin/blank_list.css";
+
+@import "user/speak_game.css";
+@import "user/speak_step.css";
+@import "user/blank_game.css";
+@import "user/user_index.css";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+caption, tbody, tfoot, thead,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body{
+    height:100%;
+}
+
+/*
+    user question_index.ejs
+*/
+
+
+/*
+    Admin list.ejs
+*/
+
+/* 
+    admin language_form.ejs
+*/
+
+/*
+    admin level_form.ejs
+*/
+
+/*
+    step.ejs
+*/
+
+
+
+/*
+    word_form.ejs
+*/
+
+.speakWordInput{
+    all: unset;
+    width: 150px;
+    text-align: center;
+}
+
+.studyText{
+	all: unset; 
+	cursor: pointer; 
+	color: rgba(0, 160, 255, 0.5); 
+	font-size:35px; 
+	font-weight: bold;
+}
+
+.studyText:hover{
+	color: rgba(0, 160, 255, 1); 
+}
+
+.loadingDiv{
+	display:flex; 
+	justify-content: center; 
+	font-weight: bold; 
+	padding-top:30px;
+}
+
+.studyTextDiv{
+	display:flex; 
+	justify-content:center; 
+	padding-top:30px;
+}

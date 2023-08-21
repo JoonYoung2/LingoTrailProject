@@ -34,11 +34,15 @@ const member = {
         const con = await oracledb.getConnection(dbConfig);
         // const sql = `INSERT INTO member_info (id, name, email, pw, login_type) VALUES(:id, :name, :email, :pw, :login_type)`;
         const sql = `INSERT INTO member_info (id, name, email, pw, login_type, attend_date, stamp, heart) VALUES(:id, :name, :email, :pw, 0, '0', 0, 0)`;
+        const listeningSql = `INSERT INTO speak_question_config(id) values('${body.id}')`;
+        const blankSql = `INSERT INTO blank_question_config(id) values('${body.id}')`;
 
         let result = 0;
         try {
             result = await con.execute(sql, body);
-        } catch(err) {
+            await con.execute(listeningSql);
+            await con.execute(blankSql);
+        }catch(err){
             console.log(err);
         }
         console.log("dao insert : ", result);
