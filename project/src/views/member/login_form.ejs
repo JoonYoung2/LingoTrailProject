@@ -5,15 +5,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	div {
-		width : 100%;
-		text-align: center;
-	  	padding: 20px;
-	}
+	
 
 	input[type=text]{
 	  	width: 25%;
-	  	padding: 15px 30px;
+	  	padding: 12px 30px;
 	  	margin: 5px 0;
 	  	display: inline-block;
 	  	border: 1px solid #ccc;
@@ -26,7 +22,7 @@
 
 	input[type=password]{
 	  	width: 25%;
-	  	padding: 15px 30px;
+	  	padding: 12px 30px;
 	  	margin: 5px 0;
 	  	display: inline-block;
 	  	border: 1px solid #ccc;
@@ -41,7 +37,7 @@
 	  	width: 25%;
 	  	background-color: #00a0ff;
 	  	color: white;
-	  	padding: 10px 20px;
+	  	padding: 12px 30px;
 	  	margin: 10px 0;
 	  	border: none;
 	  	border-radius: 12px;
@@ -55,17 +51,13 @@
 
 	input[type=submit]:hover {
 	  	background-color: #00b2ff;
-	}
+	}	
 	
-	a {
-		text-decoration: none;
-		color: gray;
-		font-weight: bold;
-	}
 </style>
 </head>
 <body>	
-	<div>
+	<div class="header">
+		<div>
 		<% if(userId === undefined) { %>
 			<form action="/member/login.do" method="post">
 				<h2>로그인</h2>
@@ -77,6 +69,7 @@
 		<% } else { %>
 			
 		<% } %>
+		</div>
   	</div>
 </body>
 </html>

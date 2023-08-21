@@ -19,6 +19,10 @@ router.post("/speak_insert", controller.gameCrud.insert);
 
 router.post("/speak_search_list", controller.gameCrud.search);
 
+router.post("/heart_update", controller.gameCrud.heartUpdate);
+
+router.post("/save_score", controller.gameCrud.saveScore);
+
 router.get("/language_form", controller.languageCrud.getList);
 
 router.get("/language_insert_list", controller.languageCrud.getMaxId);

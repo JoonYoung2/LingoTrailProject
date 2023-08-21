@@ -8,9 +8,11 @@ const speakQuestion = {
     startGame : async (body, session) => {
         let sql = "";
         if(body.language == body.answerLang){
-            sql = `select * from speak_question_game where qlanguage=${body.language} and level_step=${body.level_step}`;
+            // sql = `select * from speak_question_game where qlanguage=${body.language} and level_step=${body.level_step}`;
+            sql = `select * from (select * from speak_question_game where qlanguage=${body.language} and level_step=${body.level_step} order by dbms_random.value) where rownum <= 10`;
         }else{
-            sql = `select * from speak_question_game where qlanguage=${body.language} and alanguage=${body.answerLang} and level_step=${body.level_step}`;
+            // sql = `select * from speak_question_game where qlanguage=${body.language} and alanguage=${body.answerLang} and level_step=${body.level_step}`;
+            sql = `select * from (select * from speak_question_game where qlanguage=${body.language} and alanguage=${body.answerLang} and level_step=${body.level_step} order by dbms_random.value) where rownum <= 10`;
         }
         const configSql = `update speak_question_config set level_step=${body.level_step}, question=${body.language}, answer=${body.answerLang}, content=${body.contentState} where id='${session.userId}'`;
         console.log(sql);
@@ -27,7 +29,7 @@ const speakQuestion = {
     },
 
     getWord : async () => {
-        const sql = "select * from speak_word_language";
+        const sql = "select * from (select * from speak_word_language order by dbms_random.value) where rownum <= 100";
         const con = await oracledb.getConnection(dbConfig);
         let result;
         try{
@@ -52,6 +54,19 @@ const speakQuestion = {
 
         console.log(result);
         return result.rows[0];
+    },
+
+    getHeart : async (session) => {
+        const sql = `select heart from member_info where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows[0].HEART;
     }
 }
 
@@ -223,6 +238,27 @@ const gameCrud = {
         }
 
         return result.rows;
+    },
+
+    heartUpdate : async (body, session) => {
+        const sql = `update member_info set heart=${body.userHeart} where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    saveScore : async (body, session) => {
+        const sql = `update member_info set listening_game=${body.gameScore}+listening_game where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        try{
+            await con.execute(sql)
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 
@@ -256,7 +292,7 @@ const languageCrud = {
 
     delete : async (body, names) => {
         const sql = `delete from speak_question_language where id in (${body.values})`;
-        const gameSql = `delete from speak_question_game where language in (${body.values})`;
+        const gameSql = `delete from speak_question_game where alanguage in (${body.values}) or qlanguage in (${body.values})`;
         const con = await oracledb.getConnection(dbConfig);
 
         // 관련된 컬럼 삭제

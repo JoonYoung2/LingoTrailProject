@@ -1,0 +1,17 @@
+.speakLanguageFormPage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.languageId{
+    all: unset;
+    width: 20px;
+    text-align: center;
+}
+
+.languageLanguage{
+    all: unset;
+    width: 200px;
+    text-align: center;
+}

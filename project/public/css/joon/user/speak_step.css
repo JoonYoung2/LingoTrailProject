@@ -1,0 +1,67 @@
+.stepPage{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.stepPageLocation{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.stepPageWidth{
+    width: 100%;
+}
+
+.stepSelectDiv{
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.1px;
+    border: solid 1px #00a0ff;
+}
+
+.stepSelectItems{
+    all: unset;
+    text-align: center;
+    width: 200px;
+    height: 40px;
+    align-items: center;
+    font-size: 20px;
+    border: solid 2px #00a0ff;
+    color: #00a0ff;
+    cursor: pointer;
+}
+
+.selectTitle{
+    padding-bottom:30px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #00a0ff;
+}
+
+.stepStartBtnDiv{
+    width: 100%; 
+    display:flex; 
+    justify-content: center; 
+    padding-top: 50px;
+}
+
+.stepStartBtn{
+    all: unset; 
+    cursor:pointer; 
+    width: 100px; 
+    height: 30px; 
+    color:#00a0ff; 
+    border: solid 1px #00a0ff; 
+    text-align:center
+}
+
+.stepStartBtn:hover{
+    background-color: rgba(0, 160, 255, 0.1);
+}

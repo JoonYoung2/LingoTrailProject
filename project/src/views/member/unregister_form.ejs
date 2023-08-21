@@ -1,10 +1,84 @@
 <%- include("../default/header") %>
-진짜? 정말로? 회원 탈퇴하실건가요..?<br>
-LingoTrail은 정말 좋은 어플리케이션이예요. 다시한번 생각해봐요.<br>
-LingoTrail은 눈물이 나네요..ㅜㅜ <br>
-가지마요오오...<br>
-<form action="/member/unregister.do" method="post">
-    <input type="text" id="id" name="id" placeholder="아이디"><br>
-    <input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
-    <input type="submit" value="탈퇴하기">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 50px;
+            font-size: 20px;
+        }
+            
+        input[type=text]{
+            width: 15%;
+            padding: 12px 30px;
+            margin-top: 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type=password]{
+            width: 15%;
+            padding: 12px 30px;
+            margin-top: 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        input[type=submit] {
+            width: 15%;
+            background-color: #00a0ff;
+            color: white;
+            padding: 10px 30px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow:
+                inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+                inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input[type=submit]:hover {
+            background-color: #00b2ff;
+        }       
+    </style>
+</head>
+<body>
+    
+    <div>    
+        <p>
+            진짜? 정말로? 회원 탈퇴하실건가요..?<br>
+            LingoTrail은 정말 좋은 어플리케이션이예요. 다시한번 생각해봐요.<br>
+            LingoTrail은 눈물이 나네요..ㅜㅜ <br>
+            가지마요오오...<br>
+        </p>
+        <form action="/member/unregister.do" method="post">
+            <input type="text" id="id" name="id" placeholder="아이디"><br>
+            <input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
+            <input type="submit" value="탈퇴하기">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+#attendBorad{
+    position : relative;
+    width: 638px; 
+    height: 698px;
+}
+
+button.attendBtn {
+    position: absolute;
+    top: 600px;
+    left: 220px;
+    width: 200px;
+    height: 45px;
+    background-color: rgba(222,235,247,0.1);
+    border: none;
+    cursor: pointer;
+}

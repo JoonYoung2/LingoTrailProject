@@ -8,6 +8,8 @@
 </head>
 <body>
     <input type="hidden" value="<%=data.length%>" id="dataSize">
+    <input type="hidden" value="<%= heart %>" id="userHeart">
+    <input type="hidden" value="<%= level %>" id="chooseLevel">
 
     <%
         let msg = "";
@@ -147,6 +149,6 @@
     <% cnt++;}) %>
 
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=oTMD5yMg"></script>
-    <script src="/static/js/joon/speak_question.js"></script>
+    <script src="/static/js/joon/speak_game/speak_question.js"></script>
 </body>
 </html>

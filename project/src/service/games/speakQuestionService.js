@@ -14,7 +14,7 @@ const speakQuestion = {
             for(var i = 0; i < data.length; i++){
                 let answer = data[i].QUESTION; 
                 for(var j = 0; j < 3; j++){
-                    let randomNum = Math.floor(Math.random() * 100);
+                    let randomNum = Math.floor(Math.random() * result.length);
                     answer += " " + result[randomNum][answerLang.LANGUAGE];
                     console.log("answer ====> ",answer);
                 }
@@ -25,7 +25,7 @@ const speakQuestion = {
             for(var i = 0; i < data.length; i++){
                 let answer = data[i].ANSWER; 
                 for(var j = 0; j < 3; j++){
-                    let randomNum = Math.floor(Math.random() * 100);
+                    let randomNum = Math.floor(Math.random() * result.length);
                     answer += " " + result[randomNum][answerLang.LANGUAGE];
                     console.log("answer ====> ",answer);
                 }
@@ -42,6 +42,10 @@ const speakQuestion = {
 
     getLanguage : async (language) => {
         return await dao.speakQuestion.getLanguage(language);
+    },
+
+    getHeart : async (session) => {
+        return await dao.speakQuestion.getHeart(session);
     }
 }
 
@@ -125,6 +129,14 @@ const gameCrud = {
         let data = await dao.gameCrud.search(body);
         console.log("search data ==> ", data);
         return data;
+    },
+
+    heartUpdate : async (body, session) => {
+        await dao.gameCrud.heartUpdate(body, session);
+    },
+
+    saveScore : async (body, session) => {
+        await dao.gameCrud.saveScore(body, session);
     }
 }
 

@@ -81,6 +81,36 @@ const configure = {
             console.log(err);
         }
         return result.rows;
+    },
+    getHeart : async (id)=>{
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT heart FROM member_info WHERE id = '${id}'`;
+        let amount = 0;
+        try{
+            amount = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+        console.log("{{{{{{{{{{{{",amount.rows[0].HEART);
+        return amount.rows[0].HEART;
+    },
+    setHeart : async (heart, id) =>{
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `UPDATE member_info SET heart='${heart}' WHERE id= '${id}'`;
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+    setScore : async (rankingPoint, id)=>{
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `UPDATE member_info SET meaning_game='${rankingPoint}' WHERE id = '${id}'`;
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 const meaningCrud = {

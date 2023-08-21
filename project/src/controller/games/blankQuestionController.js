@@ -5,8 +5,10 @@ const blankQuestion = {
         let data = await service.blankQuestion.startGame(req.body, req.session);
         let words = await service.blankQuestion.getWord(data, req.body);
         let amount = req.body.questionNum * 5;
+        let heart = await service.blankQuestion.getHeart(req.session);
+        let level = req.body.level;
     
-        res.render("games/blank/question_index", {data, words, amount});
+        res.render("games/blank/question_index", {data, words, amount, heart, level});
     }
 }
 
@@ -63,7 +65,7 @@ const gameCrud = {
     search : async (req, res) => {
         let language = await service.gameCrud.getLanguage();
         let level = await service.gameCrud.getLevel();
-        let partName = await service.gameCrud.getParts();
+        let parts = await service.gameCrud.getParts();
         let data = await service.gameCrud.search(req.body);
         console.log("data", data);
         console.log("language ==> ", language);
@@ -71,8 +73,18 @@ const gameCrud = {
         if(data[0] === undefined){
             res.json({data : undefined, input : req.body});
         }else{
-            res.json({language, level, data, input : req.body})
+            res.json({language, level, data, input : req.body, parts})
         }
+    },
+
+    heartUpdate : async (req, res) => {
+        await service.gameCrud.heartUpdate(req.body, req.session);
+        res.json(1);
+    },
+
+    saveScore : async (req, res) => {
+        await service.gameCrud.saveScore(req.body, req.session);
+        res.json(1);
     }
 }
 
@@ -185,12 +197,14 @@ const wordCrud = {
     },
 
     search : async (req, res) => {
+        console.log("gdgd");
         let language = await service.gameCrud.getLanguage();
+        let parts = await service.gameCrud.getParts();
         let data = await service.wordCrud.search(req.body, language);
         if(data[0] === undefined){
             res.json({language, data : undefined, input : req.body});
         }else{
-            res.json({language, data, input : req.body})
+            res.json({language, data, input : req.body, parts})
         }
     }
 }

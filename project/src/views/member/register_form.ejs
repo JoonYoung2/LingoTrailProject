@@ -13,7 +13,7 @@
 
 	input[type=text]{
 	  	width: 25%;
-	  	padding: 15px 30px;
+	  	padding: 12px 30px;
 	  	margin: 5px 0;
 	  	display: inline-block;
 	  	border: 1px solid #ccc;
@@ -26,7 +26,7 @@
 	
 	input[type=password]{
 	  	width: 25%;
-	  	padding: 15px 30px;
+	  	padding: 12px 30px;
 	  	margin: 5px 0;
 	  	display: inline-block;
 	  	border: 1px solid #ccc;
@@ -41,7 +41,7 @@
 	  	width: 25%;
 	  	background-color: #00a0ff;
 	  	color: white;
-	  	padding: 10px 20px;
+	  	padding: 12px 30px;
 	  	margin: 10px 0;
 	  	border: none;
 	  	border-radius: 12px;
@@ -57,10 +57,21 @@
 	  	background-color: #00b2ff;
 	}
 	
-	a {
-		text-decoration: none;
-		color: gray;
+	label {
 		font-weight: bold;
+		color: #6E6E6E;
+	}
+
+	#lt {
+		font-weight: bold;
+		color: #6E6E6E;
+		border: 1px solid #ccc;
+	  	border-radius: 12px;
+		text-align: center;
+		margin: 5px 0;
+		font-size: 15px;
+		width: 290px;
+		height: 40px;
 	}
 </style>
 </head>
@@ -73,6 +84,7 @@
 				<input type="text" id="name" name="name" placeholder="성명"><br>
 				<input type="text" id="email" name="email" placeholder="이메일"><br>
 				<input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
+				<br>
 				<input type="submit" value="가입하기">
 			</form>
 		<% } %>			

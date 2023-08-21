@@ -29,10 +29,10 @@
                     Word List
                 </span>
             </div>
-            <table id="speakListTable" border="1">
+            <table id="blankListTable" border="1">
                 <tr>
                     <td colspan="6">
-                        <input id="speakListSearch" class="speakListSearch" type="text" placeholder="search" value="" onchange="speakListSearch();">
+                        <input id="blankListSearch" class="speakListSearch" type="text" placeholder="search" value="" onchange="blankListSearch();">
                     </td>
                 </tr>
 
@@ -65,7 +65,7 @@
                     <tr>
                         <td><%= list.ID %></td>
                         <td>
-                            <select class="blankPartInput">
+                            <select class="blankParts blankPartInput">
                                 <% parts.forEach((part) => { %>
                                     <option value="<%=part.ID%>"
                                         <% if(part.ID == list.PART_ID){ %>
