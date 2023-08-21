@@ -38,12 +38,12 @@
     <div>
         <h2>GAME1 랭킹</h2>
         <!--
-        <%= total.SCORE_ID %>
-        <%= total.MEMBER_ID %>
-        <%= total.UPDATE_DATE %>
-        <%= total.GAME1_SCORE %>
-        <%= total.GAME2_SCORE %>
-        <%= total.GAME3_SCORE %>
+        <%= member.SCORE_ID %>
+        <%= member.MEMBER_ID %>
+        <%= member.UPDATE_DATE %>
+        <%= member.GAME1_SCORE %>
+        <%= member.GAME2_SCORE %>
+        <%= member.GAME3_SCORE %>
         -->
         <table>
             <tr>
@@ -51,11 +51,11 @@
                 <th>GAME1 점수</th>
                 <th>날짜</th>          
             </tr>
-            <% for(var i=0; i<total.length; i++) { %>
+            <% for(var i=0; i<member.length; i++) { %>
                 <tr>
                     <td><%= cnt++ %></td>
-                    <td><%= total[i].GAME1_SCORE %></td>
-                    <td><%= total[i].UPDATE_DATE %></td>
+                    <td><%= member[i].GAME1_SCORE %></td>
+                    <td><%= member[i].UPDATE_DATE %></td>
                 </tr>
             <% } %>
         </table>

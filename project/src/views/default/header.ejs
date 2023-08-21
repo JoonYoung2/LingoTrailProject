@@ -10,8 +10,13 @@
 		  	font-family: Arial;
 		  	margin: 0;
 		}
+
+		div {
+			width : 100%;
+			text-align: center;
+			padding: 20px;
+		}		
 		
-		/* Header/Logo Title */
 		.header header {
 		  	padding: 20px;
 		  	background: #ffffff;
@@ -46,9 +51,8 @@
 	<% } else { %>
 		<div class="header">
 			<a href="/"><img src="/static/img/lingotrail.png"></a>
-			<a href="/member/logout" id="l">로그아웃</a>&nbsp;
-			<a href="/member/info">내정보</a>
+			<a href="/member/info" id="l">내정보</a>&nbsp;
+			<a href="/board">게시판</a>&nbsp;
+			<a href="/member/logout">로그아웃</a>
 		</div>
-	<% } %>	
-</body>
-</html>
+		<% } %>

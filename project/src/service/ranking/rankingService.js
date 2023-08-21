@@ -41,7 +41,7 @@ const views = {
         
         return list;
     },
-    getTotal : async () => {        
+    getTotal : async () => {
         let list = await dao.views.getTotalInfo();
         console.log("service : ");
         for(var i=0; i<list.length; i++) {

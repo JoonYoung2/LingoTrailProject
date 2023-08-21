@@ -1,13 +1,109 @@
 <%- include("../default/header") %>
-회원정보 수정
-<% if(userId === undefined) { %>
-    window.history.back();
-<% } else { %>
-    <form action="/member/update.do" method="post">
-        아이디 : <input type="text" id="id" name="id" value="<%=member.ID%>" readonly><br>
-        이름 : <input type="text" id="name" name="name" value="<%=member.NAME%>"><br>
-        이메일주소 : <input type="text" id="email" name="email" value="<%=member.EMAIL%>"><br>
-        비밀번호 : <input type="password" id="pw" name="pw" value="<%=member.PW%>"><br>
-        <input type="submit" value="수정하기">
-    </form>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+	div {
+		width : 100%;
+		text-align: center;
+	  	padding: 20px;
+	}
+
+    table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		margin: auto;
+		width: 30%;
+	}
+
+    td {
+		text-align: left;
+	}
+
+    #c {
+        width: 25%;
+		font-weight: bold;
+	}
+
+	input[type=text]{
+	  	width: 85%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+
+	input[type=password]{
+	  	width: 85%;
+	  	padding: 15px 30px;
+	  	margin: 5px 0;
+	  	display: inline-block;
+	  	border: 1px solid #ccc;
+	  	border-radius: 12px;
+	  	box-sizing: border-box;
+	  	background-color: #FAFAFA;
+	  	font-weight: bold;
+	  	font-size: 15px;
+	}
+
+	input[type=submit] {
+	  	width: 25%;
+	  	background-color: #00a0ff;
+	  	color: white;
+	  	padding: 10px 20px;
+	  	margin: 10px 0;
+	  	border: none;
+	  	border-radius: 12px;
+	  	cursor: pointer;
+	  	box-shadow:
+    		inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    		inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+		font-weight: bold;
+	  	font-size: 16px;
+	}
+
+	input[type=submit]:hover {
+	  	background-color: #00b2ff;
+	}	
+</style>
+</head>
+<body>
+    <div>
+    <h2>회원정보 수정</h2>
+    <% if(userId === undefined) { %>
+        window.history.back();
+    <% } else { %>
+        <form action="/member/update.do" method="post">
+            <table>
+                <tr>
+                    <td id="c">아이디</td>
+                    <td><input type="text" id="id" name="id" value="<%=member.ID%>" readonly></td>
+                </tr>
+                <tr>
+                    <td id="c">이름</td>
+                    <td><input type="text" id="name" name="name" value="<%=member.NAME%>"></td>
+                </tr>
+                <tr>
+                    <td id="c">이메일주소</td>
+                    <td><input type="text" id="email" name="email" value="<%=member.EMAIL%>"></td>
+                </tr>
+                <tr>
+                    <td id="c">비밀번호</td>
+                    <td><input type="password" id="pw" name="pw" value=""></td>
+                </tr>
+            </table>            
+            <input type="submit" value="수정하기">
+        </form>
+    <% } %>
+    </div>
+</body>
+</html>

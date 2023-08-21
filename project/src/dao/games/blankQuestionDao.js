@@ -22,7 +22,7 @@ const blankQuestion = {
 
     getWord : async (language, partName) => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select ${language[0].LANGUAGE} from blank_word_language where part_id = ${partName}`;
+        const sql = `select * from (select ${language[0].LANGUAGE} from blank_word_language where part_id=${partName} order by dbms_random.value) where rownum <= 100`;
         let result;
 
         try{
@@ -48,6 +48,19 @@ const blankQuestion = {
 
         console.log(result);
         return result.rows;
+    },
+
+    getHeart : async (session) => {
+        const sql = `select heart from member_info where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+
+        return result.rows[0].HEART;
     }
 }
 
@@ -262,6 +275,27 @@ const gameCrud = {
         }
 
         return result.rows;
+    },
+
+    heartUpdate : async (body, session) => {
+        const sql = `update member_info set heart=${body.userHeart} where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+    },
+
+    saveScore : async (body, session) => {
+        const sql = `update member_info set blank_game=${body.gameScore}+blank_game where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        try{
+            await con.execute(sql)
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 
@@ -294,27 +328,55 @@ const languageCrud = {
         }
     },
 
-    updateList : async (id, language) => {
+    updateList : async (id, names, language) => {
         const con = await oracledb.getConnection(dbConfig);
+        console.log("qqqqq",language);
         for(var i = 0; i < id.length; i++){
             let sql = `update blank_question_language set language='${language[i]}' where id=${id[i]}`;
+            let modifySql = `ALTER TABLE blank_word_language RENAME COLUMN ${names[i].LANGUAGE} TO ${language[i]}`;
             try{
                 await con.execute(sql);
+                await con.execute(modifySql);
             }catch(err){
                 console.log(err);
             }
         }
     },
 
-    deleteList : async (body) => {
+    deleteList : async (body, names) => {
         const con = await oracledb.getConnection(dbConfig);
         const sql = `delete from blank_question_language where id in (${body.values})`
+        const gameSql = `delete from blank_question_game where language in (${body.values})`;
+
+        // 관련된 컬럼 삭제
+        names.forEach( async (list) => {
+            let sql = `alter table blank_word_language drop column ${list.LANGUAGE}`;
+            try{
+                await con.execute(sql);
+            }catch(err){
+                console.log(err);
+            }
+        })
 
         try{
             await con.execute(sql);
+            await con.execute(gameSql);
         }catch(err){
             console.log(err);
         }
+    },
+
+    getLanguageNames : async (body) => {
+        const sql = `select language from blank_question_language where id in (${body.values})`;
+        const con = await oracledb.getConnection(dbConfig);
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+        console.log(result);
+        return result.rows;
     }
 }
 
@@ -494,14 +556,14 @@ const wordCrud = {
 
     search : async (body, language) => {
         const con = await oracledb.getConnection(dbConfig);
-        let sql = `select * from blank_word_language
-        where `; 
+        let sql = `select a.* from blank_word_language a
+        inner join blank_part_name n on a.part_id = n.id
+        where n.part_name like '%${body.searchId}%' or `; 
         for(var i = 0; i < language.length; i++){
-            sql+=`${language[i].LANGUAGE} like '%${body.searchId}%' or `;
+            sql+=`a.${language[i].LANGUAGE} like '%${body.searchId}%' or `;
         }
         sql = sql.substring(0, sql.length - 3);
-        sql += `order by id desc`
-        console.log(sql);
+        sql += `order by a.id desc`
         
         let result;
 
@@ -510,7 +572,7 @@ const wordCrud = {
         }catch(err){
             console.log(err);
         }
-
+        console.log(result.rows);
         return result.rows;
     }
 }
