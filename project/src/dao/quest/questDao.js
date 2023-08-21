@@ -61,16 +61,18 @@ const quest = {
             result = await con.execute(sql);
         }catch(err){
             console.log(err);
-        }return result;
+        }return result.rows[0].STAMP;
     },
-    addHeart : async(id, stamp)=>{
+    addHeart : async(id, stampAmount)=>{
+        console.log("dkdkdkdkdkstampAmount", stampAmount); //1
         const con = await oracledb.getConnection(dbConfig);
+        //stamp = stampAmount.rows[0].STAMP;
         let num;
-        if(stamp == 5){
+        if(stampAmount == 5){
             num=2;
-        }else if(stamp == 10){
+        }else if(stampAmount == 10){
             num=3;
-        }else if(stamp ==15){
+        }else if(stampAmount ==15){
             num=4;
         }else{
             num=1;
