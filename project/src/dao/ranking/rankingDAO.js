@@ -44,9 +44,9 @@ const views = {
         const con = await oracledb.getConnection(dbConfig);
         const sql = `select * from member_info order by game3_score desc`;
         let member;
-        try{
+        try {
             member = await con.execute(sql);
-        }catch(err){
+        } catch(err) {
             console.log(err);
         }
         console.log("member : ", member.rows);
