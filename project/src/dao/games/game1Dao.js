@@ -69,7 +69,7 @@ const get = {
 const insert = async (data) => {
   const con = await oracledb.getConnection(dbConfig);
   const sql = `
-    INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3, explain
+    INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3, answer_explain
     ) VALUES ( match_picture_game_seq.NEXTVAL, CURRENT_TIMESTAMP, :question, :question_level, :img, :answer, :wrong1, :wrong2, :wrong3, :explain)`;
 
   const bindParams = {
@@ -80,7 +80,7 @@ const insert = async (data) => {
     wrong1: data.wrong1,
     wrong2: data.wrong2,
     wrong3: data.wrong3,
-    explain: data.explain
+    explain: data.answer_explain
   };
 
   try {
