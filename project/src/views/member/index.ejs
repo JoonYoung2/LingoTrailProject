@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/joon/style.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+<body>
+        <%- include("../default/header") %>    
+    <hr>
+
+    <section class="memberPage">
+        <div style="width: 10%"></div>
+        <div style="width: 40%">
+            <div class="memberPageLocation">
+                <div class="memberPageWidth">
+                    <div class="memberSelectDiv">
+                        <div>
+                            <div>글을 보고 정답을 맞추세요!</div>
+                            <div>
+                                <a href="/meaning/condition"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memberSelectDiv">
+                        <div>
+                            <div>빈칸에 정답을 맞추세요!</div>
+                            <div>
+                                <a href="/blank_question/memberGame"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="memberPageWidth">
+                    <div class="memberSelectDiv">
+                        <div>
+                            <div>
+                                이미지를 보고 정답을 맞추세요!
+                            </div>
+                            <div>
+                                <a href="/game1/list"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memberSelectDiv">
+                        <div>
+                            <div>
+                                듣고 정답을 맞추세요!
+                            </div>
+                            <div>
+                                <a href="/speak_question/memberGame"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width:50%">
+            <div style="width:100%; display:flex; justify-content: center; align-items: center;">
+
+                <% if(userId){ %>
+                    <div style="width:50%; display:flex; justify-content: center; height: 500px; align-items: center; border: rgba(0, 0, 0, 0.1);">
+                        <div style="width: 100%; height: 400px;">
+                            <div><%= member.ID %></div>
+                            <div><%= member.HEART %></div>
+                            <div>1등</div>
+                            <div><%= member.STAMP %></div>
+                        </div>
+                    </div>
+                <% }else{ %>
+                    <div style="width:40%; display:flex; justify-content: center; height: 500px; align-items: center;">
+                        <div style="width: 100%; height: 400px;">
+                            <div style="display: flex; justify-content: center; padding: 30px; border:3px solid rgba(0, 160, 255, 1); border-radius: 30px;">
+                                <span style="text-align: center; color: rgba(0, 160, 255, 1); font-size: 18px; font-weight: bold">
+                                    <div style="margin-bottom: 5px;">LingoTrail에 온 것을 환영해!</div>
+                                    <div style="margin-bottom: 5px;">회원 가입 후에</div>
+                                    <div>게임을 즐길 수 있어!</div>
+                                </span>
+                            </div>
+                            <div>
+                                <img src="/static/img/joon/game/3.png">
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+
+            </div>
+        </div>
+    </section>
+
+    
+    
+    
+    
+
+    <%if(userId !== undefined){ %>
+        <script type="text/javascript">
+            function openPop(){
+
+                fetch("/quest/attendanceCheck", {method : "get"})
+                .then(res => res.json())
+                .then(data => {
+                    if(data == 0){
+                        window.open('/quest/attend', 'attendent', 'width=640px, height=700px,scrollbars=yes');
+                    }else{
+                        alert("이미 출석이 완료 됐습니다.");
+                    }
+                })
+            }
+        </script>
+    
+        <button><a href="#none" onclick="openPop()">출석하기</a></button>
+    <% }%>
+
+    <button><a href="/ranking/list">점수 보기</a></button>
+    <br>
+
+</body>
+</html>
+

@@ -23,7 +23,7 @@ const member = {
         if(msg !=="로그인 되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
         }else{
-            res.send(`<script>alert('${msg}'); location.href="/";</script>`);
+            res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
 
             //res.redirect("/");
         }
@@ -96,6 +96,12 @@ const member = {
         }else{
             res.send(`<script>alert('${msg}'); location.href="/";</script>`);
         }
+    },
+
+    index : async(req, res) => {
+        const member = await service.member.getMember(req.session.userId);
+        console.log(member);
+        res.render("member/index", {userId : req.session.userId, member : member.rows[0]});
     }
 }
 
