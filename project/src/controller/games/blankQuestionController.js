@@ -24,7 +24,7 @@ const gameConfig = {
         if(!req.session.userId){
             res.send(userViewRedirect());
         }else{
-            res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config});
+            res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config, loginType : req.session.loginType});
         }
     }
 }

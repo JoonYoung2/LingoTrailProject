@@ -3,7 +3,7 @@ const service = require("../../service/member/memberService");
 var cnt = 1;
 const member = {
     register : (req, res)=>{
-        res.render("member/register_form", {member : member.rows, userId : req.session.userId});
+        res.render("member/register_form", {member : member.rows, userId : req.session.userId, loginType : req.session.loginType});
     },
 
     registerDo : async (req, res) => {
@@ -18,7 +18,7 @@ const member = {
     login : (req, res) => {
         let game = req.query.game;
         console.log("server game ==> ", game);
-        res.render("member/login_form", {userId : req.session.userId, game});
+        res.render("member/login_form", {userId : req.session.userId, game, loginType : req.session.loginType});
     },
 
     loginDo : async (req, res) => {
@@ -69,7 +69,7 @@ const member = {
         }
         let member = await service.member.getMember(req.session.userId);
         console.log("여기야 여기", member);
-        res.render("member/info_form", {member : member.rows, userId : req.session.userId});
+        res.render("member/info_form", {member : member.rows, userId : req.session.userId, loginType : req.session.loginType});
     },
 
     pwCheck : (req,res)=>{
@@ -93,7 +93,7 @@ const member = {
         let member = getMember.rows[0];
         //getMember.rows[0] = { ID: 're', NAME: 're', EMAIL: 're', PW: 're', LOGIN_TYPE: 0 }
         console.log("member==>", member);
-        res.render("member/update_form", {member : member, userId : req.session.userId});
+        res.render("member/update_form", {member : member, userId : req.session.userId, loginType : req.session.loginType});
     },
 
     updateDo : async (req, res)=>{
@@ -109,7 +109,7 @@ const member = {
         if(!req.session.userId){
             res.send(userViewRedirect());
         }
-        res.render("member/unregister_form", {member : member.rows, userId : req.session.userId});
+        res.render("member/unregister_form", {member : member.rows, userId : req.session.userId, loginType : req.session.loginType});
     },
 
     unregisterDo : async(req, res) => {
@@ -126,7 +126,7 @@ const member = {
         }
         let member = await service.member.getMemberList(req.session.userId);
         console.log("여기야 여기", member);
-        res.render("member/memberlist", {member : member.rows, userId : req.session.userId, cnt : cnt});
+        res.render("member/memberlist", {member : member.rows, userId : req.session.userId, cnt : cnt, loginType : req.session.loginType});
     },
 
     modify : (req, res)=>{
@@ -165,7 +165,7 @@ const member = {
         const member = await service.member.getMember(req.session.userId);
         const ranking = await service.member.getRanking(req.session);
         console.log(member);
-        res.render("member/index", {userId : req.session.userId, member : member.rows[0], ranking});
+        res.render("member/index", {userId : req.session.userId, member : member.rows[0], ranking, loginType : req.session.loginType});
 
     }
 }
