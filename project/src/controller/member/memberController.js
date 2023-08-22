@@ -16,15 +16,29 @@ const member = {
     },
 
     login : (req, res) => {
-        res.render("member/login_form", {member : member.rows, userId : req.session.userId});
+        let game = req.query.game;
+        console.log("server game ==> ", game);
+        res.render("member/login_form", {userId : req.session.userId, game});
     },
 
     loginDo : async (req, res) => {
         const msg = await service.member.loginDo(req.body, req.session);
+        const game = req.body.game;
         if(msg !== "로그인 되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
         }else{
-            res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
+            if(game=='meaning'){
+                res.redirect("/meaning/condition");
+            }else if(game == 'photo'){
+                res.redirect("/game1/list");
+            }else if (game =='blank'){
+                res.redirect("blank_question/step");
+            }else if (game == 'listening'){
+                res.redirect("speak_question/step");
+            }
+            else{
+                res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
+            }
             //res.redirect("/");
         }
     },
@@ -33,7 +47,7 @@ const member = {
         res.send(
             `
                 <script>
-                    if(window.confirm('로그아웃?')){
+                    if(window.confirm('로그아웃 하시겠습니까?')){
                         location.href='/member/logout.do';
                     }else{
                         window.history.back();
@@ -149,8 +163,9 @@ const member = {
     
     index : async(req, res) => {
         const member = await service.member.getMember(req.session.userId);
+        const ranking = await service.member.getRanking(req.session);
         console.log(member);
-        res.render("member/index", {userId : req.session.userId, member : member.rows[0]});
+        res.render("member/index", {userId : req.session.userId, member : member.rows[0], ranking});
 
     }
 }

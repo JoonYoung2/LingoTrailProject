@@ -101,6 +101,11 @@ const gameCrud = {
     saveScore : async (req, res) => {
         await service.gameCrud.saveScore(req.body, req.session);
         res.json(1);
+    },
+
+    heartScoreUpdate : async (req, res) => {
+        await service.gameCrud.saveHeartScore(req.body, req.session);
+        res.json(1);
     }
 }
 
@@ -169,13 +174,13 @@ const wordCrud = {
 
         console.log(language);
         console.log(word);
-        if(req.session.loginType == undefined){
-            res.redirect("/member");
-        }else if(!req.session.loginType == 1){
-            res.redirect("/member");
-        }else{
-            res.render("admin/games/speak/word_form", {language, word : word.list, start : word.start, page : word.page});
-        }
+        // if(req.session.loginType == undefined){
+        //     res.redirect("/member");
+        // }else if(!req.session.loginType == 1){
+        //     res.redirect("/member");
+        // }else{
+        // }
+        res.render("admin/games/speak/word_form", {language, word : word.list, start : word.start, page : word.page});
     },
 
     getMaxId : async (req, res) => {
@@ -215,7 +220,7 @@ const userViewRedirect = () => {
     return `
     <script>
         alert("로그인 후 이용해주세요.");
-        location.href="/member";
+        location.href="/member/login?game=listening";
     </script>
 `
     

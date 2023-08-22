@@ -1,4 +1,15 @@
 const dao = require("../../dao/board/boardDao");
+const bcrypt = require('bcrypt');
+
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const toSysdate = date => {
   const currentDate = new Date();
@@ -97,10 +108,12 @@ const process = {
   
   submit : async (data) => {
     try {
+      console.log("data?", data);
+      data.password = await hashPassword(data.password);
       const result = await dao.process.insert(data);
       return result.rowsAffected;
     } catch (err) {
-      console.err(err);
+      console.log(err);
     }
   },
 
@@ -113,22 +126,34 @@ const process = {
     }
   },
 
-  remove: async(data) =>{
+  remove: async (data) => {
     try {
+      const enterdPassword = data.pass; // 사용자가 입력한 비밀번호
+      const dbPasswordData = await dao.views.getBoardPassById(data.id);
       
-      const result = await dao.process.remove(data.id);
-      return result.rowsAffected;
+      if (dbPasswordData && dbPasswordData.length > 0) {
+        const dbPassword = dbPasswordData[0].PASSWORD; // 데이터베이스에서 가져온 해시된 비밀번호
+        
+        const passwordsMatch = await bcrypt.compare(enterdPassword, dbPassword);
+        if (passwordsMatch) {
+          const result = await dao.process.remove(data.id);
+          return result.rowsAffected;
+        } else {
+          return 2; // 비밀번호가 일치하지 않을 때
+        }
+      } else {
+        return 0; // 해당 ID의 데이터를 찾을 수 없을 때
+      }
     } catch (err) {
       console.log(err);
-    } 
+      throw err; // 에러를 다시 던져서 호출한 쪽에서 처리할 수 있도록 함
+    }
   }
 };
 
 const commentProcess = {
   submit : async (data, boardId) => {
     try {
-      console.log("service data? : ", data);
-      console.log("service boardID? : ", boardId);
       const result = await dao.commentProcess.insert(data, boardId);
       return result.rowsAffected;
     } catch (err) {
@@ -138,7 +163,6 @@ const commentProcess = {
 
   remove : async (commentId) => {
     try {      
-      console.log("service commentID? : ", commentId);
       const result = await dao.commentProcess.remove(commentId);
       return result.rowsAffected;
     } catch (err) {

@@ -42,9 +42,10 @@ window.onload = () => {
 
 const nextViewBtn = (cnt) => {
     if(cnt == pageSize-1){
-        alert("게임 끝~~");
+
+        alert("모든 문제를 푸셨습니다. 점수는 "+score+"이며, 랭킹포인트는 "+(rightAnswerCnt*pointByLevel)+ "입니다.");
         console.log(rightAnswerCnt*pointByLevel);
-        location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+        location.href="/meaning/result?score="+score + "&heart=" + heartNum + "&rankingPoint="+(rightAnswerCnt*pointByLevel) + "&usedHeart" + usedHeart;
         return;
     }
 
@@ -65,15 +66,16 @@ const nextViewBtn = (cnt) => {
         if(usedHeart==0 && heartHad>0){
             heartUsingCh();
         }else{
+            
             alert("보유한 하트가 없습니다. 게임을 종료합니다.");
-            location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+            location.href="/meaning/result?score=0&heart=0&rankingPoint=0";
             return;
         }
     }
     answerItemValue = "";
     console.log(cnt);
     
-    
+    questionNums++;
     
     let count = Number(cnt);
     let mainPagePreId = "mainPage" + count;
@@ -88,7 +90,9 @@ const nextViewBtn = (cnt) => {
         answerItemsAll[i].disabled = false;
     }
     let scoreClass = document.querySelectorAll('.score');
-    scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + "</span><span style='padding-left:320px;'> <span style='color:red;'>♥</span>" + questionNums + " / " + questionNum + "</span><span style='color:red;'>♥</span><span style='color:red; padding-left:370px;'>♥</span>X" + heartNum + "";
+    let a = ' &#91 ';
+    let b = ' &#93 ';
+    scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + `</span><span style='padding-left:320px;'> <span style='color:black;'> ${a} </span>` + questionNums + " / " + questionNum + `</span><span style='color:black;'> ${b} </span><span style='color:red; padding-left:370px;'>♥</span>X` + heartNum + "";
     return;
 }
 
@@ -112,11 +116,11 @@ const marking = (answer, cnt, QeAn)=>{
     if(answerItemValue == ""){
         return;
     }
-    questionNums++;
     let idForMarking="marking"+cnt;
     let idForNext="next"+cnt;
     document.getElementById(idForMarking).style.display = "none";
     document.getElementById(idForNext).style.display = "block";
+    
     let markingResult = document.querySelectorAll('.markingResult');//querySelectorAll하면 배열로 들어간다.
     let scoreClass = document.querySelectorAll('.score');
     let answerItemsAll = document.querySelectorAll(".answerItems");
@@ -131,7 +135,9 @@ const marking = (answer, cnt, QeAn)=>{
         if(questionNums>questionNum){
             questionNums=questionNum
         }
-        scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + "</span><span style='padding-left:320px;'> <span style='color:red;'>♥</span>" + questionNums + " / " + questionNum + "</span><span style='color:red;'>♥</span><span style='color:red; padding-left:370px;'>♥</span>X" + heartNum + "";
+        let a = ' &#91 ';
+    let b = ' &#93 ';
+    scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + `</span><span style='padding-left:320px;'> <span style='color:black;'> ${a} </span>` + questionNums + " / " + questionNum + `</span><span style='color:black;'> ${b} </span><span style='color:red; padding-left:370px;'>♥</span>X` + heartNum + "";
         
     }else{
         heartNum--;
@@ -141,7 +147,9 @@ const marking = (answer, cnt, QeAn)=>{
         if(questionNums>questionNum){
             questionNums=questionNum
         }
-        scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + "</span><span style='padding-left:320px;'> <span style='color:red;'>♥</span>" + questionNums + " / " + questionNum + "</span><span style='color:red;'>♥</span><span style='color:red; padding-left:370px;'>♥</span>X" + heartNum + "";
+        let a = ' &#91 ';
+    let b = ' &#93 ';
+    scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + `</span><span style='padding-left:320px;'> <span style='color:black;'> ${a} </span>` + questionNums + " / " + questionNum + `</span><span style='color:black;'> ${b} </span><span style='color:red; padding-left:370px;'>♥</span>X` + heartNum + "";
         
         
         for(var i = 0; i < QeAn; i++){

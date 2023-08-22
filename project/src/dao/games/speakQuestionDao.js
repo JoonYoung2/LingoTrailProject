@@ -259,6 +259,16 @@ const gameCrud = {
         }catch(err){
             console.log(err);
         }
+    },
+
+    saveHeartScore : async (body, session) => {
+        const sql = `update member_info set heart=${body.userHeart}, listening_game=${body.gameScore}+listening_game where id='${session.userId}'`;
+        const con = await oracledb.getConnection(dbConfig);
+        try{
+            await con.execute(sql)
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 

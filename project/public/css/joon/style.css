@@ -2,6 +2,9 @@
 @import "admin/speak_language.css";
 @import "admin/speak_level.css";
 @import "admin/blank_list.css";
+@import "admin/blank_language.css";
+@import "admin/blank_level.css";
+@import "admin/blank_parts.css";
 
 @import "user/speak_game.css";
 @import "user/speak_step.css";
