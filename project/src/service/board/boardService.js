@@ -152,9 +152,9 @@ const process = {
 };
 
 const commentProcess = {
-  submit : async (data, boardId) => {
+  submit : async (data, boardId, userId) => {
     try {
-      const result = await dao.commentProcess.insert(data, boardId);
+      const result = await dao.commentProcess.insert(data, boardId, userId);
       return result.rowsAffected;
     } catch (err) {
       console.err(err);

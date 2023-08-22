@@ -32,12 +32,11 @@
 		}
 		
 		.header img {
-			width: 200px;
-			height: 60px;
+			height: 70px;
 		}
 		
 		.header #l {
-			margin-left: 950px;
+			margin-left: 900px;
 		}
 	</style>
 </head>
@@ -45,14 +44,21 @@
 	<% if(userId === undefined) { %>
 		<div class="header">
 			<a href="/member"><img src="/static/img/lingotrail.png"></a>
-			<a href="/member/login" id="l">로그인</a>&nbsp;
-			<a href="/member/register">회원가입</a>
+			<a href="/member/login" id="l">SIGN IN</a>&nbsp;&nbsp;&nbsp;
+			<a href="/member/register">REGISTER</a>
 		</div>	
 	<% } else { %>
 		<div class="header">
 			<a href="/member"><img src="/static/img/lingotrail.png"></a>
-			<a href="/member/info" id="l">내정보</a>&nbsp;
-			<a href="/board">게시판</a>&nbsp;
-			<a href="/member/logout">로그아웃</a>
+			<% if(loginType == 1){ %>
+				<a href="/admin" id="l">ADMIN</a>&nbsp;&nbsp;&nbsp;
+				<a href="/member/info" >INFO</a>&nbsp;&nbsp;&nbsp;
+				<a href="/board">BOARD</a>&nbsp;&nbsp;&nbsp;
+				<a href="/member/logout">SIGN OUT</a>
+			<% }else{ %>
+				<a href="/member/info" id="l">INFO</a>&nbsp;&nbsp;&nbsp;
+				<a href="/board">BOARD</a>&nbsp;&nbsp;&nbsp;
+				<a href="/member/logout">SIGN OUT</a>
+			<% } %>
 		</div>
 		<% } %>

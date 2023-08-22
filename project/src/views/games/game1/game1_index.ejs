@@ -5,14 +5,14 @@
 
 <style>
     .h2 {
-      height: 10%;
       width: 50%;
       margin: 5% auto;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 10px;
-      background-color: CFF4FC;
+      background-color: #CFF4FC;
+      height: 80px;
     }
   
     .game1-photo {
@@ -46,13 +46,13 @@
   
   </style>
   
-  <h2 class="h2">PHOTO 맞추기 게임</h2>
+  <h2 class="h2">사진을 보고 단어를 맞춰주세요</h2>
   
   <div class="d-flex flex-wrap justify-content-center"> 
 
   <div class="centered-content">
     <img src="/static/game1_files/곰탱이.png" class="game1-photo" alt="Question Image">
-    <a href="/game1/start"><button class="btn custom-btn">랜덤 시작하기</button></a>
+    <a href="/game1/start"><button class="btn custom-btn">연습게임</button></a>
   </div>  
     <form action="/game1/start" method="post" class="custom-form">
       <select id="levelSelect" name="level" class="form-select" aria-label="Default select example" style="margin-right: 5%;">

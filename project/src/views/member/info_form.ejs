@@ -43,11 +43,15 @@
 				inset 2px 2px 3px rgba(255, 255, 255, 0.6),
 				inset -2px -2px 3px rgba(0, 0, 0, 0.6);	
 			font-weight: bold;
-			font-size: 16px;
+			font-size: 15px;
 		}
 		
 		input[type=button]:hover {
 			background-color: #00b2ff;
+		}
+
+		a {
+			text-decoration: none;
 		}
 	</style>
 </head>
@@ -56,23 +60,23 @@
 		<% if(userId === undefined) { %>
 
 		<% } else { %>
-			<h2>마이페이지</h2>
+			<h2>INFO</h2>
 			<br>
 			<table>		  	
 				<tr>
-					<td id="c">아이디</td>
+					<td id="c">ID</td>
 					<td><%=member[0].ID%></td>
 				</tr>
 				<tr>
-					<td id="c">성명</td>
+					<td id="c">NAME</td>
 					<td><%=member[0].NAME%></td>
 				</tr>
 				<tr>
-					<td id="c">이메일</td>
+					<td id="c">EMAIL</td>
 					<td><%=member[0].EMAIL%></td>
 				</tr>
 				<tr>
-					<td id="c">타입</td>
+					<td id="c">TYPE</td>
 					<td>
 						<% if(member[0].LOGIN_TYPE == 0) { %>
 							사용자
@@ -83,12 +87,12 @@
 				</tr>
 			</table>
 			
-			<a href="/member/pwCheck"><input type="button" value="수정하기"></a>&nbsp;
-			<a href="/ranking/score"><input type="button" value="점수보기"></a>&nbsp;
-			<a href="/member/unregister"><input type="button" value="탈퇴하기"></a>
+			<a href="/member/pwCheck"><input type="button" value="UPDATE"></a>&nbsp;
+			<a href="/ranking/score"><input type="button" value="SCORE"></a>&nbsp;
+			<a href="/member/unregister"><input type="button" value="UNREGISTER"></a>
 
 			<% if(member[0].LOGIN_TYPE == 1) { %>
-				<br><a href="/member/memberlist">멤버리스트</a>
+				<br><a href="/member/memberlist">MEMBER LIST</a>
 			<% } %>
 		<% } %>
 	</div>

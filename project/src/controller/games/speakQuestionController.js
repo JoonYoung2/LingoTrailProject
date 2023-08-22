@@ -28,7 +28,7 @@ const gameConfig = {
         if(!req.session.userId){
             res.send(userViewRedirect());
         }else{
-            res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0], userId : req.session.userId});
+            res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0], userId : req.session.userId, loginType : req.session.loginType});
         }
     }
 }
@@ -68,7 +68,7 @@ const gameCrud = {
 
     insert : async (req, res) => {
         let msg = await service.gameCrud.insert(req.body);
-        console.log(msg);
+
         res.send(msg);
     },
 
@@ -83,9 +83,7 @@ const gameCrud = {
         let language = await service.gameCrud.getLanguage();
         let level = await service.gameCrud.getLevel();
         let data = await service.gameCrud.search(req.body);
-        console.log("data", data);
-        console.log("language ==> ", language);
-        console.log("level ==> ", level);
+
         if(data[0] === undefined){
             res.json({data : undefined, input : req.body});
         }else{
@@ -172,8 +170,6 @@ const wordCrud = {
         let language = await service.gameCrud.getLanguage();
         let word = await service.wordCrud.getWordList(start, totalCounter);
 
-        console.log(language);
-        console.log(word);
         // if(req.session.loginType == undefined){
         //     res.redirect("/member");
         // }else if(!req.session.loginType == 1){
@@ -200,7 +196,6 @@ const wordCrud = {
     },
 
     update : async (req, res) => {
-        console.log("body ==> ", req.body);
         await service.wordCrud.update(req.body);
         res.json(1);
     },

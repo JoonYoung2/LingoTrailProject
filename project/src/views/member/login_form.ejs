@@ -60,12 +60,12 @@
 		<div>
 		<% if(userId === undefined) { %>
 			<form action="/member/login.do" method="post">
-				<h2>로그인</h2>
-				<input type="text" id="id" name="id" placeholder="이메일 또는 아이디"><br>
-				<input type="password" id="pw" name="pw" placeholder="비밀번호" ><br>
-				<input type="submit" value="로그인"><br>
+				<h2>LOGIN</h2>
+				<input type="text" id="id" name="id" placeholder="EMAIL OR ID"><br>
+				<input type="password" id="pw" name="pw" placeholder="PASSWORD" ><br>
+				<input type="submit" value="LOGIN"><br>
 				<input type="hidden" value="<%=game%>" name="game">
-				회원이 아니라면? <a href="/member/register">가입하기</a>
+				회원이 아니라면? <a href="/member/register">REGISTER</a>
 			</form>
 		<% } else { %>
 			
