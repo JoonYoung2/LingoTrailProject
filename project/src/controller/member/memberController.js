@@ -73,7 +73,7 @@ const member = {
     },
 
     pwCheck : (req,res)=>{
-        res.render("member/pwCheck_form", {member : member.rows, userId : req.session.userId});
+        res.render("member/pwCheck_form", {member : member.rows, userId : req.session.userId, loginType : req.session.loginType});
     },
 
     pwCheckDo : async (req, res)=>{
