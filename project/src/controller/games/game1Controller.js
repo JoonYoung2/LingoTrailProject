@@ -19,19 +19,19 @@ function checkAdmin(req, res) {
   
 const views = {
   index: (req, res) => {
-    res.render("games/game1/game1_index", { userId : req.session.userId });
+    res.render("games/game1/game1_index", { userId : req.session.userId , loginType : req.session.loginType});
   },
 
   list: async (req, res) => {
     let list = await game1Service.getAll();
-    res.render("games/game1/game1_index", { list: list , userId : req.session.userId } );
+    res.render("games/game1/game1_index", { list: list , userId : req.session.userId , loginType : req.session.loginType} );
   },
 
   register: (req, res) => {
     if (!checkAdmin(req, res)) {
       return;
     }
-    res.render("admin/games/game1/game1_register_form", {userId : req.session.userId});
+    res.render("admin/games/game1/game1_register_form", {userId : req.session.userId, loginType : req.session.loginType});
   },
 
   updateForm: async (req, res) => {
@@ -40,7 +40,7 @@ const views = {
     }
     let list = await game1Service.getAll();
     let msg = undefined;
-    res.render("admin/games/game1/game1_update_form", { list: list, msg: msg , userId : req.session.userId });
+    res.render("admin/games/game1/game1_update_form", { list: list, msg: msg , userId : req.session.userId , loginType : req.session.loginType});
   },
 
   // TODO: V3
@@ -51,10 +51,13 @@ const views = {
     try {
       const myHeartItem = await game1Service.getHeartItem(req.session.userId);
       req.session.myHeart = myHeartItem;
-      const totalQuetions = 5;
+      const totalQuetions = 10;
       const selectedQuestions = [];
+      req.session.gameLevel = req.body.level;
+      const gameLevel = req.session.gameLevel;
+
       while (selectedQuestions.length < totalQuetions) {
-        const randomGame = await game1Service.getRandomQuestionV3(req.body.level);
+        const randomGame = await game1Service.getRandomQuestionV3(gameLevel);
         console.log("randomGame??", randomGame);
         if (!selectedQuestions.some(question => question.RECORD_ID === randomGame.RECORD_ID)) {
           randomGame.options = [randomGame.ANSWER, randomGame.WRONG1, randomGame.WRONG2, randomGame.WRONG3];
@@ -204,7 +207,7 @@ const process = {
         console.log("explain?", explain);
         console.log("explain????", currentQuestion);
         const currentScore = req.session.score || 0;
-        req.session.score = currentScore + 1;
+        req.session.score = currentScore + ( (req.session.gameLevel) * 5 );
         let heartCount = req.session.heartCount;
         console.log("flag?", flag);
         console.log("verify에서는 heartCount가 늘어나고 있나?? ", heartCount);
