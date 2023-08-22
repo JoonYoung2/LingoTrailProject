@@ -23,14 +23,21 @@ const configure = {
         res.render("games/meaning/show", {QeAn, given, getQuestion, getAnswer, getHeart, chosenLevel});
     },
     result : async (req, res)=>{
-        let score=req.query.score;
+        //let score=req.query.score;
         let rankingPoint=req.query.rankingPoint;
         let heart = req.query.heart;
         let id = req.session.userId;
-        await service.configure.setHeart(heart, id);
+        let usedHeart = req.session.usedHeart;
+        if(usedHeart==1){
+            await service.configure.setHeart(heart, id);
+        }
         await service. configure.setScore(rankingPoint, id);
-        res.send(`<script>alert("점수는 ${score}이며, 랭킹포인트는 ${rankingPoint}입니다."); location.href="/ranking/meaning_game";</script>`);
-        //res.render("/ranking/meaning_game",{score,rankingPoint});
+        if(rankingPoint==0){
+            window.history.back();
+        }
+        res.redirect("/ranking/meaning_game");
+        //res.send(`<script>alert("점수는 ${score}이며, 랭킹포인트는 ${rankingPoint}입니다."); location.href="/ranking/meaning_game";</script>`);
+        //res.render("ranking/meaning_game",{});
     }
 
 }

@@ -24,6 +24,7 @@ const member = {
         if(msg !== "로그인 되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
         }else{
+            //if()
             res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
             //res.redirect("/");
         }
@@ -33,7 +34,7 @@ const member = {
         res.send(
             `
                 <script>
-                    if(window.confirm('로그아웃?')){
+                    if(window.confirm('로그아웃 하시겠습니까?')){
                         location.href='/member/logout.do';
                     }else{
                         window.history.back();
