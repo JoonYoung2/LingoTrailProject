@@ -50,6 +50,9 @@ const member = {
     },
 
     info : async (req, res)=>{
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }
         let member = await service.member.getMember(req.session.userId);
         console.log("여기야 여기", member);
         res.render("member/info_form", {member : member.rows, userId : req.session.userId});
@@ -69,6 +72,9 @@ const member = {
     },
 
     update : async (req, res)=>{
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }
         let getMember = await service.member.getMember(req.session.userId);
         let member = getMember.rows[0];
         //getMember.rows[0] = { ID: 're', NAME: 're', EMAIL: 're', PW: 're', LOGIN_TYPE: 0 }
@@ -86,6 +92,9 @@ const member = {
     },
 
     unregister : (req, res)=>{
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }
         res.render("member/unregister_form", {member : member.rows, userId : req.session.userId});
     },
 
@@ -98,12 +107,18 @@ const member = {
         }
     },
     memberlist : async (req, res) => {
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }
         let member = await service.member.getMemberList(req.session.userId);
         console.log("여기야 여기", member);
         res.render("member/memberlist", {member : member.rows, userId : req.session.userId, cnt : cnt});
     },
 
     modify : (req, res)=>{
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }
         console.log("타입 1: ", req.params.id);
         console.log("타입 2: ", req.params.login_type);
         res.send(
@@ -138,6 +153,16 @@ const member = {
         res.render("member/index", {userId : req.session.userId, member : member.rows[0]});
 
     }
+}
+
+const userViewRedirect = () => {
+    return `
+    <script>
+        alert("로그인 후 이용해주세요.");
+        location.href="/member";
+    </script>
+`
+    
 }
 
 module.exports={ member };
