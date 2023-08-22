@@ -7,85 +7,89 @@
     <link rel="stylesheet" type="text/css" href="/static/css/sua/style.css"/>
 </head>
 
-<body>
-    <h2>Responsive Table with DataTables</h2>
+<body class="adminbackground">
+  <div style="width: 100%; display: flex; justify-content: center; padding-top: 200px;">
+      <div class="divbackground">
+        <h2>Responsive Table with DataTables</h2>
 
-      <form action="/meaning/listForm" method="post">
-        <select class="levelSelectforSearch">
-          <% level.forEach((level) => { %>
-          <option value="<%=level.ID%>">Level <%=level.LEVEL_STEP%></option>     
-          <% }) %>
-          <option value="*">전체보기</option>     
-        </select>
-        <input type="text" id="searchText" name="searchText" value="">
-        <input type="submit" value="🔍︎">
-      </form>
+          <form action="/meaning/listForm" method="post">
+            <select class="levelSelectforSearch">
+              <% level.forEach((level) => { %>
+              <option value="<%=level.ID%>">Level <%=level.LEVEL_STEP%></option>     
+              <% }) %>
+              <option value="*">전체보기</option>     
+            </select>
+            <input type="text" id="searchText" name="searchText" value="">
+            <input type="submit" value="🔍︎">
+          </form>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <table class="table table-bordered table-hover dt-responsive">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Level</th>
-            <th>Korean</th>
-            <th>English</th>
-            <th><button id="allSelectButton" onclick="checkSelectAll();">전체선택</button></th>
-          </tr>
-        </thead>
-        <tbody>
-            <%
-                info.forEach((list) => {
-            %>
-                <tr>
-                    <td><input type="text" class="IdandLevel" value="<%= list.ID %>" readonly></td>
-                    <td>
-                        <select class="levelClass">
-                            <% level.forEach((level) => { %>
-                                <option value="<%=level.ID%>"
-                                    <% if(list.LEVEL_STEP == level.LEVEL_STEP){ %>
-                                    selected
-                                    <% } %>
-                                    >Level <%=level.LEVEL_STEP%></option>     
-                            <% }) %>
-                        </select>
-                    </td>
-                    <td><input class="koreanClass" type="text" value="<%= list.KOREAN %>"></td>
-                    <td><input class="englishClass" type="text" value="<%= list.ENGLISH %>"></td>
-                    <td class="speakCheckBox">
-                      <input type="checkbox" onclick="checkItemsClick();" class="speakCheckBoxList" name="id" value="<%=list.ID%>">
-                  </td>
-                </tr>
-            <% 
-                }) 
-            %>
-        
-        </tbody>
-        <tfoot>
-          <tr><td colspan="5">
-            <% if( start <= 1){ %>
-              <button disabled>&lt;</button>
-            <%}else{%>
-                <button type="button" onclick="
-                    location.href='/meaning/listForm?start=<%=start - 1%>'">&lt;</button>
-            <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
-                <a href="/meaning/listForm?start=<%= i %>"><%= i %></a>
-            <% }if( start < page.totPage ){%>
-                <button type="button" onclick="
-                    location.href='/meaning/listForm?start=<%=start + 1%>'"> &gt;	</button>
-            <% }else{ %>
-                <button disabled> &gt;</button>
-            <% } %>
-        </td></tr>
-        </tfoot>
-      </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <table class="table table-bordered table-hover dt-responsive">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Level</th>
+                <th>Korean</th>
+                <th>English</th>
+                <th><button id="allSelectButton" onclick="checkSelectAll();">전체선택</button></th>
+              </tr>
+            </thead>
+            <tbody>
+                <%
+                    info.forEach((list) => {
+                %>
+                    <tr>
+                        <td><input type="text" class="IdandLevel" value="<%= list.ID %>" readonly></td>
+                        <td>
+                            <select class="levelClass">
+                                <% level.forEach((level) => { %>
+                                    <option value="<%=level.ID%>"
+                                        <% if(list.LEVEL_STEP == level.LEVEL_STEP){ %>
+                                        selected
+                                        <% } %>
+                                        >Level <%=level.LEVEL_STEP%></option>     
+                                <% }) %>
+                            </select>
+                        </td>
+                        <td><input class="koreanClass" type="text" value="<%= list.KOREAN %>"></td>
+                        <td><input class="englishClass" type="text" value="<%= list.ENGLISH %>"></td>
+                        <td class="speakCheckBox">
+                          <input type="checkbox" onclick="checkItemsClick();" class="speakCheckBoxList" name="id" value="<%=list.ID%>">
+                      </td>
+                    </tr>
+                <% 
+                    }) 
+                %>
+            
+            </tbody>
+            <tfoot>
+              <tr><td colspan="5">
+                <% if( start <= 1){ %>
+                  <button disabled>&lt;</button>
+                <%}else{%>
+                    <button type="button" onclick="
+                        location.href='/meaning/listForm?start=<%=start - 1%>'">&lt;</button>
+                <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
+                    <a href="/meaning/listForm?start=<%= i %>"><%= i %></a>
+                <% }if( start < page.totPage ){%>
+                    <button type="button" onclick="
+                        location.href='/meaning/listForm?start=<%=start + 1%>'"> &gt;	</button>
+                <% }else{ %>
+                    <button disabled> &gt;</button>
+                <% } %>
+            </td></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
+  
+    <button onclick="updateCheck();">수정</button>
+    <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
   </div>
 </div>
-<button onclick="updateCheck();">수정</button>
-<div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
-
     
     <script src = "/static/js/sua/main_list.js"></script>
     <script src = "/static/js/sua/common.js"></script>
