@@ -55,14 +55,14 @@
 </head>
 <body>
     <div>
-        <h2>멤버 리스트</h2>
+        <h2>MEMBER LIST</h2>
         <table>
             <tr>
                 <th>No</th>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>이메일</th>
-                <th>타입</th>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>LOGIN_TYPE</th>
             </tr>
             <% for(var i=0; i<member.length; i++) { %>
                 <tr>
@@ -76,7 +76,7 @@
                         <% } else if(member[i].LOGIN_TYPE == 1) { %>
                             관리자
                         <% } %>
-                        &nbsp;<a href="/member/modify/<%= member[i].ID %>/<%=member[i].LOGIN_TYPE%>"><input type="button" value="변경하기"></a>
+                        &nbsp;<a href="/member/modify/<%= member[i].ID %>/<%=member[i].LOGIN_TYPE%>"></a><input type="button" value="변경하기"></a>
                     </td>                    
                 </tr>
             <% } %>
