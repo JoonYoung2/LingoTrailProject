@@ -42,7 +42,7 @@ const member = {
             result = await con.execute(sql, body);
             await con.execute(listeningSql);
             await con.execute(blankSql);
-        }catch(err){
+        } catch(err){
             console.log(err);
         }
         console.log("dao insert : ", result);

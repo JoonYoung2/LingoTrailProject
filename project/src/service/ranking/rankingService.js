@@ -41,6 +41,15 @@ const views = {
         
         return list;
     },
+    getGame04 : async () => {
+        let list = dao.views.getGame04Info();
+        console.log("service : ");
+        for(var i=0; i<list.length; i++) {
+            console.log(list[i]);
+        }
+        
+        return list;
+    },
     getTotal : async () => {
         let list = await dao.views.getTotalInfo();
         console.log("service : ");

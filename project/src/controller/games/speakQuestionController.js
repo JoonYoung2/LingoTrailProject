@@ -12,7 +12,11 @@ const speakQuestion = {
         if(req.body.language == req.body.answerLang){
             sameLang = 1;
         }
-        res.render("games/speak/question_index", {data : data.rows, word, sameLang, content : req.body.contentState, language, heart, level});
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }else{
+            res.render("games/speak/question_index", {data : data.rows, word, sameLang, content : req.body.contentState, language, heart, level});
+        }
     }
 }
 
@@ -21,7 +25,11 @@ const gameConfig = {
         let config = await service.gameConfig.getConfig(req.session);
         let level = await service.gameConfig.getLevel();
         let language = await service.gameConfig.getLanguage();
-        res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0], userId : req.session.userId});
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }else{
+            res.render("games/speak/step", {level : level.rows, language : language.rows, config : config[0], userId : req.session.userId});
+        }
     }
 }
 
@@ -33,12 +41,19 @@ const gameCrud = {
         let level = await service.gameCrud.getLevel();
         let data = await service.gameCrud.getList(start, totalCounter);
         console.log("contorller getList data ==> ", data);
-        if(data.list[0] === undefined){
-            data.list = undefined;
-            res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
         }else{
-            res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
+            if(data.list[0] === undefined){
+                data.list = undefined;
+                res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
+            }else{
+                res.render("admin/games/speak/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page});
+            }
         }
+        
     },
 
     deleteList : async (req, res) => {
@@ -92,7 +107,13 @@ const gameCrud = {
 const languageCrud = {
     getList : async (req, res) => {
         let language = await service.gameCrud.getLanguage();
-        res.render("admin/games/speak/language_form", {language});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/speak/language_form", {language});
+        }
     },
 
     getMaxId : async (req, res) => {
@@ -119,7 +140,13 @@ const languageCrud = {
 const levelCrud = {
     getList : async (req, res) => {
         let level = await service.gameCrud.getLevel();
-        res.render("admin/games/speak/level_form", {level});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/speak/level_form", {level});
+        }
     },
 
     insert : async (req, res) => {
@@ -142,8 +169,13 @@ const wordCrud = {
 
         console.log(language);
         console.log(word);
-
-        res.render("admin/games/speak/word_form", {language, word : word.list, start : word.start, page : word.page});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/speak/word_form", {language, word : word.list, start : word.start, page : word.page});
+        }
     },
 
     getMaxId : async (req, res) => {
@@ -177,6 +209,16 @@ const wordCrud = {
             res.json({language, data, input : req.body})
         }
     }
+}
+
+const userViewRedirect = () => {
+    return `
+    <script>
+        alert("로그인 후 이용해주세요.");
+        location.href="/member";
+    </script>
+`
+    
 }
 
 module.exports = {speakQuestion, gameConfig, gameCrud, languageCrud, levelCrud, wordCrud};

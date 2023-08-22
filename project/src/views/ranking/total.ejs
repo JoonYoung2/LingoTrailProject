@@ -49,21 +49,21 @@
             <tr>
                 <th>No</th>
                 <th>ID</th>
-                <th>GAME1 점수</th>
-                <th>GAME2 점수</th>
-                <th>GAME3 점수</th>
-                <th>총점</th>
-                <th>날짜</th>         
+                <th>MEANING GAME</th>
+                <th>PHOTO GAME</th>
+                <th>BLANK GAME</th>
+                <th>TOTAL</th>
+                <th>DATE</th>         
             </tr>
             <% for(var i=0; i<member.length; i++) { %>
                 <tr>
                     <td><%= cnt++ %></td>
                     <td><%= member[i].ID %></td>
-                    <td><%= member[i].GAME1_SCORE %></td>
-                    <td><%= member[i].GAME2_SCORE %></td>
-                    <td><%= member[i].GAME3_SCORE %></td>
-                    <td><%= member[i].GAME1_SCORE+member[i].GAME2_SCORE+member[i].GAME3_SCORE %></td>
-                    <td><%= member[i].UPDATE_DATE %></td>                  
+                    <td><%= member[i].MEANING_GAME %></td>
+                    <td><%= member[i].PHOTO_GAME %></td>
+                    <td><%= member[i].BLANK_GAME %></td>
+                    <td><%= member[i].MEANING_GAME+member[i].PHOTO_GAME+member[i].BLANK_GAME %></td>
+                    <td><%= member[i].PHOTO_GAME_DATE %></td>                  
                 </tr>
             <% } %>
         </table>

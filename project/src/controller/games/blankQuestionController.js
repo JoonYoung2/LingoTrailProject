@@ -7,8 +7,11 @@ const blankQuestion = {
         let amount = req.body.questionNum * 5;
         let heart = await service.blankQuestion.getHeart(req.session);
         let level = req.body.level;
-    
-        res.render("games/blank/question_index", {data, words, amount, heart, level});
+        if(!req.session.userId){
+            res.redirect("/member");
+        }else{
+            res.render("games/blank/question_index", {data, words, amount, heart, level});
+        }
     }
 }
 
@@ -18,8 +21,11 @@ const gameConfig = {
         let language = await service.gameConfig.getLanguage();
         let partName = await service.gameConfig.getPartName();
         let config = await service.gameConfig.getUserConfig(req.session);
-        console.log("config ==> ",config);
-        res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config});
+        if(!req.session.userId){
+            res.send(userViewRedirect());
+        }else{
+            res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config});
+        }
     }
 }
 
@@ -31,11 +37,17 @@ const gameCrud = {
         let language = await service.gameConfig.getLanguage();
         let partName = await service.gameConfig.getPartName();
         let data = await service.gameCrud.getList(start, totalCounter);
-        if(data.list[0] === undefined){
-            data.list = undefined;
-            res.render("admin/games/blank/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page, parts : partName});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
         }else{
-            res.render("admin/games/blank/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page, parts : partName});
+            if(data.list[0] === undefined){
+                data.list = undefined;
+                res.render("admin/games/blank/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page, parts : partName});
+            }else{
+                res.render("admin/games/blank/list", {data : data.list, language, level, start : data.start, totalCounter, page : data.page, parts : partName});
+            }
         }
     },
 
@@ -91,7 +103,13 @@ const gameCrud = {
 const languageCrud = {
     getList : async (req, res) => {
         let language = await service.gameCrud.getLanguage();
-        res.render("admin/games/blank/language_form", {language});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/blank/language_form", {language});
+        }
     },
 
     insertGetList : async (req, res) => {
@@ -118,7 +136,13 @@ const languageCrud = {
 const levelCrud = {
     getList : async (req, res) => {
         let level = await service.gameConfig.getLevel();
-        res.render("admin/games/blank/level_form", {level});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/blank/level_form", {level});
+        }
     },
 
     insert : async (req, res) => {
@@ -135,7 +159,13 @@ const levelCrud = {
 const partsCrud = {
     getList : async (req, res) => {
         let partName = await service.gameConfig.getPartName();
-        res.render("admin/games/blank/parts_form", {partName});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/blank/parts_form", {partName});
+        }
     },
 
     insertGetList : async (req, res) => {
@@ -169,8 +199,13 @@ const wordCrud = {
 
         console.log(language);
         console.log(word);
-
-        res.render("admin/games/blank/word_form", {language, word : word.list, start : word.start, page : word.page, parts});
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/blank/word_form", {language, word : word.list, start : word.start, page : word.page, parts});
+        }
     },
 
     getMaxId : async (req, res) => {
@@ -207,6 +242,16 @@ const wordCrud = {
             res.json({language, data, input : req.body, parts})
         }
     }
+}
+
+const userViewRedirect = () => {
+    return `
+    <script>
+        alert("로그인 후 이용해주세요.");
+        location.href="/member";
+    </script>
+`
+    
 }
 
 module.exports = {blankQuestion, gameConfig, gameCrud, languageCrud, levelCrud, partsCrud, wordCrud};

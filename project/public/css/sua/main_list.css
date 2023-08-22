@@ -21,3 +21,11 @@
  .level_text_left{
     text-align: left;
  }
+
+ .adminbackground{
+    background-image: url('/static/img/sua/admin.jpg');
+ }
+
+ .divbackground{
+    background-color: rgb(255, 255, 251);
+ }
