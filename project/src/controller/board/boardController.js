@@ -10,7 +10,7 @@ const views = {
     let list = await boardService.views.getDetail(req.params.id);
     let commentList = await boardService.commentViews.getComment(req.params.id);
     console.log("commentLisT? : ", commentList);
-    res.render("board/board_detail", { boardDetail : list, comments : commentList, userId : req.session.userId })
+    res.render("board/board_detail", { boardDetail : list, comments : commentList, userId : req.session.userId, errorMessage  : '' })
   },
 
   writeForm: (req, res) => {
@@ -19,7 +19,7 @@ const views = {
 
   modifyForm: async (req, res) => {
     let list = await boardService.views.getDetail(req.params.id);
-    res.render("board/board_modify_form", { boardDetail : list , userId : req.session.userId});
+    res.render("board/board_modify_form", { boardDetail : list , userId : req.session.userId, errorMessage  : ''});
   }
 
 }
@@ -40,8 +40,7 @@ const process = {
     console.log("controller req body? : ", req.body);
     const modifiedItem = await boardService.process.modify(req.body);
     if ( modifiedItem === 1 ) {
-      // res.redirect(`/board/detail/${req.body.id}`);
-      res.redirect("/board");
+      res.redirect("/board", {errorMessage  : ''});
     } else {
       res.redirect("/");
     }
@@ -52,7 +51,10 @@ const process = {
     const deleteItem = await boardService.process.remove(req.body);
     if ( deleteItem === 1 ) {
       res.redirect("/board");
-    } else {
+    } else if ( deleteItem === 2 ) {
+      res.render("/board", { errorMessage: "비밀번호가 일치하지 않습니다." } );
+    }
+    else {
       res.redirect("/");
     }
   }

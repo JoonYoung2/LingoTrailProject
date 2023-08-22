@@ -8,6 +8,29 @@ oracledb.autoCommit = true;
 
 const views = {
 
+  getBoardPassById : async (id) => {
+    let con;
+    try {
+      const sql = `select * from board where board_id = ${id}`;
+      con = await oracledb.getConnection(dbConfig);
+      const result = await con.execute(sql);
+      return result.rows;
+
+    } catch (err) {
+      console.error(err);
+      throw err;
+
+    } finally {
+      if (con) {
+        try {
+          await con.close();
+        } catch (error) {
+          console.error("connection 닫기:", error);
+        }
+      }
+    }
+  },
+
   list: async () => {
     let con;
     try {
@@ -83,13 +106,17 @@ const commentViews = {
 
 const process = {
   insert : async (data) =>{
-    let title = data.title; let content = data.content; let author = data.author;
-
+    let title = data.title;
+    let content = data.content;
+    let author = (data.author === '') ? '익명' : data.author;
+    console.log("author? ", author);
+    console.log("data", data);
+    let password = data.password;
     let con;
     try {
     const sql = `
-      INSERT INTO board (BOARD_ID, TITLE, CONTENT, AUTHOR, CREATE_DATE, new_date)
-      VALUES (BOARD_ID_SEQ.nextval, '${title}', '${content}', '${author}', SYSTIMESTAMP, SYSTIMESTAMP)
+      INSERT INTO board (BOARD_ID, TITLE, CONTENT, AUTHOR, CREATE_DATE, new_date, password)
+      VALUES (BOARD_ID_SEQ.nextval, '${title}', '${content}', '${author}', SYSTIMESTAMP, SYSTIMESTAMP, '${password}')
     `;
     con = await oracledb.getConnection(dbConfig);
     const result = await con.execute(sql);

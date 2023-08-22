@@ -34,7 +34,7 @@ router.get("/start", game1Ctrl.views.start); // level 없이
 router.get("/next/:heart", game1Ctrl.views.next);
 
 router.post("/checkAnswer", game1Ctrl.process.verify);
-router.post("/start/:id", game1Ctrl.views.start); // level 있이 시작! 
+router.post("/start", game1Ctrl.views.start); // level 있이 시작! 
 
 // TODO: admin
 
