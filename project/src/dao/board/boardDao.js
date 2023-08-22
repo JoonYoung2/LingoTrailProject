@@ -197,15 +197,16 @@ const process = {
 
 
 const commentProcess = {
-  insert : async (data, boardId) => {
+  insert : async (data, boardId, userId) => {
     let comment = data;
-    let id = parseInt(boardId);
+    let bId = parseInt(boardId);
+    let uId = userId;
 
     let con;
     try {
     const sql = `
     insert into comments (comment_id, board_id, comment_text, comment_author, comment_date)
-    VALUES (comment_id_seq.nextval, ${id}, '${comment}', 'test', SYSTIMESTAMP)
+    VALUES (comment_id_seq.nextval, ${bId}, '${comment}', '${uId}', SYSTIMESTAMP)
   `;
     con = await oracledb.getConnection(dbConfig);
     const result = await con.execute(sql);

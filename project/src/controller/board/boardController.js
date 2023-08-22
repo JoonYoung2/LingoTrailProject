@@ -49,10 +49,11 @@ const process = {
   remove : async(req, res)=>{
     console.log("delete body?", req.body);
     const deleteItem = await boardService.process.remove(req.body);
+    console.log("deleteItem???" , deleteItem);
     if ( deleteItem === 1 ) {
       res.redirect("/board");
     } else if ( deleteItem === 2 ) {
-      res.render("/board", { errorMessage: "비밀번호가 일치하지 않습니다." } );
+      res.redirect(`/board/detail/${req.body.id}`);
     }
     else {
       res.redirect("/");
@@ -65,7 +66,8 @@ const commentProcess = {
   submit : async (req, res) => {
     console.log("req.body?:", req.body );
     console.log("req.params?:", req.params );
-    const submitItem = await boardService.commentProcess.submit(req.body.comment, req.params.id);
+    
+    const submitItem = await boardService.commentProcess.submit(req.body.comment, req.params.id, req.session.userId);
     if(submitItem === 1){
       res.redirect(`/board/detail/${req.params.id}`);
     } else {
