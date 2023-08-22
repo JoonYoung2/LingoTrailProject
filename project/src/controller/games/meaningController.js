@@ -1,11 +1,17 @@
 const service = require ("../../service/games/meaningService");
 const configure = {
     condition : async (req, res)=>{
+        if(!req.session.userId){
+            res.send(sessionChecklogin());
+        }
         let language = await service.configure.getLanguage();
         let level = await service.configure.getLevel();
         res.render("games/meaning/condition.ejs", {language, level});
     },
     showGames : async (req, res)=>{
+        if(!req.session.userId){
+            res.send(sessionChecklogin());
+        }
         //req.body = { level_step: '3', questionLanguage: '1', answerLanguage: '2' }
         let QeAn = await service.configure.getQeAn(req.body); //QeAn means Question and Answer.
         let given = await service.configure.getGiven(req.body, QeAn); //given means given selectors.
@@ -23,7 +29,8 @@ const configure = {
         let id = req.session.userId;
         await service.configure.setHeart(heart, id);
         await service. configure.setScore(rankingPoint, id);
-        res.render("games/meaning/result",{score,rankingPoint});
+        res.send(`<script>alert("점수는 ${score}이며, 랭킹포인트는 ${rankingPoint}입니다."); location.href="/ranking/meaning_game";</script>`);
+        //res.render("/ranking/meaning_game",{score,rankingPoint});
     }
 
 }
@@ -55,5 +62,8 @@ const meaningCrud = {
     }
 
     
+}
+const sessionChecklogin =()=>{
+    return `<script>alert("로그인 후 이용해주세요."); location.href="/member/login";</script>`
 }
 module.exports={configure, meaningCrud};
