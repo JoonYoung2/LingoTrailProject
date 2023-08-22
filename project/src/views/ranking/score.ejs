@@ -39,16 +39,18 @@
         <h2>내 점수</h2>       
         <table>
             <tr>
-                <th>GAME1 점수</th>
-                <th>GAME2 점수</th>
-                <th>GAME3 점수</th>
-                <th>member</th>
+                <th>MEANING GAME</th>
+                <th>PHOTO GAME</th>
+                <th>BLANK GAME</th>
+                <th>LISTENING GAME</th>
+                <th>TOTAL</th>
             </tr>
             <tr>              
-                <td><%= member[0].GAME1_SCORE %></td>
-                <td><%= member[0].GAME2_SCORE %></td>
-                <td><%= member[0].GAME3_SCORE %></td>
-                <td><%= member[0].GAME1_SCORE+member[0].GAME2_SCORE+member[0].GAME3_SCORE %></td>
+                <td><%= member[0].MEANING_GAME %></td>
+                <td><%= member[0].PHOTO_GAME %></td>
+                <td><%= member[0].BLANK_GAME %></td>
+                <td><%= member[0].LISTENING_GAME %></td>
+                <td><%= member[0].MEANING_GAME + member[0].PHOTO_GAME + member[0].BLANK_GAME + member[0].LISTENING_GAME %></td>
             </tr>            
         </table>
     </div>

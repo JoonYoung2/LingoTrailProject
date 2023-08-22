@@ -13,23 +13,30 @@ const views = {
         res.render("ranking/score", {userId : req.session.userId, member : member, cnt : cnt});
     },
     
-    game01: async (req, res) => {
+    meaning_game: async (req, res) => {
         let member = await service.views.getGame01();
         console.log("controller member : ", member);
-        res.render("ranking/game01", {userId : req.session.userId, member : member, cnt : cnt});
+        res.render("ranking/meaning_game", {userId : req.session.userId, member : member, cnt : cnt});
     },
     
-    game02: async (req, res) => {
+    photo_game: async (req, res) => {
         let member = await service.views.getGame02();
         console.log("controller member : ", member);
-        res.render("ranking/game02", {userId : req.session.userId, member : member, cnt : cnt});
+        res.render("ranking/photo_game", {userId : req.session.userId, member : member, cnt : cnt});
     },
 
-    game03: async (req, res) => {
+    blank_game: async (req, res) => {
         //let list = await game1Service.getAll();
         let member = await service.views.getGame03();
         console.log("controller member : ", member);
-        res.render("ranking/game03", {userId : req.session.userId, member : member, cnt : cnt});
+        res.render("ranking/blank_game", {userId : req.session.userId, member : member, cnt : cnt});
+    },
+
+    listening_game: async (req, res) => {
+        //let list = await game1Service.getAll();
+        let member = await service.views.getGame04();
+        console.log("controller member : ", member);
+        res.render("ranking/listening_game", {userId : req.session.userId, member : member, cnt : cnt});
     },
 
     total: async (req, res) => {

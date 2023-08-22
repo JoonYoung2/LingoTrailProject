@@ -1,0 +1,82 @@
+<%- include("../default/header") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+            
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin: auto;
+            width: 80%;
+            border-top: 1px solid #dddddd;
+        }
+
+        th {
+            color: #ffffff;
+            background-color: #00a0ff;
+            font-weight: bold;
+            height: 40px;
+        }
+            
+        td {
+            border-bottom: 1px solid #dddddd;                
+            text-align: center;
+        }
+
+        button {
+            width: 15%;
+            padding: 15px 30px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        a {
+            text-decoration: none;
+        }  
+    </style>
+</head>
+<body>
+    <div>
+        <h2>LISTENING GAME 랭킹</h2>
+        <!--
+        <%= member.SCORE_ID %>
+        <%= member.MEMBER_ID %>
+        <%= member.UPDATE_DATE %>
+        <%= member.GAME1_SCORE %>
+        <%= member.GAME2_SCORE %>
+        <%= member.GAME3_SCORE %>
+        -->
+        <table>
+            <tr>
+                <th>No</th>
+                <th>ID</th>
+                <th>LISTENING GAME 점수</th>
+            </tr>
+            <% for(var i=0; i<member.length; i++) { %>
+                <tr>
+                    <td><%= cnt++ %></td>
+                    <td><%= member[i].ID %></td>
+                    <td><%= member[i].LISTENING_GAME %></td>
+                </tr>
+            <% } %>
+        </table><br>
+        <button><a href="/speak_question/memberGame">GAME START</a></button>
+    </div>
+</body>
+</html>

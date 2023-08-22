@@ -54,6 +54,7 @@ const member = {
     unregisterDo : async(body, session)=>{
         let existCh = await dao.member.getMemInfo(body.id);
         let dbInfo = existCh.rows[0];
+        const result = bcrypt.compareSync(body.pw, dbInfo.PW);
         // console.log("session.userId : ",session.userId);
         // console.log("body : ",body);
         // console.log("existCh : ", existCh);
@@ -64,17 +65,20 @@ const member = {
         // console.log("body.id", body.id);
         // console.log("body.pw",body.pw);
         // console.log("dbInfo.PW",dbInfo.PW);
-        if(session.userId !== body.id){
+        console.log("=== 회원 탈퇴 ===", dbInfo);
+        console.log("=== 비번 확인 ===", body.pw);
+
+        if(session.userId !== body.id) {
             return "아이디가 올바르지 않습니다.";
         } else {
-            if(body.pw !== dbInfo.PW) {
+            if(!result) {
                 return "비밀번호가 올바르지 않습니다.";
-            }else{
+            } else {
                 await dao.member.unregisterDo(body.id);
                 session.destroy();
                 return "회원탈퇴가 완료되었습니다.";
             }
-        }
+        }       
     },
 
     pwCheckDo : async (body, session)=>{
