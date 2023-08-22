@@ -5,6 +5,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
+<script>
+  const errorMessage = "<%= errorMessage %>";
+  if (errorMessage) {
+      alert(errorMessage);
+  }
+</script>
+
 <style>
   .h2{
     text-align: center;
@@ -35,6 +42,9 @@
     background-color: #CFF4FC;
     font-weight: 600;
     color: black;
+    width: 150px;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 
 
@@ -62,11 +72,12 @@
       </tbody>
   </table>
   
-  <form id="deleteForm" action="/board/delete" method="post" class="customForm">
+  <form id="deleteForm" action="/board/delete" method="post" class="d-flex align-items-center" style="display: flex; justify-content: center; margin: 3%;">
     <a href="/board"><button type="button" class="btn custom-btn" style="margin-right: 5%;">뒤로가기</button></a>
     <a href="<%= boardDetail.BOARD_ID %>/modify_form"><button type="button" class="btn custom-btn" style="margin-right: 5%;">수정하기</button></a>
-      <input type="hidden" name="id" id="id" value="<%= boardDetail.BOARD_ID %>">
-      <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn custom-btn">삭제하기</button>
+    <input type="hidden" name="id" id="id" value="<%= boardDetail.BOARD_ID %>">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn custom-btn">삭제하기</button>
+    <input type="password" name="pass" id="pass" class="form-control" style="width: 140px;">
   </form>
 
   </div>
