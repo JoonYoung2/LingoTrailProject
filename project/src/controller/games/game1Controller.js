@@ -55,10 +55,26 @@ const views = {
       const selectedQuestions = [];
       while (selectedQuestions.length < totalQuetions) {
         const randomGame = await game1Service.getRandomQuestionV3(req.body.level);
+        console.log("randomGame??", randomGame);
         if (!selectedQuestions.some(question => question.RECORD_ID === randomGame.RECORD_ID)) {
+          randomGame.options = [randomGame.ANSWER, randomGame.WRONG1, randomGame.WRONG2, randomGame.WRONG3];
+          console.log("randomGame.options? before ", randomGame.options);
+          randomGame.options = shuffleArray(randomGame.options);
+          console.log("randomGame.options? after ", randomGame.options);
           selectedQuestions.push(randomGame);
+          console.log("randomGameAfter?" , randomGame);
         }
       }
+      
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+
+      console.log("selectedQuestion? ", selectedQuestions);
       req.session.selectedQuestions = selectedQuestions;
       req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
@@ -110,11 +126,9 @@ const views = {
 
         const score = req.session.score || 0;
         await game1Service.updateScore(req.session.userId, score);
-        res.send(
-          `모든 문제를 다 풀었어요! 당신의 점수는 ${score}점입니다.` +
-          "<br><br><br><a href='/game1/list'>돌아가기</a>"
-        );
-        req.session.score = 0;
+          const congratsMessage = `축하합니다 모든 문제를 다 풀었어요! 당신의 점수는 ${score}점입니다.`;
+            res.render("games/game1/congratsPage", { congratsMessage });      
+            req.session.score = 0;
         return;
       }
       res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, flag:flag , myHeart:req.session.myHeart, progressIndex : progressIndex})

@@ -120,10 +120,9 @@
     <div class="game-answer-form">
       <form action="/game1/checkAnswer" method="post">
         <input type="hidden" name="record_id" value="<%= currentQuestion.RECORD_ID %>">
-        <% const options=[currentQuestion.WRONG1, currentQuestion.WRONG2, currentQuestion.WRONG3, currentQuestion.ANSWER];options.sort(() => Math.random() - 0.5);options.forEach((option, index) => { %>
+        <% currentQuestion.options.forEach((option, index) => { %>
           <input type="radio" class="btn-check" name="selected_answer" id="option<%= index + 1 %>" value="<%= option %>" <% if (explain !== undefined)  { %>disabled <% } %>>
           <label class="btn" for="option<%= index + 1 %>"><%= option %></label>
-        <% console.log("index?asdasdasdasd?", index)%>
         <% }); %>
         <br><br>
         <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#answerModal" style="margin-right: 30;">문제확인</button> 
