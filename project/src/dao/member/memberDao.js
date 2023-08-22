@@ -13,7 +13,6 @@ const member = {
         } catch(err) {
             console.log(err);
         }
-        console.log(member);
         return member;
     },
 
@@ -128,6 +127,19 @@ const member = {
         }
         console.log(member);
         return member;
+    },
+
+    getTotalInfo : async () => {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `select * from member_info order by (meaning_game + photo_game + blank_game) desc`;
+        let member;
+        try {
+            member = await con.execute(sql);
+        } catch(err) {
+            console.log(err);
+        }
+        console.log("member : ", member.rows);
+        return member.rows;
     }
 }
 

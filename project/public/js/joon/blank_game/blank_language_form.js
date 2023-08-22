@@ -39,7 +39,7 @@ const insertCheck = () => {
                             <input type="text" id="languageId" name="id" class="languageId" value="${maxId}" readonly>
                         </td>
                         <td>
-                            <input type="text" id="languageInput" name="language" class="languageLanguage" value="">
+                            <input type="text" id="languageInput" name="language" class="blankLanguage" value="">
                         </td>
                         <td class="speakCheckBox">
                             <button type="button" onclick="listInsert();">등록</button>

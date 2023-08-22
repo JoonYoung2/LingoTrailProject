@@ -78,30 +78,30 @@
 </head>
 <body>
     <div>
-    <h2>회원정보 수정</h2>
+    <h2>MODIFY</h2>
     <% if(userId === undefined) { %>
         window.history.back();
     <% } else { %>
         <form action="/member/update.do" method="post">
             <table>
                 <tr>
-                    <td id="c">아이디</td>
+                    <td id="c">ID</td>
                     <td><input type="text" id="id" name="id" value="<%=member.ID%>" readonly></td>
                 </tr>
                 <tr>
-                    <td id="c">이름</td>
+                    <td id="c">NAME</td>
                     <td><input type="text" id="name" name="name" value="<%=member.NAME%>"></td>
                 </tr>
                 <tr>
-                    <td id="c">이메일주소</td>
+                    <td id="c">EMAIL</td>
                     <td><input type="text" id="email" name="email" value="<%=member.EMAIL%>"></td>
                 </tr>
                 <tr>
-                    <td id="c">비밀번호</td>
+                    <td id="c">PASSWORD</td>
                     <td><input type="password" id="pw" name="pw" value=""></td>
                 </tr>
             </table>            
-            <input type="submit" value="수정하기">
+            <input type="submit" value="MODIFY">
         </form>
     <% } %>
     </div>
