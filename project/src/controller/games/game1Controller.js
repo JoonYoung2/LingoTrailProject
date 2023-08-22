@@ -2,7 +2,7 @@ const game1Service = require("../../service/games/game1Service");
 
 function checkSession(req, res) {
   if (!req.session.userId) {
-    res.send(`<script>alert("로그인 후 이용해주세요."); location.href="/member/login";</script>`);
+    res.send(`<script>alert("로그인 후 이용해주세요."); location.href="/member/login?game=photo";</script>`);
     return false;
   }
   return true;

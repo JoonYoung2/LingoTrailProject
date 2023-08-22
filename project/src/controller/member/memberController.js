@@ -29,7 +29,14 @@ const member = {
         }else{
             if(game=='meaning'){
                 res.redirect("/meaning/condition");
-            }else{
+            }else if(game == 'photo'){
+                res.redirect("/game1/list");
+            }else if (game =='blank'){
+                res.redirect("blank_question/step");
+            }else if (game == 'listening'){
+                res.redirect("speak_question/step");
+            }
+            else{
                 res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
             }
             //res.redirect("/");
@@ -156,9 +163,8 @@ const member = {
     
     index : async(req, res) => {
         const member = await service.member.getMember(req.session.userId);
-        const ranking = await service.member.getRanking(req.session);
-        console.log(ranking);
-        res.render("member/index", {userId : req.session.userId, member : member.rows[0], ranking});
+        console.log(member);
+        res.render("member/index", {userId : req.session.userId, member : member.rows[0]});
 
     }
 }

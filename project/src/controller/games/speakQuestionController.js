@@ -220,7 +220,7 @@ const userViewRedirect = () => {
     return `
     <script>
         alert("로그인 후 이용해주세요.");
-        location.href="/member";
+        location.href="/member/login?game=listening";
     </script>
 `
     
