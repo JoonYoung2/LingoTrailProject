@@ -97,6 +97,11 @@ const gameCrud = {
     saveScore : async (req, res) => {
         await service.gameCrud.saveScore(req.body, req.session);
         res.json(1);
+    },
+
+    heartScoreUpdate : async (req, res) => {
+        await service.gameCrud.saveHeartScore(req.body, req.session);
+        res.json(1);
     }
 }
 

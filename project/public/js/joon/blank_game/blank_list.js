@@ -20,21 +20,21 @@ const blankListSearch = () => {
             let blankListTableId = document.getElementById('blankListTable');
             let msg = `
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         <input id="blankListSearch" class="blankListSearch" type="text" placeholder="search" onchange="blankListSearch();" value='${data.input.searchId}'>
                     </td>
                 </tr>
                 <tr>
-                    <th>NO</th>
-                    <th style="width:400px;">QUESTION</th>
-                    <th style="width:400px;">ANSWER</th>
-                    <th style="width:100px;">QLANGUAGE</th>
-                    <th style="width:100px;">ALANGUAGE</th>
-                    <th style="width:100px;">LEVEL</th>
+                    <th style="width:400px">QUESTION</th>
+                    <th style="width:200px">ANSWER</th>
+                    <th style="width:100px">MEANING</th>
+                    <th style="width:100px">LANGUAGE</th>
+                    <th style="width:80px">PARTS</th>
+                    <th style="width:100px">LEVEL</th>
                     <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
                 </tr>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         등록된 내용이 없습니다.
                     </td>
                 </tr>
@@ -53,12 +53,12 @@ const blankListSearch = () => {
         </tr>
         <tr>
             <th>NO</th>
-            <th>QUESTION</th>
-            <th>ANSWER</th>
-            <th>MEANING</th>
-            <th>LANGUAGE</th>
-            <th>PARTS</th>
-            <th>LEVEL</th>
+            <th style="width:400px">QUESTION</th>
+            <th style="width:200px">ANSWER</th>
+            <th style="width:100px">MEANING</th>
+            <th style="width:100px">LANGUAGE</th>
+            <th style="width:80px">PARTS</th>
+            <th style="width:100px">LEVEL</th>
             <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
         </tr>
         `;
@@ -79,7 +79,7 @@ const blankListSearch = () => {
                         <input type="text" class="blankMeaning" value="${ list.MEANING }">
                     </td>
                     <td>
-                        <select class="blankLanguage">
+                        <select class="blankListLanguage">
             `;
             data.language.forEach((lang) => {
                 msg+=
@@ -215,7 +215,7 @@ const insertCheck = () => {
                             <input type="text" id="meaningId" name="meaning" class="blankMeaning" value="">
                         </td>
                         <td>
-                            <select name="language" class="blankLanguage">`;
+                            <select name="language" class="blankListLanguage">`;
                                 language.forEach((lang) => {
                                     msg += 
                                     `
@@ -275,7 +275,7 @@ const updateCheck = () => {
     let updateInputListQuestion = document.querySelectorAll(".blankQuestion");
     let updateInputListAnswer = document.querySelectorAll(".blankAnswer");
     let updateInputListMeaning = document.querySelectorAll(".blankMeaning");
-    let updateInputListLanguage = document.querySelectorAll(".blankLanguage");
+    let updateInputListLanguage = document.querySelectorAll(".blankListLanguage");
     let updateInputListParts = document.querySelectorAll(".blankParts");
     let updateInputListLevel = document.querySelectorAll(".blankLevel");
 
