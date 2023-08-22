@@ -36,17 +36,23 @@
                 <div class="memberPageWidth">
                     <div class="memberSelectDiv">
                         <div>
-                            <div>글을 보고 정답을 맞추세요!</div>
+                            
                             <div>
                                 <a href="/meaning/condition"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                            <div class="userGameTitle">
+                                Meaning Game
                             </div>
                         </div>
                     </div>
                     <div class="memberSelectDiv">
                         <div>
-                            <div>빈칸에 정답을 맞추세요!</div>
+                            
                             <div>
-                                <a href="/blank_question/memberGame"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                                <a href="/blank_question/step"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                            <div class="userGameTitle">
+                                Blank Game
                             </div>
                         </div>
                     </div>
@@ -54,21 +60,23 @@
                 <div class="memberPageWidth">
                     <div class="memberSelectDiv">
                         <div>
-                            <div>
-                                이미지를 보고 정답을 맞추세요!
-                            </div>
+                            
                             <div>
                                 <a href="/game1/list"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            </div>
+                            <div class="userGameTitle">
+                                Photo Game
                             </div>
                         </div>
                     </div>
                     <div class="memberSelectDiv">
                         <div>
+                            
                             <div>
-                                듣고 정답을 맞추세요!
+                                <a href="/speak_question/step"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
                             </div>
-                            <div>
-                                <a href="/speak_question/memberGame"><img class="memberGameImgs" src="/static/img/joon/airImg.png"></a>
+                            <div class="userGameTitle">
+                                Listening Game
                             </div>
                         </div>
                     </div>
@@ -80,11 +88,19 @@
 
                 <% if(userId){ %>
                     <div style="width:50%; display:flex; justify-content: center; height: 500px; align-items: center; border: rgba(0, 0, 0, 0.1);">
-                        <div style="width: 100%; height: 400px;">
-                            <div><%= member.ID %></div>
-                            <div><%= member.HEART %></div>
-                            <div>1등</div>
-                            <div><%= member.STAMP %></div>
+                        <div style="width: 100%; height: 400px; display: flex; justify-content: center; align-items: center;">
+                            <div>
+                                <div class="userIndexMainDiv">
+                                    <div style="display:flex; justify-content: center; align-items: center;"><span class="userStatusTitle">&lt;<%= member.ID %>&gt;</span></div>
+                                    <div class="userStatusBarDiv"><img style="width:30px;" src="/static/img/joon/index/heart.png"><div class="userStatusBar"><%= member.HEART %> 개</div></div>
+                                    <div class="userStatusBarDiv"><img style="width:30px;" src="/static/img/joon/index/trophy.svg"><div class="userStatusBar">1등</div></div>
+                                    <div class="userStatusBarDiv"><img style="width:30px;" src="/static/img/joon/index/attend.png"><div class="userStatusBar"><%= member.STAMP %></div></div>
+                                </div>
+                                <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+                                    <div style="width: 50%; display:flex; justify-content:center;"><button style="all:unset; cursor:pointer;" onclick="openPop()"><img style="width:80px;" src="/static/img/joon/index/attendBtn.png"></button></div>
+                                    <div style="width: 50%; display:flex; justify-content:center;"><button style="all:unset; cursor:pointer;" onclick="rankingView()"><img style="width:80px;" src="/static/img/joon/index/rankingBtn.png"></button></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <% }else{ %>
@@ -127,13 +143,11 @@
                     }
                 })
             }
+
+            const rankingView = () => {
+                location.href='/ranking/list';
+            }
         </script>
-    
-        <button><a href="#none" onclick="openPop()">출석하기</a></button>
     <% }%>
-
-    <button><a href="/ranking/list">점수 보기</a></button>
-    <br>
-
 </body>
 </html>

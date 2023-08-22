@@ -17,7 +17,13 @@ module.exports = (app) => {
     이곳의 버튼에서 각자의 경로로 이동한 뒤 url 접근 막도록 합니다
      */
     app.get("/admin", (req, res) => {
-        res.render("admin/index");
+        if(req.session.loginType == undefined){
+            res.redirect("/member");
+        }else if(!req.session.loginType == 1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/index");
+        }
     })
 
     app.use("/member", memberRouter);

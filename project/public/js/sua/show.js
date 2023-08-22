@@ -41,11 +41,18 @@ window.onload = () => {
 }
 
 const nextViewBtn = (cnt) => {
+    if(cnt == pageSize-1){
+        alert("게임 끝~~");
+        console.log(rightAnswerCnt*pointByLevel);
+        location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+        return;
+    }
 
     function heartUsingCh(){
         if(!confirm("제공된 하트가 소진되었습니다. 보유한 하트를 사용하시겠습니까?")){
             alert("게임을 종료합니다.");
             window.history.back();
+            return;
         }else{
             alert("지금부터 하트아이템이 소진됩니다.");
             usedHeart=1;
@@ -59,18 +66,14 @@ const nextViewBtn = (cnt) => {
             heartUsingCh();
         }else{
             alert("보유한 하트가 없습니다. 게임을 종료합니다.");
-            console.log(rightAnswerCnt*pointByLevel);
-            location.href = "meaning/result?score=" + score + "&heart=" + heartNum +"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+            location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
+            return;
         }
     }
     answerItemValue = "";
     console.log(cnt);
     
-    if(cnt == pageSize-1){
-        alert("게임 끝~~");
-        console.log(rightAnswerCnt*pointByLevel);
-        location.href="/meaning/result?score="+score + "&heart=" + heartNum+"&rankingPoint="+(rightAnswerCnt*pointByLevel);
-    }
+    
     
     let count = Number(cnt);
     let mainPagePreId = "mainPage" + count;
@@ -125,7 +128,9 @@ const marking = (answer, cnt, QeAn)=>{
         console.log("true");
         markingResult[Number(cnt)].innerText = "Excellent!!";
         rightAnswerCnt++;
-        
+        if(questionNums>questionNum){
+            questionNums=questionNum
+        }
         scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + "</span><span style='padding-left:320px;'> <span style='color:red;'>♥</span>" + questionNums + " / " + questionNum + "</span><span style='color:red;'>♥</span><span style='color:red; padding-left:370px;'>♥</span>X" + heartNum + "";
         
     }else{
@@ -133,7 +138,9 @@ const marking = (answer, cnt, QeAn)=>{
         console.log("false");
         score-=100/QeAn;
         markingResult[Number(cnt)].innerHTML = "<div style='text-align:center;'>Wrong!!!!!<br><br> Right answer : <span style='color:red'>"+ answer + "</span></div>";
-        
+        if(questionNums>questionNum){
+            questionNums=questionNum
+        }
         scoreClass[0].innerHTML = "<span style='padding-left:480px;'>score : " + score + "</span><span style='padding-left:320px;'> <span style='color:red;'>♥</span>" + questionNums + " / " + questionNum + "</span><span style='color:red;'>♥</span><span style='color:red; padding-left:370px;'>♥</span>X" + heartNum + "";
         
         
