@@ -12,8 +12,6 @@
     <div style="width: 100%; display:flex; justify-content:center;">
       <div>
           <div class="divbackground">
-            <h2>Responsive Table with DataTables</h2>
-
               <form action="/meaning/listForm" method="post">
                 <select class="levelSelectforSearch">
                   <% level.forEach((level) => { %>
@@ -72,29 +70,41 @@
                 
                 </tbody>
                 <tfoot>
-                  <tr><td colspan="5">
-                    <% if( start <= 1){ %>
-                      <button disabled>&lt;</button>
-                    <%}else{%>
-                        <button type="button" onclick="
-                            location.href='/meaning/listForm?start=<%=start - 1%>'">&lt;</button>
-                    <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
-                        <a href="/meaning/listForm?start=<%= i %>"><%= i %></a>
-                    <% }if( start < page.totPage ){%>
-                        <button type="button" onclick="
-                            location.href='/meaning/listForm?start=<%=start + 1%>'"> &gt;	</button>
-                    <% }else{ %>
-                        <button disabled> &gt;</button>
-                    <% } %>
-                </td></tr>
+                  <tr>
+                    <td colspan="5">
+                      <div style="text-align:center;">
+                        <% if( start <= 1){ %>
+                          <button disabled>&lt;</button>
+                        <%}else{%>
+                            <button type="button" onclick="
+                                location.href='/meaning/listForm?start=<%=start - 1%>'">&lt;</button>
+                        <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
+                            <a href="/meaning/listForm?start=<%= i %>"><%= i %></a>
+                        <% }if( start < page.totPage ){%>
+                            <button type="button" onclick="
+                                location.href='/meaning/listForm?start=<%=start + 1%>'"> &gt;	</button>
+                        <% }else{ %>
+                            <button disabled> &gt;</button>
+                        <% } %>
+                      </div>
+                    </td>
+                  </tr>
                 </tfoot>
               </table>
             </div>
           </div>
         </div>
-        <button onclick="insertQuestion();">INSERT</button>
-        <button onclick="updateCheck();">UPDATE</button>
-        <div class="speakGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+        <div style="padding: 10px 0px;display:flex; justify-content:center;">
+          <div>
+            <button class="mainListBtn" onclick="insertQuestion();">INSERT</button>
+          </div>
+          <div style="margin: 0px 30px;">
+            <button class="mainListBtn" onclick="updateCheck();">UPDATE</button>
+          </div>
+          <div class="speakGameListButtons">
+            <button class="mainListBtn" onclick="deleteCheck();">DELETE</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

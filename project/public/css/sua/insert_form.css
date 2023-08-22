@@ -1,6 +1,6 @@
 table {
     border: 0;
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(0, 0, 0, 0.5);
 }
 
 .registerBtn{
@@ -10,9 +10,9 @@ table {
     text-align: center; 
     width: 150px; 
     height: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 20px;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 1);
 }
 
 .registerBtn:hover{

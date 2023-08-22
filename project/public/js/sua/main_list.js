@@ -9,7 +9,7 @@ const insertQuestion = () =>{
     var windowLeft = (screenWidth - windowWidth) / 2;
     var windowTop = (screenHeight - windowHeight) / 2;
 
-    var newWindow = window.open('/meaning/insertPop', 'insertPop', 'width=800px,height=200px,left=' + windowLeft + ',top=' + windowTop + ',scrollbars=yes');
+    var newWindow = window.open('/meaning/insertPop', 'insertPop', 'width=800px,height=150px,left=' + windowLeft + ',top=' + windowTop + ',scrollbars=yes');
 }
 
 

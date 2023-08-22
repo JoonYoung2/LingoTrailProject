@@ -44,11 +44,11 @@ const configure = {
 
 const meaningCrud = {
     getList : async(req, res) => {
-        if(req.session.loginType== undefined){
-            res.redirect("/member");
-        }else if(req.session.loginType !==1){
-            res.redirect("/member");
-        }
+        // if(req.session.loginType== undefined){
+        //     res.redirect("/member");
+        // }else if(req.session.loginType !==1){
+        //     res.redirect("/member");
+        // }
         const totalContent = await service.meaningCrud.totalContent();//총 글에 대한 개수를 가져옴.
         const data = await service.meaningCrud.list( req.query.start, totalContent );
 
