@@ -8,7 +8,7 @@ const views = {
     },
     
     score: async (req, res) => {
-        let member = await service.views.getScore();
+        let member = await service.views.getScore(req.session.userId);
         console.log("controller member : ", member);
         res.render("ranking/score", {userId : req.session.userId, member : member, cnt : cnt});
     },

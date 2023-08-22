@@ -7,36 +7,68 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-            div {
-                width: 100%;
-                padding: 20px;
-                text-align: center;
-            }
-            
-            table {
-                font-family: arial, sans-serif;
-                border-collapse: collapse;
-                margin: auto;
-                width: 80%;
-                border-top: 1px solid #dddddd;
-            }
+        div {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+          
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            margin: auto;
+            width: 80%;
+            border-top: 1px solid #dddddd;
+        }
 
-            th {
-                color: #ffffff;
-                background-color: #00a0ff;
-                font-weight: bold;
-                height: 40px;
-            }
+        th {
+            color: #ffffff;
+            background-color: #00a0ff;
+            font-weight: bold;
+            height: 40px;
+        }
             
-            td {
-                border-bottom: 1px solid #dddddd;                
-                text-align: center;
-            }           
+        td {
+            border-bottom: 1px solid #dddddd;                
+            text-align: center;
+        }
+            
+        #g {
+            width: 12%;
+            height: 50px;
+            padding: 15px 30px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        #b {
+            width: 10%;
+            height: 50px;
+            padding: 15px 30px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        a {
+            text-decoration: none;
+        }   
     </style>
 </head>
 <body>
     <div>
-        <h2>총 점수 랭킹</h2>
+        <h2>TOTAL 랭킹</h2>
         <!--
         <%= member.SCORE_ID %>
         <%= member.MEMBER_ID %>
@@ -52,8 +84,8 @@
                 <th>MEANING GAME</th>
                 <th>PHOTO GAME</th>
                 <th>BLANK GAME</th>
+                <th>LISTENING GAME</th>
                 <th>TOTAL</th>
-                <th>DATE</th>         
             </tr>
             <% for(var i=0; i<member.length; i++) { %>
                 <tr>
@@ -61,12 +93,13 @@
                     <td><%= member[i].ID %></td>
                     <td><%= member[i].MEANING_GAME %></td>
                     <td><%= member[i].PHOTO_GAME %></td>
-                    <td><%= member[i].BLANK_GAME %></td>
-                    <td><%= member[i].MEANING_GAME+member[i].PHOTO_GAME+member[i].BLANK_GAME %></td>
-                    <td><%= member[i].PHOTO_GAME_DATE %></td>                  
+                    <td><%= member[i].BLANK_GAME %></td>                    
+                    <td><%= member[i].LISTENING_GAME %></td>
+                    <td><%= member[i].MEANING_GAME+member[i].PHOTO_GAME+member[i].BLANK_GAME+member[i].LISTENING_GAME %></td>            
                 </tr>
             <% } %>
-        </table>
+        </table><br>
+        <button id="b"><a href="/blank_question/memberGame">뒤로가기</a></button>
     </div>
 </body>
 </html>

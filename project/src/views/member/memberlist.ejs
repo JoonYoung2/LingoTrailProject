@@ -63,9 +63,6 @@
                 <th>이름</th>
                 <th>이메일</th>
                 <th>타입</th>
-                <th>GAME1</th>
-                <th>GAME2</th>
-                <th>GAME3</th>          
             </tr>
             <% for(var i=0; i<member.length; i++) { %>
                 <tr>
@@ -80,10 +77,7 @@
                             관리자
                         <% } %>
                         &nbsp;<a href="/member/modify/<%= member[i].ID %>/<%=member[i].LOGIN_TYPE%>"><input type="button" value="변경하기"></a>
-                    </td>
-                    <td><%= member[i].GAME1_SCORE %></td>
-                    <td><%= member[i].GAME2_SCORE %></td>
-                    <td><%= member[i].GAME3_SCORE %></td>
+                    </td>                    
                 </tr>
             <% } %>
         </table>

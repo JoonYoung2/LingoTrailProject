@@ -33,8 +33,23 @@
             text-align: center;
         }
 
-        button {
-            width: 15%;
+        #g {
+            width: 12%;
+            height: 55px;
+            padding: 15px 30px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            box-sizing: border-box;
+            background-color: #FAFAFA;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        #b {
+            width: 10%;
+            height: 55px;
             padding: 15px 30px;
             margin: 5px 0;
             display: inline-block;
@@ -76,7 +91,8 @@
                 </tr>
             <% } %>
         </table><br>
-        <button><a href="/speak_question/memberGame">GAME START</a></button>
+        <button id="g"><a href="/speak_question/step">GAME START</a></button>
+        <button id="b"><a href="/ranking/list">뒤로가기</a></button>
     </div>
 </body>
 </html>
