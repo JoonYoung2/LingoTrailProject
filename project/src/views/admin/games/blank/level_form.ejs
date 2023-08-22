@@ -29,30 +29,34 @@
                     LevelCategoryList
                 </span>
             </div>
-            <table border="1">
-                <tr>
-                    <th>NO</th>
-                    <th style="width:200px;">LEVEL</th>
-                </tr>
-                <%
-                    level.forEach((list) => {
-                %>
-                <tr>
-                    <td>
-                        <input type="text" value="<%= list.ID %>" class="levelId" readonly>
-                    </td>
-                    <td>
-                        <input type="text" value="Level <%= list.LEVEL_STEP %>" class="speakLevel categoryLevel" readonly>
-                    </td>
-                </tr>
-                <%
-                    })
-                %>
-            </table>
-            <div id="insertZone"></div>
-            <div class="blankGameListButton">
-                <div id="levelInsertButton" class="levelInsertButton"><button onclick="insertCheck();">INSERT</button></div>
-                <div class="levelDeleteButton"><button onclick="deleteCheck();">DELETE</button></div>
+            <div style="width: 100%; display:flex; justify-content: center;">
+                <div>
+                    <table border="1">
+                        <tr>
+                            <th>NO</th>
+                            <th style="width:200px;">LEVEL</th>
+                        </tr>
+                        <%
+                            level.forEach((list) => {
+                        %>
+                        <tr>
+                            <td>
+                                <input type="text" value="<%= list.ID %>" class="levelId" readonly>
+                            </td>
+                            <td>
+                                <input type="text" value="Level <%= list.LEVEL_STEP %>" class="blankLevel categoryLevel" readonly>
+                            </td>
+                        </tr>
+                        <%
+                            })
+                        %>
+                    </table>
+                    <div id="insertZone"></div>
+                    <div class="blankGameListButton">
+                        <div id="levelInsertButton" class="levelInsertButton"><button onclick="insertCheck();">INSERT</button></div>
+                        <div class="levelDeleteButton"><button onclick="deleteCheck();">DELETE</button></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

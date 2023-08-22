@@ -14,73 +14,81 @@
         justify-content: center;
     }
 
-    .form-label {
-        display: flex;
-        justify-content: center;
-        font-weight: bold;
-        margin-bottom: 20px;
+    .form-container {
         width: 500px;
-        flex-shrink: 0;
+        padding: 20px;
+        border: 1px solid #CFF4FC;
+        border-radius: 10px;
+        background-color: #CFF4FC;
     }
 
-    .form-input {
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        width: 50%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 20px;
+    .form-label {
+        font-weight: bold;
     }
 
-    .form-textarea {
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-    .form-submit {
-        margin-top: 10px;
-        display: flex;
-        justify-content: center;
+    .form-control {
+        margin-bottom: 30px;
+        border: 1px solid #3498db;
     }
 
     .custom-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 200px;
         background-color: #CFF4FC;
         font-weight: 600;
         color: black;
     }
 
+    .btn:hover {
+        background-color: #1e6ac9;
+    }
 </style>
 
 <title>게시글 작성</title>
 
-    <h2 class="h2">게시글을 작성하세요</h2>
+<h2 class="h2">게시글을 작성하세요</h2>
 
-    <div class="form-section">
-        <form action="/board/submit" method="post">
+<div class="form-section">
+    <form id="postForm" action="/board/submit" method="post">
+        <div class="form-container">
             <div class="form-group">
                 <label class="form-label" for="title">제목</label>
-                <input class="form-input" type="text" id="title" name="title" required>
+                <input class="form-control" type="text" id="title" name="title" required>
             </div>
             <div class="form-group">
                 <label class="form-label" for="content">내용</label>
-                <textarea class="form-textarea" id="content" name="content" rows="5" maxlength="500" required></textarea>
+                <textarea class="form-control" id="content" name="content" rows="5" maxlength="500" required></textarea>
             </div>
+            
             <div class="form-group">
-                <label class="form-label" for="author">작성자</label>
-                <input class="form-input" type="text" id="author" name="author" required>
+                <label class="form-label" for="anonymous"style="margin-bottom: 20px;">익명</label>
+                <input type="checkbox" id="anonymous" name="anonymous">
             </div>
 
-            <div class="form-submit">
-                <button class="btn custom-btn" type="submit" style="margin-bottom: 20%;">Submit</button>
+            <div class="form-group" id="authorGroup">
+                <label class="form-label" for="author" >작성자</label>
+                <input class="form-control" type="text" id="author" name="author">
             </div>
-        </form>
-    </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">비밀번호 : 삭제시 사용됩니다</label>
+                <input class="form-control" type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-submit" style="display: flex; justify-content: center;">
+                <button class="btn custom-btn" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    const anonymousCheckbox = document.getElementById("anonymous");
+    const authorGroup = document.getElementById("authorGroup");
+    anonymousCheckbox.addEventListener("change", function () {
+        if (!this.checked) {
+            authorGroup.style.display = "block";
+        } else {
+            authorGroup.style.display = "none";
+        }
+    });
+</script>

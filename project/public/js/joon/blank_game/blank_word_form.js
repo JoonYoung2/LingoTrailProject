@@ -155,13 +155,13 @@ const insertCheck = () => {
                             <input type="text" name="id" class="blankId" value="${maxId}" readonly>
                         </td>
                         <td>
-                            <select name="partId" class="blankPartId">`;
+                            <select name="partId" class="blankParts blankPartInput">`;
             parts.forEach((list) => {
                 msg += `<option value="${list.ID}">${list.PART_NAME}</option>`;
             })
             msg += `</td>`;
             for (var i = 0; i < langName.length; i++) {
-                msg += `<td><input type="text" name="${langName[i].LANGUAGE}"class="blankWordInput wordInsertInput"></td>`;
+                msg += `<td><input type="text" name="${langName[i].LANGUAGE}"class="speakWordInput wordInsertInput"></td>`;
             }
             msg += `<td class="blankCheckBox">
                             <button type="button" onclick="listInsert();">등록</button>

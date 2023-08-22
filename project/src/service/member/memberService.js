@@ -116,7 +116,6 @@ const member = {
     },
 
     getMember : async(id)=>{
-        console.log(":::::::::::::::::::::::",id);
         let info = await dao.member.getMemInfo(id);
         return info;
     },
@@ -156,6 +155,18 @@ const member = {
             return "오류가 발생했습니다. 다시 시도해주세요.";
         } else {
             return "타입 변경이 완료되었습니다.";
+        }
+    },
+
+    getRanking : async (session) => {
+        let member = await dao.member.getTotalInfo();
+        let cnt = 0;
+        console.log("member ===> ", member);
+        for(var i = 0; i < member.length; i++){
+            cnt++;
+            if(member[i].ID == session.userId){
+                return cnt;
+            }
         }
     }
 }

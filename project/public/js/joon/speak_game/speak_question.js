@@ -51,6 +51,11 @@ const jumpBtn = (count1) => {
     text = [];
     writeText = "";
 
+    percent = ((count + 1) / dataSize) * 100;
+    console.log(percent);
+    for (var i = 0; i < energyBarFill.length; i++) {
+        energyBarFill[i].style.width = `${percent}%`;
+    }
     
     
     if (cnt == dataSize) {
@@ -64,7 +69,7 @@ const jumpBtn = (count1) => {
         .then(res => res.json())
         .then(data => {
             alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
-            location.href = "/speak_question/step";
+            location.href = "/ranking/listening_game";
         })                              
         return;
     }
@@ -242,7 +247,7 @@ const rightContinueBtn = (count1) => {
         .then(res => res.json())
         .then(data => {
             alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
-            location.href = "/speak_question/step";
+            location.href = "/ranking/listening_game";
         })                              
         return;
     }
@@ -302,6 +307,33 @@ const wrongContinueBtn = (count1) => {
     let beforeQuestion = "questionInput" + cnt;
 
     if (cnt == dataSize) {
+        if(gameLifeScore >= 3 && userHeart > 0){
+            if(window.confirm(`${userHeart}개의 하트 아이템이 존재합니다.\n\n기록을 저장하시려면 하트를 사용하셔야합니다.\n\n하트 아이템을 사용하시겠습니까?`)){
+                userHeart--;
+                let data = {userHeart, gameScore};
+                console.log(data);
+                fetch("/speak_question/heart_score_update", 
+                {
+                    method : "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
+                    location.href = "/ranking/listening_game";
+                })
+                return;
+            }else{
+                alert("목숨이 끊겼습니다.");
+                window.history.back();
+                return;
+            }
+        }else if(gameLifeScore >= 3 && userHeart <= 0){
+            alert("목숨이 끊겼습니다.");
+                window.history.back();
+                return;
+        }
         let data = {gameScore};
         fetch("/speak_question/save_score", 
         {
@@ -312,7 +344,7 @@ const wrongContinueBtn = (count1) => {
         .then(res => res.json())
         .then(data => {
             alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
-            location.href = "/speak_question/step";
+            location.href = "/ranking/listening_game";
         })                              
         return;
     }
