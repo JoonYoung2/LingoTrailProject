@@ -16,16 +16,22 @@ const member = {
     },
 
     login : (req, res) => {
-        res.render("member/login_form", {member : member.rows, userId : req.session.userId});
+        let game = req.query.game;
+        console.log("server game ==> ", game);
+        res.render("member/login_form", {userId : req.session.userId, game});
     },
 
     loginDo : async (req, res) => {
         const msg = await service.member.loginDo(req.body, req.session);
+        const game = req.body.game;
         if(msg !== "로그인 되었습니다.") {
             res.send(`<script>alert('${msg}'); window.history.back();</script>`);
         }else{
-            //if()
-            res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
+            if(game=='meaning'){
+                res.redirect("/meaning/condition");
+            }else{
+                res.send(`<script>alert('${msg}'); location.href="/member";</script>`);
+            }
             //res.redirect("/");
         }
     },

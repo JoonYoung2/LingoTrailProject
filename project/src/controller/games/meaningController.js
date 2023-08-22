@@ -71,6 +71,6 @@ const meaningCrud = {
     
 }
 const sessionChecklogin =()=>{
-    return `<script>alert("로그인 후 이용해주세요."); location.href="/member/login";</script>`
+    return `<script>alert("로그인 후 이용해주세요."); location.href="/member/login?game=meaning";</script>`
 }
 module.exports={configure, meaningCrud};
