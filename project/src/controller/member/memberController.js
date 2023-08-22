@@ -165,7 +165,7 @@ const member = {
         const member = await service.member.getMember(req.session.userId);
         const ranking = await service.member.getRanking(req.session);
         console.log(member);
-        res.render("member/index", {userId : req.session.userId, member : member.rows[0]});
+        res.render("member/index", {userId : req.session.userId, member : member.rows[0], ranking});
 
     }
 }
