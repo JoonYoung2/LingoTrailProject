@@ -67,6 +67,7 @@ const get = {
 }
 
 const insert = async (data) => {
+  console.log("data?", data);
   const con = await oracledb.getConnection(dbConfig);
   const sql = `
     INSERT INTO MATCH_PICTURE_GAME (record_id, create_date, question, question_level, img, answer, wrong1, wrong2, wrong3, answer_explain
@@ -80,7 +81,7 @@ const insert = async (data) => {
     wrong1: data.wrong1,
     wrong2: data.wrong2,
     wrong3: data.wrong3,
-    explain: data.answer_explain
+    explain: data.explain
   };
 
   try {

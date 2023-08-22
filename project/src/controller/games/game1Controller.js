@@ -62,14 +62,17 @@ const views = {
       req.session.selectedQuestions = selectedQuestions;
       req.session.score = 0;
       const currentQuestion = selectedQuestions[0];
+      console.log("main current? question? ", currentQuestion);
       const nextIndex = 0;
+      req.session.progressIndex = 0;
+      const progressIndex = req.session.progressIndex;
       req.session.currentIndex = nextIndex;
 
       
       const explain = undefined;
       const heartCount = req.session.heartCount = 3;
       const flag = false;
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, userId : req.session.userId , flag:flag, myHeart:req.session.myHeart});
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, userId : req.session.userId , flag:flag, myHeart:req.session.myHeart, progressIndex : progressIndex});
 
     } catch (err) {
       console.log(err);
@@ -82,7 +85,6 @@ const views = {
       return;
     }
     try {
-      
       if(req.params.heart === '1'){
         req.session.heartCount = 1;
         req.session.myHeart -= 1;
@@ -96,10 +98,10 @@ const views = {
       const currentQuestion = selectedQuestions[currentIndex];
       const nextIndex = currentIndex;
       req.session.currentIndex = nextIndex;
+      const progressIndex = req.session.progressIndex ;
 
       const explain = undefined;
       const heartCount = req.session.heartCount;
-      console.log("heartCount가 늘어나고 있나?? ", heartCount);
       const flag = false;
 
       if (currentIndex >= selectedQuestions.length) {
@@ -115,7 +117,7 @@ const views = {
         req.session.score = 0;
         return;
       }
-      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, flag:flag , myHeart:req.session.myHeart})
+      res.render("games/game1/gamePage", { currentQuestion, nextIndex, explain, heartCount, flag:flag , myHeart:req.session.myHeart, progressIndex : progressIndex})
     } catch (err) {
       console.log(err);
       res.status(500).send("알 수 없는 오류 발생")
@@ -169,6 +171,7 @@ const process = {
   },
 
   verify: async (req, res) => {
+    
     try {
       // 채점을 하지않고 다음 문제로 넘어가는 것을 방지
       const flag = true;
@@ -177,16 +180,21 @@ const process = {
       const nextIndex = req.session.currentIndex;
       const isCorrect = await game1Service.verifyAnswer(recordId, selectedAnswer);
       const currentQuestion = req.session.selectedQuestions[req.session.currentIndex];
+      console.log("currentQuestion?:" ,req.session.selectedQuestions[req.session.currentIndex] );
+      req.session.progressIndex += 1;
+      const progressIndex = req.session.progressIndex;
       // const explain = undefined;
 
       if (isCorrect === 1) {
-        const explain = currentQuestion.EXPLAIN;
+        const explain = currentQuestion.ANSWER_EXPLAIN;
+        console.log("explain?", explain);
+        console.log("explain????", currentQuestion);
         const currentScore = req.session.score || 0;
         req.session.score = currentScore + 1;
         let heartCount = req.session.heartCount;
         console.log("flag?", flag);
         console.log("verify에서는 heartCount가 늘어나고 있나?? ", heartCount);
-        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount, flag:flag , myHeart:req.session.myHeart});
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount, flag:flag , myHeart:req.session.myHeart, progressIndex:progressIndex});
 
       } else {
         // 오답일 때
@@ -194,7 +202,7 @@ const process = {
         let heartCount = req.session.heartCount -= 1;
         console.log("flag?", flag);  
         console.log("오답에서는 heartCount가 늘어나고 있나?? ", heartCount);
-        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount, flag:flag , myHeart:req.session.myHeart });
+        res.render("games/game1/gamePage", { currentQuestion, explain, nextIndex, heartCount, flag:flag , myHeart:req.session.myHeart, progressIndex:progressIndex });
       }
     } catch (err) {
       console.error(err);
