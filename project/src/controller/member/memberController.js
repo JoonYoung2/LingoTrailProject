@@ -32,9 +32,9 @@ const member = {
             }else if(game == 'photo'){
                 res.redirect("/game1/list");
             }else if (game =='blank'){
-                res.redirect("blank_question/step");
+                res.redirect("/blank_question/step");
             }else if (game == 'listening'){
-                res.redirect("speak_question/step");
+                res.redirect("/speak_question/step");
             }
             else{
                 res.send(`<script>alert('${msg}'); location.href="/member";</script>`);

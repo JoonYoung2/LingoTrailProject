@@ -172,6 +172,27 @@ const meaningCrud = {
             console.log(err);
         }
         return result;
+    },
+    getMaxId : async () =>{
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `SELECT MAX(id) FROM english_meaning_question`;
+        let result;
+        try{
+            result = await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
+        return result.rows[0]['MAX(ID)'];
+    },
+
+    insertDo : async (body) => {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `INSERT INTO english_meaning_question VALUES(${body.id}, '${body.korean}', '${body.english}', ${body.level_step})`;
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 module.exports = {configure, meaningCrud};

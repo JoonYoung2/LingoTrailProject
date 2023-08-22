@@ -1,0 +1,21 @@
+table {
+    border: 0;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.registerBtn{
+    all:unset; 
+    border:1px solid rgba(0, 0, 0, 0.5); 
+    cursor: pointer; 
+    text-align: center; 
+    width: 150px; 
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.registerBtn:hover{
+    border: 1px solid rgba(0, 0, 0, 1);
+    color: rgba(0, 0, 0, 1);
+}

@@ -134,6 +134,19 @@ const meaningCrud = {
         console.log("data : ", data);
 
         return data;
+    },
+    getLevel : async () =>{
+        let level = await dao.configure.getLevel();
+        console.log("get level for admin insert", level);
+        return level;
+    },
+    getMaxId : async () =>{
+        let maxId = await dao.meaningCrud.getMaxId();
+        return maxId;
+    },
+
+    insertDo : async (body) => {
+        await dao.meaningCrud.insertDo(body);
     }
 
 }

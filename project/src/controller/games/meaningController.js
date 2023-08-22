@@ -44,6 +44,11 @@ const configure = {
 
 const meaningCrud = {
     getList : async(req, res) => {
+        if(req.session.loginType== undefined){
+            res.redirect("/member");
+        }else if(req.session.loginType !==1){
+            res.redirect("/member");
+        }
         const totalContent = await service.meaningCrud.totalContent();//총 글에 대한 개수를 가져옴.
         const data = await service.meaningCrud.list( req.query.start, totalContent );
 
@@ -66,6 +71,31 @@ const meaningCrud = {
 
     postList : async (req, res) => {
         res.redirect("/meaning/listForm");
+    },
+
+    insertList : async (req, res) =>{
+        let level = await service.meaningCrud.getLevel();
+        let maxId = await service. meaningCrud.getMaxId();
+        if(req.session.loginType== undefined){
+            res.redirect("/member");
+        }else if(req.session.loginType !==1){
+            res.redirect("/member");
+        }else{
+            res.render("admin/games/meaning/insert_form",{level, maxId});
+        }
+        
+    },
+
+    insertDo : async (req, res) =>{
+        service.meaningCrud.insertDo(req.body);
+        let level = await service.meaningCrud.getLevel();
+        let maxId = await service. meaningCrud.getMaxId();
+        if(req.session.loginType== undefined){
+            res.redirect("/member");
+        }else if(req.session.loginType !==1){
+            res.redirect("/member");
+        }
+        res.render("admin/games/meaning/insert_form",{level, maxId});
     }
 
     

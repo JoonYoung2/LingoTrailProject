@@ -1,3 +1,18 @@
+// INSERT Button
+const insertQuestion = () =>{
+    var windowWidth = 800; // 창의 너비
+    var windowHeight = 150; // 창의 높이
+
+    var screenWidth = window.screen.width;
+    var screenHeight = window.screen.height;
+
+    var windowLeft = (screenWidth - windowWidth) / 2;
+    var windowTop = (screenHeight - windowHeight) / 2;
+
+    var newWindow = window.open('/meaning/insertPop', 'insertPop', 'width=800px,height=200px,left=' + windowLeft + ',top=' + windowTop + ',scrollbars=yes');
+}
+
+
 // UPDATE Button
 const updateCheck = () => {
     let cnt = 0;
