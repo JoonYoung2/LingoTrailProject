@@ -202,7 +202,7 @@ const insertCheck = () => {
                             <input type="text" id="answerId" name="answer" class="speakAnswer" value="">
                         </td>
                         <td>
-                            <select name="qlanguage" class="speakLanguage">`;
+                            <select name="qlanguage" class="speakQlanguage">`;
                                 language.forEach((lang) => {
                                     msg += 
                                     `
@@ -214,7 +214,7 @@ const insertCheck = () => {
                             </select>
                         </td>
                             <td>
-                            <select name="alanguage" class="speakLanguage">`;
+                            <select name="alanguage" class="speakAlanguage">`;
                                 language.forEach((lang) => {
                                     msg += 
                                     `
@@ -263,7 +263,6 @@ const updateCheck = () => {
     let updateInputListQlanguage = document.querySelectorAll(".speakQlanguage");
     let updateInputListAlanguage = document.querySelectorAll(".speakAlanguage");
     let updateInputListLevel = document.querySelectorAll(".speakLevel");
-
     
     for (var i = 0; i < updateInputListId.length; i++) {
         if (updateInputListId[i].checked == true) {

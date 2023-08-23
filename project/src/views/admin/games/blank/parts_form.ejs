@@ -29,35 +29,39 @@
                     PartsCategoryList
                 </span>
             </div>
-            <table border="1">
-                <tr>
-                    <th>NO</th>
-                    <th style="width:200px;">NAME</th>
-                    <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
-                </tr>
-                <%
-                    partName.forEach((list) => {
-                %>
-                <tr>
-                    <td>
-                        <input type="text" value="<%= list.ID %>" class="languageId" readonly>
-                    </td>
-                    <td>
-                        <input type="text" value="<%= list.PART_NAME %>" class="languageLanguage speakLanguage">
-                    </td>
-                    <td class="blankCheckBox">
-                        <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
-                    </td>
-                </tr>
-                <%
-                    })
-                %>
-            </table>
-            <div id="insertZone"></div>
-            <div class="blankGameListButton">
-                <div id="insertBtnChange" class="blankGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
-                <div class="blankGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
-                <div class="blankGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+            <div class="partsTableDiv">
+                <div>
+                    <table border="1">
+                        <tr>
+                            <th>NO</th>
+                            <th style="width:200px;">NAME</th>
+                            <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
+                        </tr>
+                        <%
+                            partName.forEach((list) => {
+                        %>
+                        <tr>
+                            <td>
+                                <input type="text" value="<%= list.ID %>" class="languageId" readonly>
+                            </td>
+                            <td>
+                                <input type="text" value="<%= list.PART_NAME %>" class="languageLanguage speakLanguage">
+                            </td>
+                            <td class="blankCheckBox">
+                                <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
+                            </td>
+                        </tr>
+                        <%
+                            })
+                        %>
+                    </table>
+                    <div id="insertZone"></div>
+                    <div class="blankGameListButton">
+                        <div id="insertBtnChange" class="blankGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                        <div class="blankGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
+                        <div class="blankGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

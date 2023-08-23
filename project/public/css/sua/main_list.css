@@ -29,3 +29,13 @@
  .divbackground{
     background-color: rgb(255, 255, 251);
  }
+
+ .mainListBtn{
+   all: unset;
+   height: 30px; 
+   font-size: 15px;
+   border: 1px solid rgba(0, 0, 0, 0.4);
+   padding: 8px;
+   cursor: pointer;
+   border-radius: 10px;
+ }

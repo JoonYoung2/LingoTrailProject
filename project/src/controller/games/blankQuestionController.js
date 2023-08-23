@@ -24,7 +24,7 @@ const gameConfig = {
         if(!req.session.userId){
             res.send(userViewRedirect());
         }else{
-            res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config});
+            res.render("games/blank/step", {level, language, partName, userId : req.session.userId, config : config, loginType : req.session.loginType});
         }
     }
 }
@@ -96,6 +96,11 @@ const gameCrud = {
 
     saveScore : async (req, res) => {
         await service.gameCrud.saveScore(req.body, req.session);
+        res.json(1);
+    },
+
+    heartScoreUpdate : async (req, res) => {
+        await service.gameCrud.saveHeartScore(req.body, req.session);
         res.json(1);
     }
 }
@@ -248,7 +253,7 @@ const userViewRedirect = () => {
     return `
     <script>
         alert("로그인 후 이용해주세요.");
-        location.href="/member";
+        location.href="/member/login?game=blank";
     </script>
 `
     

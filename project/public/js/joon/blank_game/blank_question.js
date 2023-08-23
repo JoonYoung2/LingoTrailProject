@@ -104,7 +104,12 @@ const check = (cnt, result, meaning) => {
 const jump = (cnt, amount) => {
     let sectionBeforeId = "section" + cnt;
     let sectionAfterId = "section" + (Number(cnt) + 1);
+    percent = ((Number(cnt) + 1) / dataSize) * 100;
     ++cnt
+    console.log(percent);
+    for (var i = 0; i < energyBarFill.length; i++) {
+        energyBarFill[i].style.width = `${percent}%`;
+    }
     if (cnt == amount) {
         let data = { gameScore };
         fetch("/blank_question/save_score",
@@ -172,20 +177,48 @@ const wrongContinueButton = (cnt, amount) => {
     let sectionAfter = document.getElementById(sectionAfterId);
     ++cnt
     if (cnt == amount) {
-        let data = { gameScore };
-        fetch("/blank_question/save_score",
-            {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
+        if(gameLifeScore >= 3 && userHeart > 0){
+            if(window.confirm(`${userHeart}개의 하트 아이템이 존재합니다.\n\n기록을 저장하시려면 하트를 사용하셔야합니다.\n\n하트 아이템을 사용하시겠습니까?`)){
+                userHeart--;
+                let data = {userHeart, gameScore};
+                console.log(data);
+                fetch("/blank_question/heart_score_update", 
+                {
+                    method : "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
+                    location.href = "/ranking/blank_game";
+                })
+                return;
+            }else{
+                alert("목숨이 끊겼습니다.");
                 window.history.back();
-            })
+                return;
+            }
+        }else if(gameLifeScore >= 3 && userHeart <= 0){
+            alert("목숨이 끊겼습니다.");
+                window.history.back();
+                return;
+        }
+        let data = {gameScore};
+        fetch("/blank_question/save_score", 
+        {
+            method : "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(`문제를 모두 푸셨습니다. 감사합니다.\n\n획득점수 : ${gameScore}`);
+            location.href = "/ranking/blank_game";
+        })                              
         return;
     }
+
     if (gameLifeScore >= 3) {
         if (userHeart > 0) {
             if (window.confirm(`${userHeart}개의 하트 아이템이 존재합니다.\n\n하트 아이템을 사용하시겠습니까?`)) {

@@ -21,6 +21,8 @@ router.post("/heart_update", controller.gameCrud.heartUpdate);
 
 router.post("/save_score", controller.gameCrud.saveScore);
 
+router.post("/heart_score_update", controller.gameCrud.heartScoreUpdate);
+
 router.get("/level_form", controller.levelCrud.getList);
 
 router.get("/level_insert", controller.levelCrud.insert);

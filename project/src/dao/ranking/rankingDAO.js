@@ -4,9 +4,9 @@ oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 
 const views = {   
-    getScoreInfo : async () => {
+    getScoreInfo : async (id) => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from member_info`;
+        const sql = `select * from member_info where id = '${id}'`;
         let member;
         try {
             member = await con.execute(sql);
@@ -66,7 +66,7 @@ const views = {
     },
     getTotalInfo : async () => {
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from member_info order by (meaning_game + photo_game + blank_game) desc`;
+        const sql = `select * from member_info order by (meaning_game + photo_game + blank_game + listening_game) desc`;
         
         let member;
         try {

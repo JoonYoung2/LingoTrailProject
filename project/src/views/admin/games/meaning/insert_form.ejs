@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/css/sua/insert_form.css"/>
+    <title>Document</title> 
+
+</head>
+<body>
+    <form action="/meaning/insertPop.do" method="post" id="formId">
+        <table style="width: 100%;" border="1">
+            <tr>
+                <th>ID</th>
+                <th>LEVEL</th>
+                <th>KOREAN</th>
+                <th>ENGLISH</th>
+            </tr>
+            <%
+                console.log(maxId);
+                console.log(level);
+                cnt = 1;
+            %>
+            <tr>
+                <td>
+                    <div style="width: 100%; display: flex; justify-content: center; text-align: center;">
+                        <input style="all:unset; text-align: center; width: 40px;" type="text" value="<%=maxId+1%>" name="id" readonly></td>
+                    </div>
+                <td>
+                    <div style="width: 100%; display: flex; justify-content: center; text-align: center;">
+                        <select name="level_step" style="display:flex; justify-content: center; align-items: center; ">
+                        <% level.forEach((list) => { %>
+                            <option value="<%=cnt%>">Level <%=cnt%></option>
+                        <% cnt++}) %>
+                    </div>
+                </select>
+            </td>
+                <td>
+                    <div style="width: 100%; display: flex; justify-content: center; text-align: center;">
+                        <input style="all:unset; width:100%;" type="text" id="koreanLang" name="korean" value="">
+                    </div>
+                </td>
+                <td>
+                    <div style="width: 100%; display: flex; justify-content: center; text-align: center;">
+                        <input style="all:unset; width:100%;" type="text" id="englishLang" name="english" value="">
+                    </div>
+                </td>
+            </tr>
+        
+        </table>
+        <div style="display:flex; justify-content: center;padding-top: 20px;">
+            <div>
+                <button class="registerBtn" type="button" onclick="valid()">Register</button>
+            </div>
+        </div>
+    </form>
+    <script src = "/static/js/sua/insert_form.js"></script>
+</body>
+</html>

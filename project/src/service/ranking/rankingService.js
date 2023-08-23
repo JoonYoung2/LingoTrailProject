@@ -2,8 +2,8 @@ const session = require("express-session");
 const dao = require("../../dao/ranking/rankingDAO");
 
 const views = {  
-    getScore : async () => {
-        let list = dao.views.getScoreInfo();
+    getScore : async (id) => {
+        let list = dao.views.getScoreInfo(id);
         
         console.log("service : ");
         for(var i=0; i<list.length; i++) {

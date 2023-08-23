@@ -16,7 +16,7 @@
     <section class="showPage">
         <div style="width:100%;">
             <div>
-                <div style="width: 100%; display:flex; justify-content:center; padding-top: 150px; align-items:center;">
+                <div style="width: 100%; display:flex; justify-content:center; padding-top: 50px; align-items:center;">
                     <div style="width:100%;">
                         <div style="width:100%; display:flex; ">
                             <div class="score scoreText"> </div>
@@ -40,6 +40,7 @@
                             let question = qna[i][getQuestion];
                             let selectors = given[i];
                             let answer = qna[i][getAnswer];
+                            console.log("userView answer ==> ",answer);
                             %>
 
 
@@ -52,7 +53,7 @@
                                                 <%=question%>
                                             </div>
                                         </div>
-                                    </div>0
+                                    </div>
 
                                     <% for(var j=0; j<given[0].length; j++){ %>
                                         <button id="answerItems<%=j%>" class="answerItems answerItems<%=counter%>"

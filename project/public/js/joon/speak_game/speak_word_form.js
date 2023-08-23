@@ -154,10 +154,10 @@ const updateCheck = (languageLength) => {
     let updateInputValues = [""];
     let count = 0;
     for(var i = 0; i < languageLength; i++){
+        console.log(i);
         let inputMsg = ".speakWordInput" + i;
         tmp[i] = document.querySelectorAll(inputMsg);
     }
-    console.log(tmp[2][0].value)
 
     for (var i = 0; i < updateInputListId.length; i++) {
         if (updateInputListId[i].checked == true) {

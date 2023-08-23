@@ -21,6 +21,8 @@ router.post("/speak_search_list", controller.gameCrud.search);
 
 router.post("/heart_update", controller.gameCrud.heartUpdate);
 
+router.post("/heart_score_update", controller.gameCrud.heartScoreUpdate);
+
 router.post("/save_score", controller.gameCrud.saveScore);
 
 router.get("/language_form", controller.languageCrud.getList);

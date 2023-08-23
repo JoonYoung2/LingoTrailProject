@@ -137,6 +137,10 @@ const gameCrud = {
 
     saveScore : async (body, session) => {
         await dao.gameCrud.saveScore(body, session);
+    },
+
+    saveHeartScore : async (body, session) => {
+        await dao.gameCrud.saveHeartScore(body, session);
     }
 }
 

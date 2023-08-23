@@ -30,111 +30,115 @@
                     BlankGameList
                 </span>
             </div>
-            <table id="blankListTable" border="1">
-                <tr>
-                    <td colspan="8">
-                        <input id="blankListSearch" class="blankListSearch" type="text" placeholder="search" value="" onchange="blankListSearch();">
-                    </td>
-                </tr>
-                <tr>
-                    <th>NO</th>
-                    <th style="width:400px;">QUESTION</th>
-                    <th style="width:200px;">ANSWER</th>
-                    <th style="width:100px;">MEANING</th>
-                    <th style="width:100px;">LANGUAGE</th>
-                    <th style="width:80px;">PARTS</th>
-                    <th style="width:100px;">LEVEL</th>
-                    <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
-                </tr>
-                <% if(data===undefined){ %>
-                    <tr>
-                        <td colspan="6" style="text-align: center;">
-                            등록된 내용이 없습니다.
-                        </td>
-                    </tr>
-                    <%
-                        }else{ data.forEach((list)=> {
-                    %>
+            <div style="width: 100%; display: flex; justify-content: center;">
+                <div>
+                    <table id="blankListTable" border="1">
                         <tr>
-                            <td style="text-align:center;">
-                                <%= list.ID %>
-                            </td>
-                            <td>
-                                <input type="text" class="blankQuestion" value="<%= list.QUESTION %>">
-                            </td>
-                            <td>
-                                <input type="text" class="blankAnswer" value="<%= list.ANSWER %>">
-                            </td>
-                            <td>
-                                <input type="text" class="blankMeaning" value="<%= list.MEANING %>">
-                            </td>
-                            <td>
-                                <select class="blankLanguage">
-                                    <% language.forEach((lang) => { %>
-                                        <option value="<%= lang.ID %>"
-                                            <%
-                                                if(lang.ID == list.LANGUAGE){
-                                            %>
-                                                    selected
-                                            <%
-                                                }
-                                            %>
-                                            ><%= lang.LANGUAGE %></option>
-                                    <% }) %>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="blankParts">
-                                    <% parts.forEach((part) => { %>
-                                        <option value="<%= part.ID %>"
-                                            <% if(part.ID == list.PARTS){ %>
-                                                selected
-                                            <% } %>
-                                            > <%= part.PART_NAME %></option>
-                                    <% }) %>
-                                </select>
-                            </td>
-                            <td>
-                                <select class="blankLevel">
-                                    <% level.forEach((level) => { %>
-                                        <option value="<%= level.ID %>"
-                                            <% if(level.ID == list.LEVEL_STEP){ %>
-                                                selected
-                                            <% } %>
-                                            >Level <%= level.LEVEL_STEP %></option>
-                                    <% }) %>
-                                </select>
-                            </td>
-                            <td class="blankCheckBox">
-                                <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
+                            <td colspan="8">
+                                <input id="blankListSearch" class="blankListSearch" type="text" placeholder="search" value="" onchange="blankListSearch();">
                             </td>
                         </tr>
-                        <% }) } %>
                         <tr>
-                            <td colspan="8" class="pagingButton">
-                                <div>
-                                    <% if( start <= 1){ %>
-                                        <button disabled>이전</button>
-                                    <%}else{%>
-                                        <button type="button" onclick="
-                                            location.href='/blank_question/list_form?start=<%=start - 1%>'">이전</button>
-                                    <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
-                                        <a href="/blank_question/list_form?start=<%= i %>"><%= i %></a>
-                                    <% }if( start < page.totPage ){%>
-                                        <button type="button" onclick="
-                                            location.href='/blank_question/list_form?start=<%=start + 1%>'">다음</button>
-                                    <% }else{ %>
-                                        <button disabled>다음</button>
-                                    <% } %>
-                                </div>
-                            </td>
+                            <th>NO</th>
+                            <th style="width:400px;">QUESTION</th>
+                            <th style="width:200px;">ANSWER</th>
+                            <th style="width:100px;">MEANING</th>
+                            <th style="width:100px;">LANGUAGE</th>
+                            <th style="width:80px;">PARTS</th>
+                            <th style="width:100px;">LEVEL</th>
+                            <th><button id="allSelectButton" onclick="checkSelectAll();">전체</button></th>
                         </tr>
-            </table>
-            <div id="insertZone"></div>
-            <div class="blankGameListButton">
-                <div id="insertBtnChange" class="blankGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
-                <div class="blankGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
-                <div class="blankGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+                        <% if(data===undefined){ %>
+                            <tr>
+                                <td colspan="6" style="text-align: center;">
+                                    등록된 내용이 없습니다.
+                                </td>
+                            </tr>
+                            <%
+                                }else{ data.forEach((list)=> {
+                            %>
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <%= list.ID %>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="blankQuestion" value="<%= list.QUESTION %>">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="blankAnswer" value="<%= list.ANSWER %>">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="blankMeaning" value="<%= list.MEANING %>">
+                                    </td>
+                                    <td>
+                                        <select class="blankListLanguage">
+                                            <% language.forEach((lang) => { %>
+                                                <option value="<%= lang.ID %>"
+                                                    <%
+                                                        if(lang.ID == list.LANGUAGE){
+                                                    %>
+                                                            selected
+                                                    <%
+                                                        }
+                                                    %>
+                                                    ><%= lang.LANGUAGE %></option>
+                                            <% }) %>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="blankParts">
+                                            <% parts.forEach((part) => { %>
+                                                <option value="<%= part.ID %>"
+                                                    <% if(part.ID == list.PARTS){ %>
+                                                        selected
+                                                    <% } %>
+                                                    > <%= part.PART_NAME %></option>
+                                            <% }) %>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="blankLevel">
+                                            <% level.forEach((level) => { %>
+                                                <option value="<%= level.ID %>"
+                                                    <% if(level.ID == list.LEVEL_STEP){ %>
+                                                        selected
+                                                    <% } %>
+                                                    >Level <%= level.LEVEL_STEP %></option>
+                                            <% }) %>
+                                        </select>
+                                    </td>
+                                    <td class="blankCheckBox">
+                                        <input type="checkbox" onclick="checkItemsClick();" class="CheckBoxList" name="id" value="<%=list.ID%>">
+                                    </td>
+                                </tr>
+                                <% }) } %>
+                                <tr>
+                                    <td colspan="8" class="pagingButton">
+                                        <div>
+                                            <% if( start <= 1){ %>
+                                                <button disabled>이전</button>
+                                            <%}else{%>
+                                                <button type="button" onclick="
+                                                    location.href='/blank_question/list_form?start=<%=start - 1%>'">이전</button>
+                                            <% }for(let i=1 ; i <= page.totPage ; i++ ){ %>
+                                                <a href="/blank_question/list_form?start=<%= i %>"><%= i %></a>
+                                            <% }if( start < page.totPage ){%>
+                                                <button type="button" onclick="
+                                                    location.href='/blank_question/list_form?start=<%=start + 1%>'">다음</button>
+                                            <% }else{ %>
+                                                <button disabled>다음</button>
+                                            <% } %>
+                                        </div>
+                                    </td>
+                                </tr>
+                    </table>
+                    <div id="insertZone"></div>
+                    <div class="blankGameListButton">
+                        <div id="insertBtnChange" class="blankGameListButtons"><button onclick="insertCheck();">INSERT</button></div>
+                        <div class="blankGameListButtons"><button onclick="updateCheck();">UPDATE</button></div>
+                        <div class="blankGameListButtons"><button onclick="deleteCheck();">DELETE</button></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
