@@ -8,7 +8,7 @@
 	div {
 		width : 100%;
 		text-align: center;
-	  	padding: 20px;
+	  padding: 20px;
 	}
 
 	input[type=text]{
@@ -60,6 +60,11 @@
 	label {
 		font-weight: bold;
 		color: #6E6E6E;
+		display: inline-block; /* 인라인 블록 요소로 변경 */
+    width: 8%; /* 라벨의 너비를 조정하여 간격을 설정 */
+    text-align: center; /* 라벨을 오른쪽 정렬로 설정 */
+    padding-right: 0; /* 라벨과 입력 필드 사이의 간격을 조절 */
+		margin-bottom: 40px;
 	}
 
 	#lt {
@@ -80,12 +85,12 @@
 		<% if(userId === undefined) { %>
 			<form action="/member/register.do" method="post">
 				<h2>회원 가입하기</h2>
-				<input type="text" id="id" name="id" placeholder="아이디"><br>
-				<input type="text" id="name" name="name" placeholder="성명"><br>
-				<input type="text" id="email" name="email" placeholder="이메일"><br>
-				<input type="password" id="pw" name="pw" placeholder="비밀번호"><br>
-				<br>
-				<input type="submit" value="가입하기">
+				<label>ID</label><input type="text" id="id" name="id" placeholder="6글자 이상"><br>
+				<label>NAME</label><input type="text" id="name" name="name" placeholder=""><br>
+				<label>EMAIL</label><input type="text" id="email" name="email" placeholder="Example) abc@lingotrail.com"><br>
+				<label>PASSWORD</label><input type="password" id="pw" name="pw" placeholder="영어, 숫자, 특수문자 모두 포함(10글자 이상)"><br>
+				
+				<input type="submit" value="REGISTER">
 			</form>
 		<% } %>
   	</div>
