@@ -6,10 +6,11 @@ oracledb.autoCommit = true;
 const configure = {
     getQeAn : async (level)=>{ //1
         const con = await oracledb.getConnection(dbConfig);
-        const sql = `select * from (select korean, english from english_meaning_question 
-                        where level_step='${level}'
-                        order by dbms_random.value)
-                        where rownum <=10`;
+        const sql = `select * from 
+                    (select korean, english from english_meaning_question 
+                    where level_step='${level}'
+                    order by dbms_random.value)
+                    where rownum <=10`;
         let result = 0;
         try{
             result = await con.execute(sql);
@@ -109,7 +110,17 @@ const configure = {
         try{
             await con.execute(sql);
         }catch(err){
-            console.log(err);0
+            console.log(err);
+        }
+    },
+
+    heartUpdateZero : async (session) => {
+        const con = await oracledb.getConnection(dbConfig);
+        const sql = `UPDATE member_info SET heart='0' WHERE id= '${session.userId}'`;
+        try{
+            await con.execute(sql);
+        }catch(err){
+            console.log(err);
         }
     }
 }

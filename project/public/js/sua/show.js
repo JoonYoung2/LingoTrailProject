@@ -44,8 +44,7 @@ const nextViewBtn = (cnt) => {
     if(cnt == pageSize-1){
 
         alert("모든 문제를 푸셨습니다. 점수는 "+score+"이며, 랭킹포인트는 "+(rightAnswerCnt*pointByLevel)+ "입니다.");
-        console.log(rightAnswerCnt*pointByLevel);
-        location.href="/meaning/result?score="+score + "&heart=" + heartNum + "&rankingPoint="+(rightAnswerCnt*pointByLevel) + "&usedHeart" + usedHeart;
+        location.href="/meaning/result?score="+score + "&heart=" + heartNum + "&rankingPoint="+(rightAnswerCnt*pointByLevel) + "&usedHeart=" + usedHeart;
         return;
     }
 
@@ -66,9 +65,12 @@ const nextViewBtn = (cnt) => {
         if(usedHeart==0 && heartHad>0){
             heartUsingCh();
         }else{
-            
-            alert("보유한 하트가 없습니다. 게임을 종료합니다.");
-            location.href="/meaning/result?score=0&heart=0&rankingPoint=0";
+            fetch("/meaning/heart_reset", {method : "get"})
+            .then(res => res.json)
+            .then(data => {
+                alert("보유한 하트가 없습니다. 게임을 종료합니다.");
+                window.history.back();     
+            })
             return;
         }
     }

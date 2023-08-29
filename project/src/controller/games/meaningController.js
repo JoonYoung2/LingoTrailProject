@@ -27,7 +27,7 @@ const configure = {
         let rankingPoint=req.query.rankingPoint;
         let heart = req.query.heart;
         let id = req.session.userId;
-        let usedHeart = req.session.usedHeart;
+        let usedHeart = req.query.usedHeart;
         if(usedHeart==1){
             await service.configure.setHeart(heart, id);
         }
@@ -38,8 +38,13 @@ const configure = {
         res.redirect("/ranking/meaning_game");
         //res.send(`<script>alert("점수는 ${score}이며, 랭킹포인트는 ${rankingPoint}입니다."); location.href="/ranking/meaning_game";</script>`);
         //res.render("ranking/meaning_game",{});
-    }
+    },
 
+    heartUpdateZero : async (req, res)=>{
+        await service.configure.heartUpdateZero(req.session);
+
+        res.json(1);
+    }
 }
 
 const meaningCrud = {

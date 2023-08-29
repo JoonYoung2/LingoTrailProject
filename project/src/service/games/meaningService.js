@@ -81,6 +81,10 @@ const configure = {
     },
     setScore : async (rankingPoint, id)=>{
         await dao.configure.setScore(rankingPoint, id);
+    },
+
+    heartUpdateZero : async (session) => {
+        await dao.configure.heartUpdateZero(session);
     }
 }
 const meaningCrud = {

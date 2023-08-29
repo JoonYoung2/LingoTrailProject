@@ -14,5 +14,6 @@ router.post("/insertPop.do", controller.meaningCrud.insertDo);
 router.get("/result", controller.configure.result);
 router.post("/meaning_delete", controller.meaningCrud.deleteList);
 router.post("/meaning_update", controller.meaningCrud.updateList);
+router.get("/heart_reset", controller.configure.heartUpdateZero);
 
 module.exports = router;
